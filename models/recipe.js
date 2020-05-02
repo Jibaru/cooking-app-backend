@@ -23,7 +23,13 @@ module.exports = (sequelize, DataTypes) => {
     Recipe.hasMany(models.Step, {
       foreignKey: 'recipeId',
       as: 'steps'
-    })
+    });
+    Recipe.belongsToMany(models.Ingredient, {
+      through: 'IngredientRecipe',
+      as: 'ingredients',
+      foreignKey: 'recipeId',
+      otherKey: 'ingredientId'
+    });
   };
   return Recipe;
 };
