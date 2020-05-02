@@ -10,17 +10,27 @@ module.exports = {
       },
       ingredient_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        references: {
+          model: 'ingredients',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       recipe_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        references: {
+          model: 'recipes',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
