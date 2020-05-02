@@ -1,13 +1,19 @@
 const express = require('express');
+const User = require('../../models/index').User;
 
 const app = express();
 
 
 app.get('/users', (req, res) => {
 
-	res.json({
-		ok: true,
-	});
+	User.findAll()
+		.then((users) => {
+
+			res.json({
+				ok: true,
+				users
+			});
+		});
 
 });
 
