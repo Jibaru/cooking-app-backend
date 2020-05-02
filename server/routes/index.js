@@ -3,5 +3,6 @@ const app = express();
 
 app.use(require('./user.js'));
 app.use(require('./recipe.js'));
+app.use(require('./ingredient.js'));
 
 module.exports = app;
