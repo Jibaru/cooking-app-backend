@@ -1,6 +1,7 @@
 const express = require('express');
 const Recipe = require('../../models/index').Recipe;
 const Step = require('../../models/index').Step;
+const Ingredient = require('../../models/index').Ingredient;
 
 const app = express();
 
@@ -12,6 +13,12 @@ app.get('/recipes', (req, res) => {
             {
                 model: Step,
                 as: 'steps'
+            },
+            {
+                model: Ingredient,
+                as: 'ingredients',
+                // For exclude Pivot Table in response
+                through: {attributes: []}
             }
         ]      
     })
