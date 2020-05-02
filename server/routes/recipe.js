@@ -1,6 +1,8 @@
 const express = require('express');
 const Recipe = require('../../models/index').Recipe;
 const Step = require('../../models/index').Step;
+const User = require('../../models/index').User;
+const Score = require('../../models/index').Score;
 const Ingredient = require('../../models/index').Ingredient;
 const Tag = require('../../models/index').Tag;
 
@@ -13,7 +15,24 @@ app.get('/recipes', (req, res) => {
         include: [
             {
                 model: Step,
-                as: 'steps'
+                as: 'steps',
+            },
+            {
+                model: Score,
+                as: 'scores',
+                attributes: {
+                    exclude: ['userId', 'recipeId']
+                },
+                include: {
+                    model: User,
+                    as: 'user',
+                    attributes: [
+                        'firstName',
+                        'lastName',
+                        'email',
+                        'imageProfile'
+                    ]
+                }
             },
             {
                 model: Ingredient,
