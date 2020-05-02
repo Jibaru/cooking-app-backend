@@ -30,6 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeId',
       otherKey: 'ingredientId'
     });
+    Recipe.belongsToMany(models.Tag, {
+      through: 'RecipeTags',
+      as: 'tags',
+      foreignKey: 'recipeId',
+      otherKey: 'tagId'
+    });
   };
   return Recipe;
 };
