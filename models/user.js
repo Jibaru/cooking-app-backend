@@ -40,7 +40,14 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Score, {
       foreignKey: 'userId',
       as: 'scores'
-    })
+    });
+
+    User.belongsToMany(models.Recipe, {
+      through: 'Favorite',
+      as: 'favoriteRecipes',
+      foreignKey: 'userId',
+      otherKey: 'recipeId'
+    });
   };
   return User;
 };

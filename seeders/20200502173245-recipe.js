@@ -7,22 +7,18 @@ module.exports = {
         {
           name: 'Receta 1',
           description: 'Receta OP1',
-          stars: 0
         },
         {
           name: 'Receta 2',
           description: 'Receta OP2',
-          stars: 0
         },
         {
           name: 'Receta 3',
           description: 'Receta OP3',
-          stars: 0
         },
         {
           name: 'Receta 4',
           description: 'Receta OP4',
-          stars: 0
         },
       ], {});
   },

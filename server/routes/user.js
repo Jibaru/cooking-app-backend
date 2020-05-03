@@ -9,21 +9,35 @@ const app = express();
 app.get('/users', (req, res) => {
 
 	User.findAll({
-		include: {
-			model: Score,
-			as: 'scores',
-			attributes: {
-				exclude: ['userId', 'recipeId']
+		include: [
+			{
+				model: Score,
+				as: 'scores',
+				attributes: {
+					exclude: ['userId', 'recipeId']
+				},
+				include: {
+					model: Recipe,
+					as: 'recipe',
+					attributes: [
+						'id',
+						'name',
+						'description'
+					]
+				}
 			},
-			include: {
+			{
 				model: Recipe,
-				as: 'recipe',
+				as: 'favoriteRecipes',
 				attributes: [
+					'id',
 					'name',
 					'description'
-				]
+				],
+				// For exclude Pivot Table in response
+                through: {attributes: []}
 			}
-		}
+		]
 	})
 		.then((users) => {
 

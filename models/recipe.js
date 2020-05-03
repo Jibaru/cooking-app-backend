@@ -10,11 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    stars: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-    }
   }, {
     underscored: true,
     timestamps: false
@@ -39,6 +34,12 @@ module.exports = (sequelize, DataTypes) => {
       as: 'tags',
       foreignKey: 'recipeId',
       otherKey: 'tagId'
+    });
+    Recipe.belongsToMany(models.User, {
+      through: 'Favorite',
+      as: 'favoriteUsers',
+      foreignKey: 'recipeId',
+      otherKey: 'userId'
     });
   };
   return Recipe;

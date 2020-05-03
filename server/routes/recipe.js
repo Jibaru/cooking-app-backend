@@ -27,12 +27,26 @@ app.get('/recipes', (req, res) => {
                     model: User,
                     as: 'user',
                     attributes: [
+                        'id',
                         'firstName',
                         'lastName',
                         'email',
                         'imageProfile'
                     ]
                 }
+            },
+            {
+                model: User,
+                as: 'favoriteUsers',
+                attributes: [
+                    'id',
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'imageProfile'
+                ],
+                // For exclude Pivot Table in response
+                through: {attributes: []}
             },
             {
                 model: Ingredient,
