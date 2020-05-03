@@ -8,7 +8,9 @@ const Tag = require('../../models/index').Tag;
 
 const app = express();
 
-
+// =========================================
+// Get all recipes
+// =========================================
 app.get('/recipes', (req, res) => {
 
 	Recipe.findAll({
@@ -63,10 +65,15 @@ app.get('/recipes', (req, res) => {
         ]      
     })
     .then((recipes) => {
-
         res.json({
             ok: true,
             recipes
+        });
+    })
+    .catch((err) => {
+        res.json({
+            ok: false,
+            err
         });
     });
 
