@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: null
     }
   }, {
-    underscored:true
+    underscored:true,
+    timestamps: false,
   });
   User.associate = function(models) {
     User.hasMany(models.Score, {
