@@ -1,4 +1,8 @@
 const express = require('express');
+const { Op } = require('sequelize');
+
+const { checkToken } = require('../middlewares/authentication');
+
 const Recipe = require('../../models/index').Recipe;
 const Step = require('../../models/index').Step;
 const User = require('../../models/index').User;
@@ -11,9 +15,25 @@ const app = express();
 // =========================================
 // Get all recipes
 // =========================================
-app.get('/recipes', (req, res) => {
+app.get('/recipes', checkToken, (req, res) => {
+
+    let limit = req.query.limit;
+    let query = req.query.query;
+    let name = req.query.name;
 
 	Recipe.findAll({
+        limit: limit,
+        /*where: {
+            [Op.and]: {
+                [Op.like]: { 
+                    name: query,
+                    description: query,
+                },
+                [Op.like]: {
+                    name: name,
+                }
+            }
+        },*/
         include: [
             {
                 model: Step,
@@ -71,9 +91,11 @@ app.get('/recipes', (req, res) => {
         });
     })
     .catch((err) => {
-        res.json({
+        res.status(500).json({
             ok: false,
-            err
+            err: {
+                message: 'Internal Server Error'
+            }
         });
     });
 
