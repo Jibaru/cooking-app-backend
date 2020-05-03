@@ -2,14 +2,14 @@
 
 A nodejs server for the cooking app.
 
-### Getting Started
+### Getting Started 🚀
 
 Install node modules
 ```
 npm install
 ```
 
-### NPM Packages
+### Node Packages 📦
 
 - Express
 - Body Parser
@@ -17,7 +17,12 @@ npm install
 - Sequelize
 - Sequelize-cli (dev)
 
-## Check the App
+## Check the App 🖇️
 
 - [Flutter Cooking App](https://github.com/Jibaru/cooking-app)
+
+## Wiki 📖
+
+More info and services documentation in the [Wiki](https://github.com/Jibaru/cooking-app-backend/wiki)
+
 
