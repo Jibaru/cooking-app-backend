@@ -11,11 +11,14 @@ npm install
 
 ### Node Packages 📦
 
-- Express
-- Body Parser
-- Mysql2
-- Sequelize
-- Sequelize-cli (dev)
+- [Express](https://www.npmjs.com/package/express)
+- [Body Parser](https://www.npmjs.com/package/body-parser)
+- [Mysql2](https://www.npmjs.com/package/mysql2)
+- [Sequelize](https://www.npmjs.com/package/sequelize)
+- [Underscore](https://www.npmjs.com/package/underscore)
+- [JsonWebToken](https://www.npmjs.com/package/json-web-token)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [Sequelize-cli](https://www.npmjs.com/package/sequelize-cli) (dev)
 
 ## Check the App 🖇️
 
