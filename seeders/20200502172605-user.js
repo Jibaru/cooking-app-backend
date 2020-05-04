@@ -10,7 +10,7 @@ module.exports = {
         first_name: 'John',
         last_name: 'Doe',
         email: 'email1@gmail.com',
-        role: 'NORMAL',
+        role: 'SUPERADMINISTRATOR',
         password: bcrypt.hashSync('1234', 10),
         image_profile: null
       },
