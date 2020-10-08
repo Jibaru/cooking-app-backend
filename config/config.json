@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "cooking_app_db",
+    "database": "cooking-dev-db",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": "0"
@@ -10,7 +10,7 @@
   "test": {
     "username": "root",
     "password": "root",
-    "database": "database_test",
+    "database": "cooking-test-db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
@@ -18,7 +18,7 @@
   "production": {
     "username": "root",
     "password": "root",
-    "database": "database_production",
+    "database": "cooking-prod-db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false

@@ -39,3 +39,4 @@ process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
 
 // ESTABLECER EN HEROKU
 // heroku config:set VARIABLE_ENTORNO="valor"
+
