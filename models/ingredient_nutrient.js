@@ -8,6 +8,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   IngredientNutrient.associate = function(models) {
     // associations can be defined here
+    IngredientNutrient.belongsTo(models.Nutrient, {
+      foreignKey: 'nutrientId',
+      as: 'nutrient'
+    });
+    IngredientNutrient.belongsTo(models.Ingredient, {
+      foreignKey: 'ingredientId',
+      as: 'ingredient'
+    });
   };
   return IngredientNutrient;
 };

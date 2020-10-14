@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Equipment.associate = function(models) {
     // associations can be defined here
+    Equipment.belongsToMany(models.Instruction, {
+      through: 'EquipmentInstruction',
+      as: 'instruction'
+    }); 
+
+    Equipment.belongsTo(models.FileData, {
+      as: 'image'
+    });
   };
   return Equipment;
 };

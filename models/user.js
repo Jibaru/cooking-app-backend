@@ -34,6 +34,18 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
+    User.hasMany(models.UserNotification, {
+      as: 'userNotification',
+      foreignKey: 'userId'
+    })
+
+    User.belongsTo(models.Role, {
+      as: 'role'
+    });
+
+    User.belongsTo(models.FileData, {
+      as: 'profileImage'
+    });
   };
   return User;
 };

@@ -16,6 +16,20 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   FileData.associate = function(models) {
     // associations can be defined here
+    FileData.hasMany(models.Ingredient, {
+      as: 'ingredient',
+      foreignKey: 'imageId'
+    })
+
+    FileData.hasOne(models.User, {
+      as: 'user',
+      foreignKey: 'profileImageId'
+    }) 
+
+    FileData.hasOne(models.Equipment, {
+      as: 'equipment',
+      foreignKey: 'imageId'
+    })
   };
   return FileData;
 };

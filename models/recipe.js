@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Recipe.associate = function(models) {
     // associations can be defined here
+    Recipe.belongsTo(models.Instruction, {
+      as: 'instruction'
+    });
+    
   };
   return Recipe;
 };

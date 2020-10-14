@@ -6,6 +6,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   EquipmentInstruction.associate = function(models) {
     // associations can be defined here
+    EquipmentInstruction.belongsTo(models.Instruction, {
+      foreignKey: 'instructionId',
+      as: 'instruction'
+    });
+    EquipmentInstruction.belongsTo(models.Equipment, {
+      foreignKey: 'equipmentId',
+      as: 'equipment'
+    });
   };
   return EquipmentInstruction;
 };

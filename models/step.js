@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Step.associate = function(models) {
     // associations can be defined here
+    Step.belongsTo(models.Instruction, {
+      as: 'instruction'
+    });
   };
   return Step;
 };

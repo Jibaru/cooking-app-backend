@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   IngredientCategory.associate = function(models) {
     // associations can be defined here
+    IngredientCategory.belongsToMany(models.Ingredient, {
+      through: 'IngredientIngredientCategory',
+      as: 'ingredient'
+    });
   };
   return IngredientCategory;
 };
