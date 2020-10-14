@@ -1,28 +1,40 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('RecipeCuisines', {
+    return queryInterface.createTable('UserNotifications', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      hash: {
-        type: Sequelize.STRING(10),
-        allowNull: false
-      },
-      originalName: {
+      subject: {
         type: Sequelize.STRING(45),
         allowNull: false
       },
-      name: {
-        type: Sequelize.STRING(45),
+      content: {
+        type: Sequelize.TEXT,
         allowNull: false
       },
-      region: {
-        type: Sequelize.STRING(45),
+      dateTimeSended: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
+      },
+      dateTimeViewed: {
+        type: Sequelize.DATE,
         allowNull: true
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +49,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('RecipeCuisines');
+    return queryInterface.dropTable('UserNotifications');
   }
 };

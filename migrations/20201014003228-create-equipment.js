@@ -1,28 +1,32 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('RecipeCuisines', {
+    return queryInterface.createTable('Equipments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      hash: {
-        type: Sequelize.STRING(10),
-        allowNull: false
-      },
-      originalName: {
-        type: Sequelize.STRING(45),
-        allowNull: false
-      },
       name: {
         type: Sequelize.STRING(45),
         allowNull: false
       },
-      region: {
-        type: Sequelize.STRING(45),
+      description: {
+        type: Sequelize.TEXT,
         allowNull: true
+      },
+      imageId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: 'FileDatas'
+          },
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +41,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('RecipeCuisines');
+    return queryInterface.dropTable('Equipments');
   }
 };

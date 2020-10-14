@@ -9,21 +9,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       hash: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(10),
+        allowNull: false
       },
-      original_name: {
-        type: Sequelize.STRING
+      originalName: {
+        type: Sequelize.STRING(45),
+        allowNull: false
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(45),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       }
     });
   },

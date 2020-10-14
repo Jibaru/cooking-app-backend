@@ -1,13 +1,25 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Recipe_Type = sequelize.define('Recipe_Type', {
-    hash: DataTypes.STRING,
-    original_name: DataTypes.STRING,
-    name: DataTypes.STRING,
-    description: DataTypes.TEXT
+  const RecipeType = sequelize.define('RecipeType', {
+    hash: {
+      type: DataTypes.STRING(10),
+      allowNull: false
+    },
+    originalName: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   }, {});
-  Recipe_Type.associate = function(models) {
+  RecipeType.associate = function(models) {
     // associations can be defined here
   };
-  return Recipe_Type;
+  return RecipeType;
 };

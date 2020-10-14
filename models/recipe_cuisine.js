@@ -1,13 +1,25 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Recipe_Cuisine = sequelize.define('Recipe_Cuisine', {
-    hash: DataTypes.STRING,
-    original_name: DataTypes.STRING,
-    name: DataTypes.STRING,
-    region: DataTypes.STRING
+  const RecipeCuisine = sequelize.define('RecipeCuisine', {
+    hash: {
+      type: DataTypes.STRING(10),
+      allowNull: false
+    },
+    originalName: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    region: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    }
   }, {});
-  Recipe_Cuisine.associate = function(models) {
+  RecipeCuisine.associate = function(models) {
     // associations can be defined here
   };
-  return Recipe_Cuisine;
+  return RecipeCuisine;
 };
