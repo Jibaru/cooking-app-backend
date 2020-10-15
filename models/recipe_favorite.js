@@ -11,11 +11,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   RecipeFavorite.associate = function(models) {
     // associations can be defined here
+    RecipeFavorite.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId',
+      as: 'recipe'
+    });
+
+    RecipeFavorite.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user'
+    });
   };
   return RecipeFavorite;
 };

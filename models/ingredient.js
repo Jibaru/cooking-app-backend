@@ -13,9 +13,30 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   Ingredient.associate = function(models) {
     // associations can be defined here
+    Ingredient.belongsToMany(models.Nutrient, {
+      through: 'IngredientNutrient',
+      as: 'nutrients'
+    });
+
+    Ingredient.belongsToMany(models.IngredientCategory, {
+      through: 'IngredientIngredientCategory',
+      as: 'ingredientCategories'
+    });
+
+    Ingredient.belongsToMany(models.Instruction, {
+      through: 'InstructionIngredient',
+      as: 'instructions'
+    });
+
+    Ingredient.belongsTo(models.FileData, {
+      as: 'image',
+      foreignKey: 'imageId'
+    });
   };
   return Ingredient;
 };

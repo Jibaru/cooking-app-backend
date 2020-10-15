@@ -15,11 +15,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   RecipeRanking.associate = function(models) {
     // associations can be defined here
+    RecipeRanking.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId',
+      as: 'recipe'
+    });
+
+    RecipeRanking.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user'
+    });
   };
   return RecipeRanking;
 };

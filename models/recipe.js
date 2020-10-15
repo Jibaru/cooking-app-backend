@@ -37,23 +37,75 @@ module.exports = (sequelize, DataTypes) => {
     },
     instructionId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     createdById: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     recipeCuisineId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     recipeTypeId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   Recipe.associate = function(models) {
     // associations can be defined here
+
+    Recipe.belongsTo(models.FileData, {
+      as: 'recipeImage',
+      foreignKey: 'recipeImageId'
+    });
+    
+    Recipe.belongsTo(models.RecipeStatus, {
+      as: 'recipeStatus',
+      foreignKey: 'recipeStatusId'
+    });
+
+    Recipe.belongsTo(models.Instruction, {
+      as: 'instruction',
+      foreignKey: 'instructionId'
+    });
+
+    Recipe.belongsTo(models.User, {
+      as: 'createdBy',
+      foreignKey: 'createdById'
+    });
+
+    Recipe.belongsTo(RecipeCuisine, {
+      as: 'createdBy',
+      foreignKey: 'recipeCuisineId'
+    });
+
+    Recipe.belongsTo(RecipeType, {
+      as: 'recipeType',
+      foreignKey: 'recipeTypeId'
+    });
+
+    Recipe.belongsToMany(models.RecipeTag, {
+      through: 'RecipeRecipeTag',
+      as: 'recipeTag'
+    });
+
+    Recipe.belongsToMany(models.User, {
+      through: 'RecipeStore',
+      as: 'storeUsers'
+    });
+
+    Recipe.belongsToMany(models.User, {
+      through: 'RecipeFavorite',
+      as: 'favoriteUsers'
+    });
+
+    Recipe.belongsToMany(models.User, {
+      through: 'RecipeRanking',
+      as: 'rankingUsers'
+    });
   };
   return Recipe;
 };

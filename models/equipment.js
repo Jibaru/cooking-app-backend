@@ -13,9 +13,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   Equipment.associate = function(models) {
     // associations can be defined here
+    Equipment.belongsToMany(models.Instruction, {
+      through: 'EquipmentInstruction',
+      as: 'instructions'
+    }); 
+
+    Equipment.belongsTo(models.FileData, {
+      as: 'image',
+      foreignKey: 'imageId'
+    });
   };
   return Equipment;
 };

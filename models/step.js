@@ -17,9 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   Step.associate = function(models) {
     // associations can be defined here
+    Step.belongsTo(models.Instruction, {
+      as: 'instruction'
+    });
   };
   return Step;
 };
