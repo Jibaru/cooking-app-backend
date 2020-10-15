@@ -13,23 +13,36 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BLOB('long'),
       allowNull: false
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   FileData.associate = function(models) {
     // associations can be defined here
     FileData.hasMany(models.Ingredient, {
       as: 'ingredient',
       foreignKey: 'imageId'
-    })
+    }); 
 
     FileData.hasOne(models.User, {
       as: 'user',
       foreignKey: 'profileImageId'
-    }) 
+    });
 
     FileData.hasOne(models.Equipment, {
       as: 'equipment',
       foreignKey: 'imageId'
-    })
+    });
+
+    FileData.hasOne(models.Step, {
+      as: 'step',
+      foreignKey: 'stepImageId'
+    });
+
+    FileData.hasOne(models.Recipe, {
+      as: 'recipe',
+      foreignKey: 'recipeImageId'
+    });
+
   };
   return FileData;
 };

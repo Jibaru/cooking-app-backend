@@ -5,13 +5,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(45),
       allowNull: false
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   Nutrient.associate = function(models) {
     // associations can be defined here
     Nutrient.belongsToMany(models.Ingredient, {
       through: 'IngredientNutrient',
-      as: 'ingredient'
+      as: 'ingredients'
     }); 
   };
-  return Nutrient;
-};
+    return Nutrient;
+  };

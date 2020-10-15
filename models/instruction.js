@@ -1,22 +1,24 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Instruction = sequelize.define('Instruction', {
-  }, {});
+  }, {
+    timestamps: false
+  });
   Instruction.associate = function(models) {
     // associations can be defined here
     Instruction.belongsToMany(models.Ingredient, {
       through: 'InstructionIngredient',
-      as: 'ingredient'
+      as: 'ingredients'
     }); 
 
     Instruction.hasMany(models.Step, {
       foreignKey: 'instructionId',
-      as: 'step'
+      as: 'steps'
     });
 
     Instruction.belongsToMany(models.Equipment, {
       through: 'EquipmentInstruction',
-      as: 'equipment'
+      as: 'equipments'
     }); 
 
     Instruction.hasOne(models.Recipe, {

@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   UserNotification.associate = function(models) {
     // associations can be defined here
     UserNotification.belongsTo(models.User, {

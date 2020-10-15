@@ -17,9 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   RecipeType.associate = function(models) {
     // associations can be defined here
+    RecipeType.hasMany(models.Recipe, {
+      as: 'recipes',
+      foreignKey: 'recipeTypeId'
+    });
   };
   return RecipeType;
 };

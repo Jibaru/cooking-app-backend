@@ -13,9 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(45),
       allowNull: false
     },
-  }, {});
+  }, {
+    timestamps: false
+  });
   RecipeStatus.associate = function(models) {
     // associations can be defined here
+    RecipeStatus.hasMany(models.Recipe, {
+      as: 'recipes',
+      foreignKey: 'recipeStatusId'
+    });
   };
   return RecipeStatus;
 };

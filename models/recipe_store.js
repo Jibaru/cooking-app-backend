@@ -14,9 +14,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-  }, {});
+  }, {
+    timestamps: false
+  });
   RecipeStore.associate = function(models) {
     // associations can be defined here
+    RecipeStore.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId',
+      as: 'recipe'
+    });
+
+    RecipeStore.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user'
+    });
   };
   return RecipeStore;
 };
