@@ -8,16 +8,19 @@ module.exports = {
         recipeId: 1,
         userId: 1,
         score:3.2,
+        timesVisited: 1
       },
       {
         recipeId: 2,
         userId: 2,
         score:2.1,
+        timesVisited: 2
       },
       {
         recipeId: 3,
         userId: 3,
         score:4.6,
+        timesVisited: 3
       }
     ], {});
   },

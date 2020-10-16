@@ -18,7 +18,7 @@ module.exports = {
       },
       dateTimeSended: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       },
       dateTimeViewed: {
         type: Sequelize.DATE,
@@ -39,12 +39,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
       }
     });
   },
