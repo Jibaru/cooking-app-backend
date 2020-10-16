@@ -2,19 +2,19 @@
 module.exports = (sequelize, DataTypes) => {
   const RecipeRanking = sequelize.define('RecipeRanking', {
     score: {
-      type: Sequelize.DECIMAL(2, 1),
+      type: DataTypes.DECIMAL(2, 1),
       allowNull: false,
     },
     timesVisited: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     recipeId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     userId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {

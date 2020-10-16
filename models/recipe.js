@@ -77,12 +77,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'createdById'
     });
 
-    Recipe.belongsTo(RecipeCuisine, {
-      as: 'createdBy',
+    Recipe.belongsTo(models.RecipeCuisine, {
+      as: 'recipeCuisine',
       foreignKey: 'recipeCuisineId'
     });
 
-    Recipe.belongsTo(RecipeType, {
+    Recipe.belongsTo(models.RecipeType, {
       as: 'recipeType',
       foreignKey: 'recipeTypeId'
     });

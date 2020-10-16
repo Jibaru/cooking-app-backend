@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     dateTimeSended: {
       type: DataTypes.DATE,
-      defaultValue: Sequelize.NOW
+      defaultValue: DataTypes.NOW
     },
     dateTimeViewed: {
       type: DataTypes.DATE,
