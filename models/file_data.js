@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
+    tableName: 'FileDatas',
     timestamps: false
   });
   FileData.associate = function(models) {

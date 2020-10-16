@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
+    tableName: 'UserNotifications',
     timestamps: false
   });
   UserNotification.associate = function(models) {

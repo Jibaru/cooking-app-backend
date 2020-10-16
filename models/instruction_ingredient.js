@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     }
-  }, {});
+  }, {
+    tableName: 'InstructionIngredients',
+    timestamps: false
+  });
   InstructionIngredient.associate = function(models) {
     // associations can be defined here
     InstructionIngredient.belongsTo(models.Instruction, {

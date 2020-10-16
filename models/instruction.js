@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Instruction = sequelize.define('Instruction', {
   }, {
+    tableName: 'Instructions',
     timestamps: false
   });
   Instruction.associate = function(models) {

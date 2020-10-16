@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {
+    tableName: 'RecipeRecipeTags',
     timestamps: false
   });
   RecipeRecipeTag.associate = function(models) {

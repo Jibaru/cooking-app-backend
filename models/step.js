@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     }
   }, {
+    tableName: 'Steps',
     timestamps: false
   });
   Step.associate = function(models) {

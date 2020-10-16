@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     }
   }, {
+    tableName: 'Equipments',
     timestamps: false
   });
   Equipment.associate = function(models) {

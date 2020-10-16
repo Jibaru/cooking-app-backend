@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {
+    tableName: 'IngredientNutrients',
     timestamps: false
   });
   IngredientNutrient.associate = function(models) {
