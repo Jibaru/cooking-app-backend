@@ -1,30 +1,55 @@
 const { checkSchema  } = require('express-validator');
-
-const isTypeErrorMessage = (campo, type) => `El parámetro ${campo} debe ser un ${type}`
-const isEmptyErrorMessage = campo => `El parámetro ${campo} no puede estar vacío`;
-const isRequiredErrorMessage = campo => `El parámetro ${campo} es requerido`;
+const { 
+    isNotTypeErrorMessage, 
+    isEmptyErrorMessage, 
+    isRequiredErrorMessage,
+    maxLengthErrorMessage 
+} = require('../utils/error_templates');
 
 const createEquipmentMiddleware = checkSchema({
     imageId: {
         in: ['body'],
+        optional: true,
         isInt: {
-            errorMessage: isTypeErrorMessage('imageId', 'integer'),
+            errorMessage: isNotTypeErrorMessage('imageId', 'integer')
         },
-        isEmpty: {
+        notEmpty: {
             errorMessage: isEmptyErrorMessage('imageId')
         },
-        
+        // Sanitizers
+        toInt: true
     },
     name: {
         in: ['body'],
-        isEmpty: {
+        exists: {
+            errorMessage: isRequiredErrorMessage('name')
+        },
+        notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },
-        isString: {
-            errorMessage: isTypeErrorMessage('name', 'string')
+        isLength: {
+            errorMessage: maxLengthErrorMessage('name', 45),
+            options: {
+                max: 45
+            }
         },
+        // Sanitizers
+        trim: true
     },
-    
+    description: {
+        optional: true,
+        notEmpty: {
+            errorMessage: isEmptyErrorMessage('description')
+        },
+        isLength: {
+            errorMessage: maxLengthErrorMessage('description', 65535),
+            options: {
+                max: 65535
+            }
+        },
+        // Sanitizers
+        trim: true
+    }    
 });
 
 module.exports = {
