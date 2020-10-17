@@ -1,7 +1,10 @@
 const app = require('express')();
+const validateErrors = require('../middlewares/validate_errors.middleware');
+const { createEquipmentMiddleware } = require('../middlewares/equipment.middlewares');
 
 /// Equipment Services
-app.post('/equipments', 
+app.post('/equipments',
+    [createEquipmentMiddleware, validateErrors], 
     require('../controllers/equipment/create.controller'));
 
 app.delete('/equipments/:id', 
