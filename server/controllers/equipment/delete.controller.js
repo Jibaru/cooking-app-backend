@@ -3,7 +3,7 @@ const { Equipment } = require('../../../models/index');
 /// Delete one Equipment by Id
 const deleteController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     Equipment
     .destroy({

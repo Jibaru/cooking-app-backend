@@ -3,6 +3,8 @@ const { User } = require('../../../models/index');
 /// Update one User by Id
 const updateController = (req, res) => {
 
+    const id = req.params.id;
+
     const { 
         profileImageId,
         roleId,
@@ -10,8 +12,7 @@ const updateController = (req, res) => {
         lastName,
         nickName,
         email,
-        password,
-        id  
+        password 
     } = req.body;
 
     User

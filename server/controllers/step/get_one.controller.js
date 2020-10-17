@@ -3,7 +3,7 @@ const { Step } = require('../../../models/index');
 /// Get one Step by Id
 const getOneController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
     
     Step
     .findByPk(id)

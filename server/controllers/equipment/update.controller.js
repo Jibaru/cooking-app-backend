@@ -3,7 +3,8 @@ const { Equipment } = require('../../../models/index');
 /// Update one Equipment by Id
 const updateController = (req, res) => {
 
-    const { id, imageId, name, description } = req.body;
+    const id = req.params.id;
+    const { imageId, name, description } = req.body;
 
     Equipment
     .update({

@@ -3,7 +3,7 @@ const { FileData } = require('../../../models/index');
 /// Get one FileData by Id
 const getOneController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     FileData
     .findByPk(id)

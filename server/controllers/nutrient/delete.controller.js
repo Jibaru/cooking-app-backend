@@ -3,7 +3,7 @@ const { Nutrient } = require('../../../models/index');
 /// Delete one Nutrient by Id
 const deleteController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     Nutrient
     .destroy({

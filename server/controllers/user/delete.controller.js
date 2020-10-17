@@ -3,7 +3,7 @@ const { User } = require('../../../models/index');
 /// Delete one User by Id
 const deleteController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     User
     .destroy({

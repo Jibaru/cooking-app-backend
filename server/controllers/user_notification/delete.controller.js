@@ -3,7 +3,7 @@ const { UserNotification } = require('../../../models/index');
 /// Delete one UserNotification by Id
 const deleteController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     UserNotification
     .destroy({

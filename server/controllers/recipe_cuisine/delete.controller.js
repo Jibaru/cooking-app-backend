@@ -3,7 +3,7 @@ const { RecipeCuisine } = require('../../../models/index');
 /// Delete one RecipeCuisine by Id
 const deleteController = (req, res) => {
 
-    const idd = req.body.id;
+    const id = req.params.id;
 
     RecipeCuisine
     .destroy({

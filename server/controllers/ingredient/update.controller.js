@@ -3,7 +3,8 @@ const { Ingredient } = require('../../../models/index');
 /// Update one Ingredient by Id
 const updateController = (req, res) => {
 
-    const { id, imageId, name, description } = req.body;
+    const id = req.params.id;
+    const { imageId, name, description } = req.body;
 
     Ingredient
     .update({

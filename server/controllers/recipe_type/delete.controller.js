@@ -3,7 +3,7 @@ const { RecipeType } = require('../../../models/index');
 /// Delete one RecipeType by Id
 const deleteController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     RecipeType
     .destroy({

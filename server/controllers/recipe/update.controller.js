@@ -3,8 +3,9 @@ const { Recipe } = require('../../../models/index');
 /// Update one Recipe by Id
 const updateController = (req, res) => {
 
+    const id = req.params.id;
+
     const {
-        id,
         dateTimePublished,
         title,
         description,

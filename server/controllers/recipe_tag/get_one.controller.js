@@ -3,7 +3,7 @@ const { RecipeTag } = require('../../../models/index');
 /// Get one RecipeTag by Id
 const getOneController = (req, res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
     RecipeTag
     .findByPk(id)

@@ -3,12 +3,14 @@ const { Ingredient } = require('../../../models/index');
 /// Get one Ingredient by Id
 const getOneController = (req, res) => {
 
+    const id = req.params.id;
+
     Ingredient
-    .findAll()
-    .then(ingredients => {
+    .findByPk(id)
+    .then(ingredient => {
         return res.json({
             ok: true,
-            ingredients
+            ingredient
         });
     })
     .catch(error => {

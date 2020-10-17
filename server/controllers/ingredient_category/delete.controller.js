@@ -3,7 +3,7 @@ const { IngredientCategory } = require('../../../models/index');
 /// Delete one IngredientCategory by Id
 const deleteController = (req, res) => {
 
-    const idd = req.body.id;
+    const id = req.params.id;
 
     IngredientCategory
     .destroy({

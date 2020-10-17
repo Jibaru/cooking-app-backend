@@ -3,7 +3,8 @@ const { FileData } = require('../../../models/index');
 /// Update one FileData by Id
 const updateController = (req, res) => {
     // Observacion: campo content
-    const { id, name, mimeType } = req.body;
+    const id = req.params.id;
+    const { name, mimeType } = req.body;
 
     FileData
     .update({
