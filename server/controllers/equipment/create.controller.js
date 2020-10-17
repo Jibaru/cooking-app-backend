@@ -4,7 +4,7 @@ const { Equipment } = require('../../../models/index');
 const createController = (req, res) => {
 
     const { imageId, name, description } = req.body;
-    return res.json({body: req.body});
+
     Equipment
     .create({
         imageId,
