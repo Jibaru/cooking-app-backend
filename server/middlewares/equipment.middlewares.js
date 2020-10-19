@@ -1,12 +1,38 @@
 const { checkSchema  } = require('express-validator');
+const { FileData, Equipment } = require('../../models/index');
 const { 
     isNotTypeErrorMessage, 
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
-    maxLengthErrorMessage 
+    maxLengthErrorMessage,
+    notFoundErrorMessage
 } = require('../utils/error_templates');
 
-const createEquipmentMiddleware = checkSchema({
+const equipmentValidators = {
+    id: {
+        in: ['params'],
+        exists: {
+            errorMessage: isRequiredErrorMessage('id')
+        },
+        notEmpty: {
+            errorMessage: isEmptyErrorMessage('id')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('id', 'integer')
+        },
+        custom: {
+            options: (value, {req, location, path}) => { 
+                return Equipment.findByPk(value)
+                    .then(equipment => {
+                        if (equipment === null || equipment === undefined) {
+                            return Promise.reject(notFoundErrorMessage('id', value));
+                        }
+                    });
+            }
+        },
+        // Sanitizers
+        toInt: true
+    },
     imageId: {
         in: ['body'],
         optional: true,
@@ -15,6 +41,16 @@ const createEquipmentMiddleware = checkSchema({
         },
         notEmpty: {
             errorMessage: isEmptyErrorMessage('imageId')
+        },
+        custom: {
+            options: (value, {req, location, path}) => { 
+                return FileData.findByPk(value)
+                    .then(fileData => {
+                        if (fileData === null || fileData === undefined) {
+                            return Promise.reject(notFoundErrorMessage('imageId', value));
+                        }
+                    });
+            }
         },
         // Sanitizers
         toInt: true
@@ -49,9 +85,33 @@ const createEquipmentMiddleware = checkSchema({
         },
         // Sanitizers
         trim: true
-    }    
+    }
+}
+
+const createEquipmentMiddleware = checkSchema({
+    imageId: equipmentValidators.imageId,
+    name: equipmentValidators.name,
+    description: equipmentValidators.description
+});
+
+const deleteEquipmentMiddleware = checkSchema({
+    id: equipmentValidators.id
+});
+
+const getOneEquipmentMiddleware = checkSchema({
+    id: equipmentValidators.id
+});
+
+const updateEquipmentMiddleware = checkSchema({
+    id: equipmentValidators.id,
+    imageId: equipmentValidators.imageId,
+    name: equipmentValidators.name,
+    description: equipmentValidators.description
 });
 
 module.exports = {
-    createEquipmentMiddleware
+    createEquipmentMiddleware,
+    deleteEquipmentMiddleware,
+    getOneEquipmentMiddleware,
+    updateEquipmentMiddleware
 }
