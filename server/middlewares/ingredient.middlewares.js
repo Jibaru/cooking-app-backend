@@ -1,9 +1,15 @@
 const { checkSchema  } = require('express-validator');
 const { 
+    Ingredient,
+    FileData
+} = require('../../models/index');
+
+const { 
     isNotTypeErrorMessage, 
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
-    maxLengthErrorMessage 
+    maxLengthErrorMessage,
+    notFoundErrorMessage
 } = require('../utils/error_templates');
 
 const ingredientValidators = {
@@ -18,6 +24,16 @@ const ingredientValidators = {
         isInt: {
             errorMessage: isNotTypeErrorMessage('id', 'integer')
         },
+        custom: {
+            options: (value, {req, location, path}) => { 
+                return Ingredient.findByPk(value)
+                    .then(ingredient => {
+                        if (ingredient === null || ingredient === undefined) {
+                            return Promise.reject(notFoundErrorMessage('id', value));
+                        }
+                    });
+            }
+        },
         // Sanitizers
         toInt: true
     },
@@ -29,6 +45,16 @@ const ingredientValidators = {
         },
         isInt: {
             errorMessage: isNotTypeErrorMessage('imageId', 'integer')
+        },
+        custom: {
+            options: (value, {req, location, path}) => { 
+                return FileData.findByPk(value)
+                    .then(fileData => {
+                        if (fileData === null || fileData === undefined) {
+                            return Promise.reject(notFoundErrorMessage('imageId', value));
+                        }
+                    });
+            }
         },
         // Sanitizers
         toInt: true

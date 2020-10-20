@@ -5,7 +5,8 @@ const {
     isEmptyErrorMessage,
     isNotTypeErrorMessage,
     isNotFormatErrorMessage,
-    maxLengthErrorMessage
+    maxLengthErrorMessage,
+    notFoundErrorMessage
 } = require('../utils/error_templates');
 
 const { mimeTypeRegex } = require('../utils/common_regex');
