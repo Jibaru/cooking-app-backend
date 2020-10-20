@@ -55,22 +55,25 @@ const equipmentValidators = {
         // Sanitizers
         toInt: true
     },
-    name: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('name')
-        },
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('name')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('name', 45),
-            options: {
-                max: 45
-            }
-        },
-        // Sanitizers
-        trim: true
+    name: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('name')
+            },
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('name')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('name', 45),
+                options: {  
+                    max: 45
+                }
+            },
+            // Sanitizers
+            trim: true
+        }
     },
     description: {
         optional: true,
@@ -90,7 +93,7 @@ const equipmentValidators = {
 
 const createEquipmentMiddleware = checkSchema({
     imageId: equipmentValidators.imageId,
-    name: equipmentValidators.name,
+    name: equipmentValidators.name(false),
     description: equipmentValidators.description
 });
 
@@ -105,7 +108,7 @@ const getOneEquipmentMiddleware = checkSchema({
 const updateEquipmentMiddleware = checkSchema({
     id: equipmentValidators.id,
     imageId: equipmentValidators.imageId,
-    name: equipmentValidators.name,
+    name: equipmentValidators.name(true),
     description: equipmentValidators.description
 });
 

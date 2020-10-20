@@ -5,11 +5,9 @@ const deleteController = (req, res) => {
 
     const id = req.params.id;
 
-    IngredientCategory
-    .destroy({
-        where: {
-            id
-        }
+    IngredientCategory.findByPk(id)
+    .then(ingredientCategory => {
+        return ingredientCategory.destroy();
     })
     .then(ingredientCategory => {
         return res.json({

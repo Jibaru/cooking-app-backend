@@ -5,11 +5,9 @@ const deleteController = (req, res) => {
 
     const id = req.params.id;
 
-    UserNotification
-    .destroy({
-        where: {
-            id
-        }
+    UserNotification.findByPk(id)
+    .then(userNotification => {
+        return userNotification.destroy();
     })
     .then(userNotification => {
         return res.json({

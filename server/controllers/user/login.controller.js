@@ -21,7 +21,7 @@ const loginController = (req, res) => {
         
         let token = jwt.sign({
             User: user
-        }, 'seed', {expiresIn: 60*60});
+        }, process.env.SEED, {expiresIn: process.env.TOKEN_EXPIRES});
 
         return res.json({
             ok: true,
