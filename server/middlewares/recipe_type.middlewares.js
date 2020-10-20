@@ -1,4 +1,5 @@
 const { checkSchema  } = require('express-validator');
+const { RecipeType } = require('../../models/index');
 const { 
     isNotTypeErrorMessage, 
     isEmptyErrorMessage, 

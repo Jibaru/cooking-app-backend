@@ -5,11 +5,9 @@ const deleteController = (req, res) => {
 
     const id = req.params.id;
 
-    Nutrient
-    .destroy({
-        where: {
-            id
-        }
+    Nutrient.findByPk(id)
+    .then(nutrient => {
+        return nutrient.destroy();
     })
     .then(nutrient => {
         return res.json({

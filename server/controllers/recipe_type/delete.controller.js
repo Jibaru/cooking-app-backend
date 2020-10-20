@@ -5,11 +5,9 @@ const deleteController = (req, res) => {
 
     const id = req.params.id;
 
-    RecipeType
-    .destroy({
-        where: {
-            id
-        }
+    RecipeType.findByPk(id)
+    .then(recipeType => {
+        return recipeType.destroy();
     })
     .then(recipeType => {
         return res.json({
