@@ -1,4 +1,5 @@
 const { Step } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Get one Step by Id
 const getOneController = (req, res) => {
@@ -7,6 +8,7 @@ const getOneController = (req, res) => {
     
     Step
     .findByPk(id)
+    .then(step => _.omit(step.toJSON(), _.isNull))
     .then(step => {
         return res.json({
             ok: true,

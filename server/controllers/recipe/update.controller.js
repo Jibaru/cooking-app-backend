@@ -1,4 +1,5 @@
 const { Recipe } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Update one Recipe by Id
 const updateController = (req, res) => {
@@ -39,6 +40,7 @@ const updateController = (req, res) => {
             id
         }
     })
+    .then(recipe => _.omit(recipe.toJSON(), _.isNull))
     .then(recipe => {
         return res.json({
             ok: true,

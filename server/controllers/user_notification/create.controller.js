@@ -1,4 +1,5 @@
 const { UserNotification } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Create one UserNotification
 const createController = (req, res) => {
@@ -19,6 +20,7 @@ const createController = (req, res) => {
         dateTimeViewed,
         userId
     })
+    .then(userNotification => _.omit(userNotification.toJSON(), _.isNull))
     .then(userNotification => {
         return res.json({
             ok: true,

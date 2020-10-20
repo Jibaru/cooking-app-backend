@@ -7,6 +7,7 @@ const getOneController = (req, res) => {
 
     Equipment
     .findByPk(id)
+    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
     .then(equipment => {
         return res.json({
             ok: true,

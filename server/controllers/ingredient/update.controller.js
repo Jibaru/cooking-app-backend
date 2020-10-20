@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const { Ingredient } = require('../../../models/index');
 
 /// Update one Ingredient by Id
@@ -16,6 +17,7 @@ const updateController = (req, res) => {
             id
         }
     })
+    .then(ingredient => _.omit(ingredient.toJSON(), _.isNull))
     .then(ingredient => {
         return res.json({
             ok: true,

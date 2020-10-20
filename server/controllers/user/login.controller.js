@@ -17,6 +17,8 @@ const loginController = (req, res) => {
             password: bcrypt.hashSync(password, 10)
         }
     })
+    .then(user => _.omit(user.toJSON(), _.isNull))
+    .then(user => _.omit(user, 'password'))
     .then(user => {
         
         let token = jwt.sign({

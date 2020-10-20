@@ -27,6 +27,7 @@ const signinController = (req, res) => {
         email,
         password: bcrypt.hashSync(password, 10)
     })
+    .then(user => _.omit(user.toJSON(), _.isNull))
     .then(user => {
         return res.json({
             ok: true,

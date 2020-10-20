@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const { Ingredient } = require('../../../models/index');
 
 /// Create one Ingredient
@@ -11,6 +12,7 @@ const createController = (req, res) => {
         description,
         imageId,
     })
+    .then(ingredient => _.omit(ingredient.toJSON(), _.isNull))
     .then(ingredient => {
         return res.json({
             ok: true,

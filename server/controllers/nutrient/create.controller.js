@@ -1,4 +1,5 @@
 const { Nutrient } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Create one Nutrient
 const createController = (req, res) => {
@@ -9,6 +10,7 @@ const createController = (req, res) => {
     .create({
         name
     })
+    .then(nutrient => _.omit(nutrient.toJSON(), _.isNull))
     .then(nutrient => {
         return res.json({
             ok: true,

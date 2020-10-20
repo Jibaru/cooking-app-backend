@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const { FileData } = require('../../../models/index');
 
 /// Update one FileData by Id
@@ -15,10 +16,11 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(file => {
+    .then(fileData => _.omit(fileData.toJSON(), _.isNull))
+    .then(fileData => {
         return res.json({
             ok: true,
-            file
+            fileData
         });
     })
     .catch(error => {

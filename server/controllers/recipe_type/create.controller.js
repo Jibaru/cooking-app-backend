@@ -1,4 +1,5 @@
 const { RecipeType } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Create one RecipeType
 const createController = (req, res) => {
@@ -17,6 +18,7 @@ const createController = (req, res) => {
         name,
         description
     })
+    .then(recipeType => _.omit(recipeType.toJSON(), _.isNull))
     .then(recipeType => {
         return res.json({
             ok: true,

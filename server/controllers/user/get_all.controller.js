@@ -8,6 +8,7 @@ const getAllController = (req, res) => {
     .findAll({
         exclude: ['password']
     })
+    .then(users => users.map(e => _.omit(e.toJSON(), _.isNull)))
     .then(users => {
         return res.json({
             ok: true,

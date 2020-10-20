@@ -1,4 +1,5 @@
 const { User } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Get one User by Id
 const getOneController = (req, res) => {
@@ -9,6 +10,7 @@ const getOneController = (req, res) => {
     .findByPk(id, {
         exclude: ['password']
     })
+    .then(user => _.omit(user.toJSON(), _.isNull))
     .then(user => {
         return res.json({
             ok: true,

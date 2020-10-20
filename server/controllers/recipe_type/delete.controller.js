@@ -1,4 +1,5 @@
 const { RecipeType } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Delete one RecipeType by Id
 const deleteController = (req, res) => {
@@ -9,6 +10,7 @@ const deleteController = (req, res) => {
     .then(recipeType => {
         return recipeType.destroy();
     })
+    .then(recipeType => _.omit(recipeType.toJSON(), _.isNull))
     .then(recipeType => {
         return res.json({
             ok: true,

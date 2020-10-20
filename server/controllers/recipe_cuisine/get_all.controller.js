@@ -5,6 +5,7 @@ const getAllController = (req, res) => {
 
     RecipeCuisine
     .findAll()
+    .then(recipeCuisines => recipeCuisines.map(e => _.omit(e.toJSON(), _.isNull)))
     .then(recipeCuisines => {
         return res.json({
             ok: true,

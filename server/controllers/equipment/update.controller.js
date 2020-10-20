@@ -16,7 +16,8 @@ const updateController = (req, res) => {
         where: {
             id
         }
-    }, )
+    })
+    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
     .then(equipment => {
         Equipment.findByPk(id).then(equipment => {
             return res.json({

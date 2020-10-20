@@ -1,4 +1,5 @@
 const { Instruction } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Get one Instruction by Id
 const getOneController = (req, res) => {
@@ -7,6 +8,7 @@ const getOneController = (req, res) => {
 
     Instruction
     .findByPk(id)
+    .then(instruction => _.omit(instruction.toJSON(), _.isNull))
     .then(instruction => {
         return res.json({
             ok: true,

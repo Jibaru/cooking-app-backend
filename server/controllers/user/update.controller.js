@@ -1,4 +1,5 @@
 const { User } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Update one User by Id
 const updateController = (req, res) => {
@@ -29,6 +30,7 @@ const updateController = (req, res) => {
             id
         }
     })
+    .then(user => _.omit(user.toJSON(), _.isNull))
     .then(user => {
         return res.json({
             ok: true,

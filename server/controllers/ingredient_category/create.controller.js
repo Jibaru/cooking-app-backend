@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const { IngredientCategory } = require('../../../models/index');
 
 /// Create one IngredientCategory
@@ -10,6 +11,7 @@ const createController = (req, res) => {
         name,
         description
     })
+    .then(ingredientCategory => _.omit(ingredientCategory.toJSON(), _.isNull))
     .then(ingredientCategory => {
         return res.json({
             ok: true,

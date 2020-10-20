@@ -1,4 +1,5 @@
 const { RecipeStatus } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Get one RecipeStatus by Id
 const getOneController = (req, res) => {
@@ -7,6 +8,7 @@ const getOneController = (req, res) => {
     
     RecipeStatus
     .findByPk(id)
+    .then(recipeStatus => _.omit(recipeStatus.toJSON(), _.isNull))
     .then(recipeStatus => {
         return res.json({
             ok: true,

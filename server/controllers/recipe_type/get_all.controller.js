@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const { RecipeType } = require('../../../models/index');
 
 /// Get all RecipeTypes
@@ -5,10 +6,11 @@ const getAllController = (req, res) => {
 
     RecipeType
     .findAll()
-    .then(recipeType => {
+    .then(recipeTypes => recipeTypes.map(e => _.omit(e.toJSON(), _.isNull)))
+    .then(recipeTypes => {
         return res.json({
             ok: true,
-            recipeType
+            recipeTypes
         });
     })
     .catch(error => {

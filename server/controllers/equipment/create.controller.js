@@ -1,4 +1,5 @@
 const { Equipment } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Create one Equipment
 const createController = (req, res) => {
@@ -11,6 +12,7 @@ const createController = (req, res) => {
         name,
         description
     })
+    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
     .then(equipment => {
         return res.json({
             ok: true,

@@ -1,4 +1,5 @@
 const { IngredientCategory } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Get one IngredientCategory by Id
 const getOneController = (req, res) => {
@@ -7,6 +8,7 @@ const getOneController = (req, res) => {
 
     IngredientCategory
     .findByPk(id)
+    .then(ingredientCategory => _.omit(ingredientCategory.toJSON(), _.isNull))
     .then(ingredientCategory => {
         return res.json({
             ok: true,
