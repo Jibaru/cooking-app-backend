@@ -8,7 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      amount: {
+      units: {
+        type: Sequelize.STRING(10),
+        allowNull: false
+      },
+      value: {
         type: Sequelize.DECIMAL(10, 4),
         allowNull: false
       },

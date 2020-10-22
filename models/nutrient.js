@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Nutrient = sequelize.define('Nutrient', {
     name: {
       type: DataTypes.STRING(45),
+      unique: true,
       allowNull: false
     }
   }, {

@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const InstructionIngredient = sequelize.define('InstructionIngredient', {
-    amount: {
+    units: {
+      type: DataTypes.STRING(10),
+      allowNull: false
+    },
+    value: {
       type: DataTypes.DECIMAL(10, 4),
       allowNull: false
     },

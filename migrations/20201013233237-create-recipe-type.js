@@ -10,14 +10,17 @@ module.exports = {
       },
       hash: {
         type: Sequelize.STRING(10),
+        unique: true,
         allowNull: false
       },
       originalName: {
         type: Sequelize.STRING(45),
+        unique: true,
         allowNull: false
       },
       name: {
         type: Sequelize.STRING(45),
+        unique: true,
         allowNull: false
       },
       description: {

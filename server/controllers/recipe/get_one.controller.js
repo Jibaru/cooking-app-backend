@@ -73,7 +73,8 @@ const getOneController = (req, res) => {
             },
             {
                 model: RecipeTag,
-                as: 'recipeTag'
+                as: 'recipeTag',
+                through: {attributes: []},
             },
             {
                 model: Instruction,
@@ -86,7 +87,8 @@ const getOneController = (req, res) => {
                         through: {
                             as: 'amount',
                             attributes: [
-                                'amount'
+                                'value',
+                                'units'
                             ],
                         },
                         include: [
