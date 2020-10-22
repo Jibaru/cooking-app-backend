@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
     Step.belongsTo(models.Instruction, {
       as: 'instruction'
     });
+    Step.belongsTo(models.FileData, {
+      as: 'stepImage',
+      foreignKey: 'stepImageId'
+    });
   };
   return Step;
 };

@@ -2,20 +2,102 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const jwt = require('jsonwebtoken');
 
-const { User } = require('../../../models/index');
+const {
+    User,
+    FileData,
+    Role,
+    Recipe,
+    UserNotification
+} = require('../../../models/index');
 
 /// Authenticate User by email (or username) and password
 /// Returns a JWT for some request
 const loginController = (req, res) => {
 
-    const { email, password } = req.body;
+    const { email } = req.body;
     
     User
     .findOne({
         where: {
             email,
-            password: bcrypt.hashSync(password, 10)
-        }
+        },
+        attributes: {
+            exclude: [
+                'roleId',
+                'profileImageId',
+                'password'
+            ]
+        },
+        include: [
+            {
+                model: FileData,
+                as: 'profileImage',
+                attributes: [
+                    'id',
+                    'mimeType',
+                    'content',
+                    'url'
+                ]
+            },
+            {
+                model: Role,
+                as: 'role',
+            },
+            {
+                model: Recipe,
+                as: 'storedRecipes',
+                attributes: [
+                    'id',
+                    'title'
+                ],
+                through: {
+                    as: 'information',
+                    attributes: ['dateTimeStored']
+                },
+            },
+            {
+                model: Recipe,
+                as: 'favoriteRecipes',
+                attributes: [
+                    'id',
+                    'title'
+                ],
+                through: {
+                    as: 'information',
+                    attributes: ['dateTimeLiked']
+                },
+            },
+            {
+                model: Recipe,
+                as: 'rankingRecipes',
+                attributes: [
+                    'id',
+                    'title'
+                ],
+                through: {
+                    as: 'information',
+                    attributes: [
+                        'score',
+                        'timesVisited'
+                    ]
+                },
+            },
+            {
+                model: Recipe,
+                as: 'createdRecipes',
+                attributes: [
+                    'id',
+                    'title'
+                ]
+            },
+            {
+                model: UserNotification,
+                as: 'userNotifications',
+                attributes: {
+                    exclude: ['userId']
+                }
+            }
+        ]
     })
     .then(user => _.omit(user.toJSON(), _.isNull))
     .then(user => _.omit(user, 'password'))

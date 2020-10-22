@@ -1,4 +1,5 @@
 const { checkSchema  } = require('express-validator');
+const bcrypt = require('bcrypt');
 
 const { 
     FileData,
@@ -12,7 +13,9 @@ const {
     notFoundErrorMessage,
     maxLengthErrorMessage,
     isRequiredErrorMessage,
-    invalidFormatErrorMessage
+    invalidFormatErrorMessage,
+    existsErrorMessage,
+    invalidPassword,
 } = require('../utils/error_templates');
 
 const userValidators = {
@@ -118,6 +121,20 @@ const userValidators = {
                 max: 50
             }
         },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return User.findOne({
+                    where: {
+                        nickName: value
+                    }
+                })
+                .then(user => {
+                    if(!!user){
+                        return Promise.reject(existsErrorMessage('nickName', value));
+                    }
+                });
+            }
+        },
         // Sanitizers
         trim: true,
     },
@@ -198,13 +215,83 @@ const signinUserMiddleware = checkSchema({
     firstName: userValidators.firstName,
     lastName: userValidators.lastName,
     nickName: userValidators.nickName,
-    email: userValidators.email,
+    email: {
+        in: userValidators.email.in,
+        exists: userValidators.email.exists,
+        isEmail: userValidators.email.isEmail,
+        notEmpty: userValidators.email.notEmpty,
+        isNumeric: userValidators.email.isNumeric,
+        isLength: userValidators.email.isLength,
+        // Sanitizers
+        trim: true,
+        custom: {
+            options: (value, {req, location, path}) => {
+                return User.findOne({
+                    where: {
+                        email: req.body.email
+                    }
+                })
+                .then(user => {
+                    if(!!user){
+                        return Promise.reject(existsErrorMessage('email', value));
+                    }
+                });
+            }
+        },
+    },    
     password: userValidators.password
 });
 
 const loginUserMiddleware = checkSchema({
-    email: userValidators.email,
-    password: userValidators.password
+    email: {
+        in: userValidators.email.in,
+        exists: userValidators.email.exists,
+        isEmail: userValidators.email.isEmail,
+        notEmpty: userValidators.email.notEmpty,
+        isNumeric: userValidators.email.isNumeric,
+        isLength: userValidators.email.isLength,
+        // Sanitizers
+        trim: true,
+        custom: {
+            options: (value, {req, location, path}) => {
+                return User.findOne({
+                    where: {
+                        email: req.body.email
+                    }
+                })
+                .then(user => {
+                    if(user === null || user === undefined){
+                        return Promise.reject(notFoundErrorMessage('email', value));
+                    }
+                });
+            }
+        },
+    },
+    password: {
+        in: userValidators.password.in,
+        exists: userValidators.password.exists,
+        notEmpty: userValidators.password.notEmpty,
+        isNumeric: userValidators.password.isNumeric,
+        isLength: userValidators.password.isLength,
+        // Sanitizers
+        trim: true,
+        custom: {
+            options: (value, {req, location, path}) => {
+                return User.findOne({
+                    where: {
+                        email: req.body.email
+                    }
+                })
+                .then(user => {
+                    if (!!user) {
+                        if(!bcrypt.compareSync(value, user.password)){
+                            return Promise.reject(invalidPassword());
+                        }
+                    }
+                });
+            }
+        },
+    }
 });
 
 const deleteUserMiddleware = checkSchema({

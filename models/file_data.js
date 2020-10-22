@@ -12,6 +12,26 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.BLOB('long'),
       allowNull: false
+    },
+    base64: {
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ['content']),
+      get() {
+        if(this.content !== null && this.content !== undefined) {
+          return this.content.toString('base64');
+        }
+        return null;
+      }
+    },
+    url: {
+      type: new DataTypes.VIRTUAL(DataTypes.STRING, ['base64']),
+      get() {
+        if(this.base64 !== null && this.mimeType !== null) {
+          let uri = `data:${this.mimeType};base64,${this.base64}`;
+          delete this.dataValues.content;
+          return uri;
+        }
+        return null;
+      }
     }
   }, {
     tableName: 'FileDatas',
@@ -20,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   FileData.associate = function(models) {
     // associations can be defined here
     FileData.hasMany(models.Ingredient, {
-      as: 'ingredient',
+      as: 'ingredients',
       foreignKey: 'imageId'
     }); 
 

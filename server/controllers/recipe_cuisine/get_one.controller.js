@@ -1,4 +1,4 @@
-const { RecipeCuisine } = require('../../../models/index');
+const { RecipeCuisine, Recipe } = require('../../../models/index');
 const _ = require('underscore');
 
 /// Get one RecipeCuisine by Id
@@ -7,7 +7,18 @@ const getOneController = (req, res) => {
     const id = req.params.id;
     
     RecipeCuisine
-    .findByPk(id)
+    .findByPk(id, {
+        include: [
+            {
+                model: Recipe,
+                as: 'recipes',
+                attributes: [
+                    'id',
+                    'title'
+                ]
+            }
+        ]
+    })
     .then(recipeCuisine => _.omit(recipeCuisine.toJSON(), _.isNull))
     .then(recipeCuisine => {
         return res.json({

@@ -26,7 +26,13 @@ module.exports = (sequelize, DataTypes) => {
     cookTime: {
       type: DataTypes.BIGINT, // Milliseconds time
       allowNull: false
-    }, // Total Time is: prepTime + cookTime
+    },
+    totalTime: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.prepTime + this.cookTime;
+      }
+    },
     recipeImageId: {
       type: DataTypes.INTEGER,
       allowNull: true

@@ -10,13 +10,19 @@ const isNotFormatErrorMessage = (field, format) => `El parámetro ${field} debe 
 const invalidFormatErrorMessage = (field) => `El formato del parámetro ${field} no es valido`;
 
 const notFoundErrorMessage = (field, value) => `El valor ${value} del parámetro ${field} no ha sido encontrado`; 
+const existsErrorMessage = (field, value) => `El valor ${value} del parámetro ${field} ya existe`;
+
+const invalidPassword = () => `La contraseña es incorrecta`;
 
 module.exports = {
     isNotTypeErrorMessage,
     isEmptyErrorMessage,
     isRequiredErrorMessage,
     maxLengthErrorMessage,
+    minLengthErrorMessage,
     isNotFormatErrorMessage,
     notFoundErrorMessage,
-    invalidFormatErrorMessage
+    existsErrorMessage,
+    invalidFormatErrorMessage,
+    invalidPassword
 };
