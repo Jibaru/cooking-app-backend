@@ -9,7 +9,8 @@ const {
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
     maxLengthErrorMessage,
-    notFoundErrorMessage
+    notFoundErrorMessage,
+    existsErrorMessage
 } = require('../utils/error_templates');
 
 const ingredientValidators = {
@@ -72,6 +73,20 @@ const ingredientValidators = {
         },
         exists: {
             errorMessage: isRequiredErrorMessage('name')
+        },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return Ingredient.findOne({
+                    where: {
+                        name: value
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('name', value));
+                    }
+                });
+            }
         },
         // Sanitizers
         trim: true,

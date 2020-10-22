@@ -5,7 +5,8 @@ const {
     maxLengthErrorMessage,
     isNotTypeErrorMessage,
     isEmptyErrorMessage,
-    notFoundErrorMessage
+    notFoundErrorMessage,
+    existsErrorMessage,
 } = require('../utils/error_templates');
 
 const ingredientCategoryValidators = {
@@ -26,6 +27,20 @@ const ingredientCategoryValidators = {
         isNumeric: {
             negated: true,
             errorMessage: isNotTypeErrorMessage('name', 'string')
+        },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return IngredientCategory.findOne({
+                    where: {
+                        name: value
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('name', value));
+                    }
+                });
+            }
         },
         // Sanitizers
         trim: true

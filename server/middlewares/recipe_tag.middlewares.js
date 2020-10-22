@@ -5,7 +5,8 @@ const {
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
     maxLengthErrorMessage,
-    notFoundErrorMessage
+    notFoundErrorMessage,
+    existsErrorMessage
 } = require('../utils/error_templates');
 
 const recipeTagValidators = {
@@ -25,6 +26,20 @@ const recipeTagValidators = {
         },
         exists: {
             errorMessage: isRequiredErrorMessage('hash')
+        },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return RecipeTag.findOne({
+                    where: {
+                        hash: req.body.hash
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('hash', value));
+                    }
+                });
+            }
         },
         // Sanitizers
         trim: true,
@@ -46,6 +61,20 @@ const recipeTagValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('originalName')
         },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return RecipeTag.findOne({
+                    where: {
+                        originalName: req.body.originalName
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('originalName', value));
+                    }
+                });
+            }
+        },
         // Sanitizers
         trim: true,
     },
@@ -65,6 +94,20 @@ const recipeTagValidators = {
         },
         exists: {
             errorMessage: isRequiredErrorMessage('name')
+        },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return RecipeTag.findOne({
+                    where: {
+                        name: req.body.name
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('name', value));
+                    }
+                });
+            }
         },
         // Sanitizers
         trim: true,

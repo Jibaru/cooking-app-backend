@@ -5,7 +5,8 @@ const {
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
     maxLengthErrorMessage,
-    notFoundErrorMessage
+    notFoundErrorMessage,
+    existsErrorMessage,
 } = require('../utils/error_templates');
 
 const recipeCuisineValidators = {
@@ -50,6 +51,20 @@ const recipeCuisineValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('hash')
         },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return RecipeCuisine.findOne({
+                    where: {
+                        hash: value
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('hash', value));
+                    }
+                });
+            }
+        },
         // Sanitizers
         trim: true,
     },
@@ -70,6 +85,20 @@ const recipeCuisineValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('originalName')
         },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return RecipeCuisine.findOne({
+                    where: {
+                        originalName: value
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('originalName', value));
+                    }
+                });
+            }
+        },
         // Sanitizers
         trim: true,
     },
@@ -89,6 +118,20 @@ const recipeCuisineValidators = {
         },
         exists: {
             errorMessage: isRequiredErrorMessage('name')
+        },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return RecipeCuisine.findOne({
+                    where: {
+                        name: value
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('name', value));
+                    }
+                });
+            }
         },
         // Sanitizers
         trim: true,

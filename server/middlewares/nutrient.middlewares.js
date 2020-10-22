@@ -5,7 +5,8 @@ const {
     isEmptyErrorMessage,
     maxLengthErrorMessage,
     isNotTypeErrorMessage,
-    notFoundErrorMessage
+    notFoundErrorMessage,
+    existsErrorMessage
 } = require('../utils/error_templates');
 
 const nutrientValidators = {
@@ -45,6 +46,20 @@ const nutrientValidators = {
             errorMessage: maxLengthErrorMessage('name', 45),
             options: {
                 max: 45
+            }
+        },
+        custom: {
+            options: (value, {req, location, path}) => {
+                return Nutrient.findOne({
+                    where: {
+                        name: value
+                    }
+                })
+                .then(model => {
+                    if(!!model){
+                        return Promise.reject(existsErrorMessage('name', value));
+                    }
+                });
             }
         },
     }
