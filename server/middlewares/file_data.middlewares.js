@@ -17,6 +17,7 @@ const fileDataValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
@@ -41,6 +42,8 @@ const fileDataValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('name')
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },
@@ -50,14 +53,14 @@ const fileDataValidators = {
                 max: 80
             }
         },
-        // Sanitizers
-        trim: true
     },
     mimeType: {
         in: ['body'],
         exists: {
             errorMessage: isRequiredErrorMessage('mimeType')
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('mimeType')
         },
@@ -73,8 +76,6 @@ const fileDataValidators = {
                 return mimeTypeRegex.test(value);
             }
         },
-        // Sanitizers
-        trim: true
     }
 }
 

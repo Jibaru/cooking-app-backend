@@ -15,6 +15,7 @@ const nutrientValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
@@ -39,6 +40,7 @@ const nutrientValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('name')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },

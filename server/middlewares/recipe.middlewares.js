@@ -21,11 +21,12 @@ const recipeValidators = {
     recipeImageId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('recipeImageId', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('recipeImageId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('recipeImageId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -43,11 +44,12 @@ const recipeValidators = {
     recipeStatusId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('recipeStatusId', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('recipeStatusId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('recipeStatusId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -65,11 +67,12 @@ const recipeValidators = {
     instructionId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('instructionId', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('instructionId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('instructionId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -87,11 +90,12 @@ const recipeValidators = {
     createdById: {
         in: ['body'],  
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('createdById', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('createdById')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('createdById', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -109,11 +113,12 @@ const recipeValidators = {
     recipeCuisineId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('recipeCuisineId', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('recipeCuisineId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('recipeCuisineId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -131,11 +136,12 @@ const recipeValidators = {
     recipeTypeId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('recipeTypeId', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('recipeTypeId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('recipeTypeId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -153,6 +159,7 @@ const recipeValidators = {
     dateTimePublished: {
         in: ['body'],
         optional: true,
+        trim: true,
         isDate: {
             errorMessage: isNotTypeErrorMessage('dateTimePublished', 'date'),
         },
@@ -164,6 +171,7 @@ const recipeValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('title')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('title')
         },
@@ -177,14 +185,13 @@ const recipeValidators = {
                 max: 45
             }
         },
-        // Sanitizers
-        trim: true,
     },
     description: {
         in: ['body'],
         exists: {
             errorMessage: isRequiredErrorMessage('description')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('description')
         },
@@ -198,17 +205,16 @@ const recipeValidators = {
                 max: 65535
             }
         },
-        // Sanitizers
-        trim: true,
     },
     yield: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('yield', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('yield')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('yield', 'integer')
         },
         // Sanitizers
         toInt: true
@@ -218,11 +224,12 @@ const recipeValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('prepTime')
         },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('prepTime', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('prepTime')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('prepTime', 'integer')
         },
         // Sanitizers
         toInt: true
@@ -232,11 +239,12 @@ const recipeValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('cookTime')
         },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('cookTime', 'integer')
-        },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('cookTime')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('cookTime', 'integer')
         },
         // Sanitizers
         toInt: true
@@ -246,6 +254,7 @@ const recipeValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },

@@ -15,6 +15,7 @@ const recipeCuisineValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
@@ -36,6 +37,7 @@ const recipeCuisineValidators = {
     },
     hash: {
         in: ['body'],
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('hash')
         },
@@ -65,11 +67,10 @@ const recipeCuisineValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     originalName: {
         in: ['body'],
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('originalName')
         },
@@ -99,11 +100,10 @@ const recipeCuisineValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     name: {
         in: ['body'],
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },
@@ -133,12 +133,11 @@ const recipeCuisineValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     region: {
         in: ['body'],
         optional: true,
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('region')
         },
@@ -151,8 +150,6 @@ const recipeCuisineValidators = {
                 max: 45
             }
         },
-        // Sanitizers
-        trim: true,
     }
 };
 

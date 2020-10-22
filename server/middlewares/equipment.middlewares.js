@@ -15,6 +15,7 @@ const equipmentValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
@@ -37,6 +38,7 @@ const equipmentValidators = {
     imageId: {
         in: ['body'],
         optional: true,
+        trim: true,
         isInt: {
             errorMessage: isNotTypeErrorMessage('imageId', 'integer')
         },
@@ -63,8 +65,10 @@ const equipmentValidators = {
             exists: {
                 errorMessage: isRequiredErrorMessage('name')
             },
+            // Sanitizers
+            trim: true,
             notEmpty: {
-                errorMessage: isEmptyErrorMessage('name')
+                errorMessage: isEmptyErrorMessage('name'),
             },
             isLength: {
                 errorMessage: maxLengthErrorMessage('name', 45),
@@ -86,12 +90,13 @@ const equipmentValidators = {
                     });
                 }
             },
-            // Sanitizers
-            trim: true
+            
         }
     },
     description: {
         optional: true,
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('description')
         },
@@ -101,8 +106,6 @@ const equipmentValidators = {
                 max: 65535
             }
         },
-        // Sanitizers
-        trim: true
     }
 }
 

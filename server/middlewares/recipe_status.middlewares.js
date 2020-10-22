@@ -13,6 +13,7 @@ const getOneRecipeStatusMiddleware = checkSchema({
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },

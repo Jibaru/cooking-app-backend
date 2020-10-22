@@ -15,6 +15,8 @@ const ingredientCategoryValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('name')
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },
@@ -42,11 +44,11 @@ const ingredientCategoryValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true
     },
     description: {
         optional: true,
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('description')
         },
@@ -56,14 +58,13 @@ const ingredientCategoryValidators = {
                 max: 65535
             }
         },
-        // Sanitizers
-        trim: true
     },
     id: {
         in: ['params'],
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },

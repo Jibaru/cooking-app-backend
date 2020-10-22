@@ -12,6 +12,7 @@ const {
 const recipeTypeValidators = {
     hash: {
         in: ['body'],
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('hash')
         },
@@ -41,11 +42,10 @@ const recipeTypeValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     originalName: {
         in: ['body'],
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('originalName')
         },
@@ -75,11 +75,10 @@ const recipeTypeValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     name: {
         in: ['body'],
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },
@@ -109,12 +108,11 @@ const recipeTypeValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     description: {
         in: ['body'],
         optional: true,
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('description')
         },
@@ -135,6 +133,7 @@ const recipeTypeValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },

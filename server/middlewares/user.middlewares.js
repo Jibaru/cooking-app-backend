@@ -22,11 +22,13 @@ const userValidators = {
     profileImageId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('profileImageId', 'integer')
-        },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('profileImageId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('profileImageId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -44,11 +46,13 @@ const userValidators = {
     roleId: {
         in: ['body'],
         optional: true,
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('roleId', 'integer')
-        },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('roleId')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('roleId', 'integer')
         },
         custom: {
             options: (value, {req, location, path}) => { 
@@ -68,6 +72,8 @@ const userValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('firstName')
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('firstName')
         },
@@ -81,14 +87,14 @@ const userValidators = {
                 max: 45
             }
         },
-        // Sanitizers
-        trim: true,
     },
     lastName: {
         in: ['body'],
         exists: {
             errorMessage: isRequiredErrorMessage('lastName')
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('lastName')
         },
@@ -102,12 +108,12 @@ const userValidators = {
                 max: 45
             }
         },
-        // Sanitizers
-        trim: true,
     },
     nickName: {
         in: ['body'],
         optional: true,
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('nickName')
         },
@@ -135,8 +141,6 @@ const userValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     email: {
         in: ['body'],
@@ -146,6 +150,8 @@ const userValidators = {
         isEmail: {
             errorMessage: invalidFormatErrorMessage('email'),
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('email')
         },
@@ -159,14 +165,14 @@ const userValidators = {
                 max: 50
             }
         },
-        // Sanitizers
-        trim: true,
     },
     password: {
         in: ['body'],
         exists: {
             errorMessage: isRequiredErrorMessage('password')
         },
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('password')
         },
@@ -180,14 +186,13 @@ const userValidators = {
                 max: 20
             }
         },
-        // Sanitizers
-        trim: true,
     },
     id: {
         in: ['params'],
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
@@ -218,12 +223,11 @@ const signinUserMiddleware = checkSchema({
     email: {
         in: userValidators.email.in,
         exists: userValidators.email.exists,
+        trim: userValidators.email.trim,
         isEmail: userValidators.email.isEmail,
         notEmpty: userValidators.email.notEmpty,
         isNumeric: userValidators.email.isNumeric,
         isLength: userValidators.email.isLength,
-        // Sanitizers
-        trim: true,
         custom: {
             options: (value, {req, location, path}) => {
                 return User.findOne({
@@ -246,12 +250,11 @@ const loginUserMiddleware = checkSchema({
     email: {
         in: userValidators.email.in,
         exists: userValidators.email.exists,
+        trim: userValidators.email.trim,
         isEmail: userValidators.email.isEmail,
         notEmpty: userValidators.email.notEmpty,
         isNumeric: userValidators.email.isNumeric,
         isLength: userValidators.email.isLength,
-        // Sanitizers
-        trim: true,
         custom: {
             options: (value, {req, location, path}) => {
                 return User.findOne({
@@ -270,11 +273,10 @@ const loginUserMiddleware = checkSchema({
     password: {
         in: userValidators.password.in,
         exists: userValidators.password.exists,
+        trim: userValidators.password.trim,
         notEmpty: userValidators.password.notEmpty,
         isNumeric: userValidators.password.isNumeric,
         isLength: userValidators.password.isLength,
-        // Sanitizers
-        trim: true,
         custom: {
             options: (value, {req, location, path}) => {
                 return User.findOne({

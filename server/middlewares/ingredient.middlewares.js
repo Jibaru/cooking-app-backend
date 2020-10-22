@@ -19,6 +19,7 @@ const ingredientValidators = {
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
@@ -41,6 +42,7 @@ const ingredientValidators = {
     imageId: {
         in: ['body'],
         optional: true,
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('imageId')
         },
@@ -62,6 +64,8 @@ const ingredientValidators = {
     },
     name: {
         in: ['body'],
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('name')
         },
@@ -88,12 +92,12 @@ const ingredientValidators = {
                 });
             }
         },
-        // Sanitizers
-        trim: true,
     },
     description: {
         in: ['body'],
         optional: true,
+        // Sanitizers
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('description')
         },
@@ -106,8 +110,6 @@ const ingredientValidators = {
                 max: 65535
             }
         },
-        // Sanitizers
-        trim: true
     }
 }
 

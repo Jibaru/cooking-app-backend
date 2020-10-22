@@ -14,6 +14,7 @@ const createUserNotificationMiddleware = checkSchema({
         exists: {
             errorMessage: isRequiredErrorMessage('subject')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('subject')
         },
@@ -53,6 +54,7 @@ const createUserNotificationMiddleware = checkSchema({
         exists: {
             errorMessage: isRequiredErrorMessage('content')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('content')
         },
@@ -77,6 +79,7 @@ const deleteUserNotificationMiddleware = checkSchema({
         exists: {
             errorMessage: isRequiredErrorMessage('id')
         },
+        trim: true,
         notEmpty: {
             errorMessage: isEmptyErrorMessage('id')
         },
