@@ -20,6 +20,7 @@ const getOneController = (req, res) => {
                 model: Ingredient,
                 as: 'ingredients',
                 attributes:[
+                    'id',
                     'name', 
                     'description'
                 ],
@@ -28,6 +29,7 @@ const getOneController = (req, res) => {
                 model: User,
                 as: 'user',
                 attributes:[
+                    'id',
                     'firstName', 
                     'lastName', 
                     'nickName', 
@@ -38,6 +40,7 @@ const getOneController = (req, res) => {
                 model: Equipment,
                 as: 'equipment',
                 attributes:[
+                    'id',
                     'name', 
                     'description'
                 ],
@@ -46,6 +49,7 @@ const getOneController = (req, res) => {
                 model: Step,
                 as: 'step',
                 attributes:[
+                    'id',
                     'orderNumber', 
                     'content'
                 ],
@@ -54,6 +58,7 @@ const getOneController = (req, res) => {
                 model: Recipe,
                 as: 'recipe',
                 attributes:[
+                    'id',
                     'title', 
                     'description', 
                     'yield', 

@@ -259,7 +259,7 @@ const loginUserMiddleware = checkSchema({
             options: (value, {req, location, path}) => {
                 return User.findOne({
                     where: {
-                        email: req.body.email
+                        email: value
                     }
                 })
                 .then(user => {

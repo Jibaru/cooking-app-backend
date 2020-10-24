@@ -1,5 +1,5 @@
-const { raw } = require('body-parser');
 const { Equipment } = require('../../../models/index');
+const _ = require('underscore');
 
 /// Update one Equipment by Id
 const updateController = (req, res) => {
@@ -17,14 +17,13 @@ const updateController = (req, res) => {
             id
         }
     })
+    .then(e => Equipment.findByPk(id))
     .then(equipment => _.omit(equipment.toJSON(), _.isNull))
     .then(equipment => {
-        Equipment.findByPk(id).then(equipment => {
-            return res.json({
-                ok: true,
-                equipment
-            });
-        })
+        return res.json({
+            ok: true,
+            equipment
+        });
     })
     .catch(error => {
         return res.status(500).json({

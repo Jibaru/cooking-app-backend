@@ -1,4 +1,5 @@
 const { RecipeCuisine } = require('../../../models/index');
+const _ = require('underscore');    
 
 /// Get all RecipeCuisines
 const getAllController = (req, res) => {

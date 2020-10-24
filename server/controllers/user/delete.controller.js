@@ -6,7 +6,11 @@ const deleteController = (req, res) => {
 
     const id = req.params.id;
 
-    User.findByPk(id)
+    User.findByPk(id, {
+        attributes: {
+            exclude: ['password']
+        }
+    })
     .then(user => {
         return user.destroy();
     })
