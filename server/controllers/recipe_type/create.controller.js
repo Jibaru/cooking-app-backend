@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { RecipeType } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Create one RecipeType
 const createController = (req, res) => {
@@ -18,7 +18,7 @@ const createController = (req, res) => {
         name,
         description
     })
-    .then(recipeType => _.omit(recipeType.toJSON(), _.isNull))
+    .then(recipeType => toResponseFormat(recipeType.toJSON()))
     .then(recipeType => {
         return res.json({
             ok: true,

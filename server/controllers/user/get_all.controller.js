@@ -1,4 +1,4 @@
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { User } = require('../../../models/index');
 
 /// Get all Users
@@ -10,7 +10,7 @@ const getAllController = (req, res) => {
             exclude: ['password']
         }
     })
-    .then(users => users.map(e => _.omit(e.toJSON(), _.isNull)))
+    .then(users => users.map(e => toResponseFormat(e.toJSON())))
     .then(users => {
         return res.json({
             ok: true,

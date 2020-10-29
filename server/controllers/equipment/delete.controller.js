@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Equipment } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Delete one Equipment by Id
 const deleteController = (req, res) => {
@@ -10,7 +10,7 @@ const deleteController = (req, res) => {
     .then(equipment => {
         return equipment.destroy();
     })
-    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
+    .then(equipment => toResponseFormat(equipment.toJSON()))
     .then(equipment => {
         return res.json({
             ok: true,

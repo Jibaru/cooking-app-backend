@@ -1,5 +1,5 @@
 const { IngredientCategory } = require('../../../models/index');
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
 
 /// Delete one IngredientCategory by Id
 const deleteController = (req, res) => {
@@ -10,7 +10,7 @@ const deleteController = (req, res) => {
     .then(ingredientCategory => {
         return ingredientCategory.destroy();
     })
-    .then(ingredientCategory => _.omit(ingredientCategory.toJSON(), _.isNull))
+    .then(ingredientCategory => toResponseFormat(ingredientCategory.toJSON()))
     .then(ingredientCategory => {
         return res.json({
             ok: true,

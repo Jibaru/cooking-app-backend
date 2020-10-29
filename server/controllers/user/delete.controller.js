@@ -1,5 +1,5 @@
-const { User } = require('../../../models/index');
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
+const { User, UserNotification } = require('../../../models/index');
 
 /// Delete one User by Id
 const deleteController = (req, res) => {
@@ -9,12 +9,21 @@ const deleteController = (req, res) => {
     User.findByPk(id, {
         attributes: {
             exclude: ['password']
-        }
+        },
+        include: [
+            {
+                model: UserNotification,
+                as: 'userNotifications',
+                attributes: {
+                    exclude: ['userId'],
+                },
+            }
+        ],
     })
     .then(user => {
         return user.destroy();
     })
-    .then(user => _.omit(user.toJSON(), _.isNull))
+    .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         return res.json({
             ok: true,

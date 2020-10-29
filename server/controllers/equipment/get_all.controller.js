@@ -1,12 +1,12 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Equipment } = require('../../../models/index');
-const _ = require('underscore');
 
 // Get all Equipments
 const getAllController = (req, res) => {
 
     Equipment
     .findAll()
-    .then(equipments => equipments.map(e => _.omit(e.toJSON(), _.isNull)))
+    .then(equipments => equipments.map(e => toResponseFormat(e.toJSON())))
     .then(equipments => {
         return res.json({
             ok: true,

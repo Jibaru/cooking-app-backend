@@ -1,4 +1,4 @@
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { 
     Ingredient,
     Nutrient,
@@ -52,7 +52,7 @@ const getOneController = (req, res) => {
             },
         ]
     })
-    .then(ingredient => _.omit(ingredient.toJSON(), _.isNull))
+    .then(ingredient => toResponseFormat(ingredient.toJSON()))
     .then(ingredient => {
         return res.json({
             ok: true,

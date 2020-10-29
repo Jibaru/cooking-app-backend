@@ -1,4 +1,4 @@
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { FileData } = require('../../../models/index');
 
 /// Update one FileData by Id
@@ -16,7 +16,7 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(fileData => _.omit(fileData.toJSON(), _.isNull))
+    .then(fileData => toResponseFormat(fileData.toJSON()))
     .then(fileData => {
         return res.json({
             ok: true,

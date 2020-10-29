@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Recipe } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Update one Recipe by Id
 const updateController = (req, res) => {
@@ -40,7 +40,7 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(recipe => _.omit(recipe.toJSON(), _.isNull))
+    .then(recipe => toResponseFormat(recipe.toJSON()))
     .then(recipe => {
         return res.json({
             ok: true,

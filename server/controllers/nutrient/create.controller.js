@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Nutrient } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Create one Nutrient
 const createController = (req, res) => {
@@ -10,7 +10,7 @@ const createController = (req, res) => {
     .create({
         name
     })
-    .then(nutrient => _.omit(nutrient.toJSON(), _.isNull))
+    .then(nutrient => toResponseFormat(nutrient.toJSON()))
     .then(nutrient => {
         return res.json({
             ok: true,

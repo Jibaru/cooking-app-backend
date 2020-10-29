@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const bcrypt = require('bcrypt');
-const _ = require('underscore');
 
 const { 
     User,
@@ -58,7 +58,7 @@ const signinController = (req, res) => {
             ]
         })
     })
-    .then(user => _.omit(user.toJSON(), _.isNull))
+    .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         return res.json({
             ok: true,

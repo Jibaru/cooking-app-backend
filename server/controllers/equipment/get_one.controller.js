@@ -1,4 +1,4 @@
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { 
     Equipment,
     Instruction,
@@ -36,7 +36,7 @@ const getOneController = (req, res) => {
             }
         ]
     })
-    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
+    .then(equipment => toResponseFormat(equipment.toJSON()))
     .then(equipment => {
         return res.json({
             ok: true,

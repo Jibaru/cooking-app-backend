@@ -1,3 +1,4 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const {
     User,
     FileData,
@@ -5,7 +6,6 @@ const {
     Recipe,
     UserNotification
 } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Get one User by Id
 const getOneController = (req, res) => {
@@ -92,7 +92,7 @@ const getOneController = (req, res) => {
             }
         ]
     })
-    .then(user => _.omit(user.toJSON(), _.isNull))
+    .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         return res.json({
             ok: true,
@@ -100,6 +100,7 @@ const getOneController = (req, res) => {
         });
     })
     .catch(error => {
+        console.log(error);
         return res.status(500).json({
             ok: false,
             error

@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
-const _ = require('underscore');
 const jwt = require('jsonwebtoken');
-
+const { toResponseFormat } = require('../../utils/response_formatter');
 const {
     User,
     FileData,
@@ -99,8 +98,7 @@ const loginController = (req, res) => {
             }
         ]
     })
-    .then(user => _.omit(user.toJSON(), _.isNull))
-    .then(user => _.omit(user, 'password'))
+    .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         
         let token = jwt.sign({

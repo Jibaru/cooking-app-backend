@@ -1,3 +1,4 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { 
     Instruction,
     Recipe,
@@ -5,7 +6,6 @@ const {
     Equipment,
     Step
 } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Get one Instruction by Id
 const getOneController = (req, res) => {
@@ -40,7 +40,7 @@ const getOneController = (req, res) => {
             },
         ]
     })
-    .then(instruction => _.omit(instruction.toJSON(), _.isNull))
+    .then(instruction => toResponseFormat(instruction.toJSON()))
     .then(instruction => {
         return res.json({
             ok: true,

@@ -1,4 +1,4 @@
-const _ = require('underscore');
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { IngredientCategory } = require('../../../models/index');
 
 /// Create one IngredientCategory
@@ -11,7 +11,7 @@ const createController = (req, res) => {
         name,
         description
     })
-    .then(ingredientCategory => _.omit(ingredientCategory.toJSON(), _.isNull))
+    .then(ingredientCategory => toResponseFormat(ingredientCategory.toJSON()))
     .then(ingredientCategory => {
         return res.json({
             ok: true,

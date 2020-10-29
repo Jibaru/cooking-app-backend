@@ -1,9 +1,9 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const {
     Step,
     Instruction,
     FileData
 } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Get one Step by Id
 const getOneController = (req, res) => {
@@ -38,7 +38,7 @@ const getOneController = (req, res) => {
             }
         ]
     })
-    .then(step => _.omit(step.toJSON(), _.isNull))
+    .then(step => toResponseFormat(step.toJSON()))
     .then(step => {
         return res.json({
             ok: true,

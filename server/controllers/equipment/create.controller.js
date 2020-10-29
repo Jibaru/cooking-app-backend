@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Equipment } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Create one Equipment
 const createController = (req, res) => {
@@ -12,7 +12,7 @@ const createController = (req, res) => {
         name,
         description
     })
-    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
+    .then(equipment => toResponseFormat(equipment.toJSON()))
     .then(equipment => {
         return res.json({
             ok: true,

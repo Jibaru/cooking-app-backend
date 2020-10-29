@@ -1,12 +1,12 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Recipe } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Get all Recipes
 const getAllController = (req, res) => {
 
     Recipe
     .findAll()
-    .then(recipes => recipes.map(e => _.omit(e.toJSON(), _.isNull)))
+    .then(recipes => recipes.map(e => toResponseFormat(e.toJSON())))
     .then(recipes => {
         return res.json({
             ok: true,

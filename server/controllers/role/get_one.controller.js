@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Role, User } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Get one Role by Id
 const getOneController = (req, res) => {
@@ -21,7 +21,7 @@ const getOneController = (req, res) => {
             }
         ]
     })
-    .then(role => _.omit(role.toJSON(), _.isNull))
+    .then(role => toResponseFormat(role.toJSON()))
     .then(role => {
         return res.json({
             ok: true,

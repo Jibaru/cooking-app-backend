@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { Equipment } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Update one Equipment by Id
 const updateController = (req, res) => {
@@ -18,7 +18,7 @@ const updateController = (req, res) => {
         }
     })
     .then(e => Equipment.findByPk(id))
-    .then(equipment => _.omit(equipment.toJSON(), _.isNull))
+    .then(equipment => toResponseFormat(equipment.toJSON()))
     .then(equipment => {
         return res.json({
             ok: true,

@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { UserNotification } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Delete one UserNotification by Id
 const deleteController = (req, res) => {
@@ -10,7 +10,7 @@ const deleteController = (req, res) => {
     .then(userNotification => {
         return userNotification.destroy();
     })
-    .then(userNotification => _.omit(userNotification.toJSON(), _.isNull))
+    .then(userNotification => toResponseFormat(userNotification.toJSON()))
     .then(userNotification => {
         return res.json({
             ok: true,
