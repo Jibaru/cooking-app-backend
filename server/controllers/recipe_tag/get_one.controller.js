@@ -1,5 +1,5 @@
+const { toResponseFormat } = require('../../utils/response_formatter');
 const { RecipeTag, Recipe } = require('../../../models/index');
-const _ = require('underscore');
 
 /// Get one RecipeTag by Id
 const getOneController = (req, res) => {
@@ -20,7 +20,7 @@ const getOneController = (req, res) => {
             }
         ]
     })
-    .then(recipeTag => _.omit(recipeTag.toJSON(), _.isNull))
+    .then(recipeTag => toResponseFormat(recipeTag.toJSON()))
     .then(recipeTag => {
         return res.json({
             ok: true,
