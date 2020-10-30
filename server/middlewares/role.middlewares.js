@@ -1,35 +1,21 @@
 const { checkSchema  } = require('express-validator');
 const { Role } = require('../../models/index');
-const { 
+const validators = require('../validators/validators');
+/*const { 
     isRequiredErrorMessage,
     isEmptyErrorMessage,
     isNotTypeErrorMessage,
     notFoundErrorMessage
-} = require('../utils/error_templates');
+} = require('../utils/error_templates');*/
 
 const getOneRoleMiddleware = checkSchema({
     id: {
         in: ['params'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('id')
-        },
+        exists: validators.exists('id'),
         trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('id')
-        },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('id', 'integer')
-        },
-        custom: {
-            options: (value, {req, location, path}) => { 
-                return Role.findByPk(value)
-                    .then(role => {
-                        if (role === null || role === undefined) {
-                            return Promise.reject(notFoundErrorMessage('id', value));
-                        }
-                    });
-            }
-        },
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', Role),
         // Sanitizers
         toInt: true
     },

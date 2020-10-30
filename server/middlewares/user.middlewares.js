@@ -6,8 +6,9 @@ const {
     Role,
     User
 } = require('../../models/index');
+const validators = require('../validators/validators');
 
-const { 
+/*const { 
     isEmptyErrorMessage,
     isNotTypeErrorMessage,
     notFoundErrorMessage,
@@ -219,71 +220,103 @@ const userValidators = {
         // Sanitizers
         toInt: true
     },
-}
+}*/
 
 const signinUserMiddleware = checkSchema({
-    profileImageId: userValidators.profileImageId,
-    roleId: userValidators.roleId,
-    firstName: userValidators.firstName(false),
-    lastName: userValidators.lastName(false),
-    nickName: userValidators.nickName,
+    profileImageId: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('profileImageId'),
+        isInt: validators.isInt('profileImageId'),
+        custom: validators.existResourceById('profileImageId', FileData),
+        // Sanitizers
+        toInt: true
+    },
+    roleId: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('roleId'),
+        isInt: validators.isInt('roleId'),
+        custom: validators.existResourceById('roleId', Role),
+        // Sanitizers
+        toInt: true
+    },
+    firstName: {
+        in: ['body'],
+        optional: false,
+        exists: validators.exists('firstName'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('firstName'),
+        isNumeric: validators.isNumericAndNotString('firstName'),
+        isLength: validators.isMaxLength('firstName', 45),
+    },
+    lastName: {
+        in: ['body'],
+        optional: false,
+        exists: validators.exists('lastName'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('lastName'),
+        isNumeric: validators.isNumericAndNotString('lastName'),
+        isLength: validators.isMaxLength('lastName', 45),
+    },
+    nickName: {
+        in: ['body'],
+        optional: false,
+        exists: validators.exists('nickName'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('nickName'),
+        isNumeric: validators.isNumericAndNotString('nickName'),
+        isLength: validators.isMaxLength('nickName', 50),
+        custom: validators.existResourceByField('nickName', User),
+    },
     email: {
-        in: userValidators.email.in,
-        exists: userValidators.email.exists,
-        trim: userValidators.email.trim,
-        isEmail: userValidators.email.isEmail,
-        notEmpty: userValidators.email.notEmpty,
-        isNumeric: userValidators.email.isNumeric,
-        isLength: userValidators.email.isLength,
-        custom: {
-            options: (value, {req, location, path}) => {
-                return User.findOne({
-                    where: {
-                        email: req.body.email
-                    }
-                })
-                .then(user => {
-                    if(!!user){
-                        return Promise.reject(existsErrorMessage('email', value));
-                    }
-                });
-            }
-        },
-    },    
-    password: userValidators.password
+        in: ['body'],
+        exists: validators.exists('email'),
+        trim: true,
+        isEmail: validators.isEmail('email'),
+        notEmpty: validators.notEmpty('email'),
+        isNumeric: validators.isNumericAndNotString('email'),
+        isLength: validators.isMaxLength('email', 50),
+        custom: validators.existResourceByField('email', User),
+    },
+    password: {
+        in: ['body'],
+        exists: validators.exists('password'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('password'),
+        isNumeric: validators.isNumericAndNotString('password'),
+        isLength: validators.isMaxLength('password', 20),
+    }
 });
 
 const loginUserMiddleware = checkSchema({
     email: {
-        in: userValidators.email.in,
-        exists: userValidators.email.exists,
-        trim: userValidators.email.trim,
-        isEmail: userValidators.email.isEmail,
-        notEmpty: userValidators.email.notEmpty,
-        isNumeric: userValidators.email.isNumeric,
-        isLength: userValidators.email.isLength,
-        custom: {
-            options: (value, {req, location, path}) => {
-                return User.findOne({
-                    where: {
-                        email: value
-                    }
-                })
-                .then(user => {
-                    if(user === null || user === undefined){
-                        return Promise.reject(notFoundErrorMessage('email', value));
-                    }
-                });
-            }
-        },
+        in: ['body'],
+        optional: false,
+        exists: validators.exists('email'),
+        trim: true,
+        isEmail: validators.isEmail('email'),
+        notEmpty: validators.notEmpty('email'),
+        isNumeric: validators.isNumericAndNotString('email'),
+        isLength: validators.isMaxLength('email', 50),
+        custom: validators.existResourceByField('email', User),
     },
     password: {
-        in: userValidators.password.in,
-        exists: userValidators.password.exists,
-        trim: userValidators.password.trim,
-        notEmpty: userValidators.password.notEmpty,
-        isNumeric: userValidators.password.isNumeric,
-        isLength: userValidators.password.isLength,
+        in: ['body'],
+        exists: validators.exists('password'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('password'),
+        isNumeric: validators.isNumericAndNotString('password'),
+        isLength: validators.isMaxLength('password', 20),
         custom: {
             options: (value, {req, location, path}) => {
                 return User.findOne({
@@ -304,22 +337,116 @@ const loginUserMiddleware = checkSchema({
 });
 
 const deleteUserMiddleware = checkSchema({
-    id: userValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', User),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 const getOneUserMiddleware = checkSchema({
-    id: userValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', User),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 const updateUserMiddleware = checkSchema({
-    profileImageId: userValidators.profileImageId,
-    roleId: userValidators.roleId,
-    firstName: userValidators.firstName(true),
-    lastName: userValidators.lastName(true),
-    nickName: userValidators.nickName,
-    email: userValidators.email,
-    password: userValidators.password,
-    id: userValidators.id
+    profileImageId: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('profileImageId'),
+        isInt: validators.isInt('profileImageId'),
+        custom: validators.existResourceById('profileImageId', FileData),
+        // Sanitizers
+        toInt: true
+    },
+    roleId: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('roleId'),
+        isInt: validators.isInt('roleId'),
+        custom: validators.existResourceById('roleId', Role),
+        // Sanitizers
+        toInt: true
+    },
+    firstName: {
+        in: ['body'],
+        optional: true,
+        exists: validators.exists('firstName'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('firstName'),
+        isNumeric: validators.isNumericAndNotString('firstName'),
+        isLength: validators.isMaxLength('firstName', 45),
+    },
+    lastName: {
+        in: ['body'],
+        optional: true,
+        exists: validators.exists('lastName'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('lastName'),
+        isNumeric: validators.isNumericAndNotString('lastName'),
+        isLength: validators.isMaxLength('lastName', 45),
+    },
+    nickName: {
+        in: ['body'],
+        optional: true,
+        exists: validators.exists('nickName'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('nickName'),
+        isNumeric: validators.isNumericAndNotString('nickName'),
+        isLength: validators.isMaxLength('nickName', 50),
+        custom: validators.existResourceByField('nickName', User),
+    },
+    email: {
+        in: ['body'],
+        optional: true,
+        exists: validators.exists('email'),
+        trim: true,
+        isEmail: validators.isEmail('email'),
+        notEmpty: validators.notEmpty('email'),
+        isNumeric: validators.isNumericAndNotString('email'),
+        isLength: validators.isMaxLength('email', 50),
+        custom: validators.existResourceByField('email', User),
+    },
+    password: {
+        in: ['body'],
+        optional: true,
+        exists: validators.exists('password'),
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('password'),
+        isNumeric: validators.isNumericAndNotString('password'),
+        isLength: validators.isMaxLength('password', 20),
+    },
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', User),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 module.exports = {

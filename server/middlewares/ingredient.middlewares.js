@@ -3,8 +3,8 @@ const {
     Ingredient,
     FileData
 } = require('../../models/index');
-
-const { 
+const validators = require('../validators/validators');
+/*const { 
     isNotTypeErrorMessage, 
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
@@ -114,23 +114,91 @@ const ingredientValidators = {
             }
         },
     }
-}
+}*/
 
 const createIngredientMiddleware = checkSchema({
-    imageId: ingredientValidators.imageId,
-    name: ingredientValidators.name(false),
-    description: ingredientValidators.description
+    imageId: {
+        in: ['body'],
+        optional: true,
+        trim: true,
+        notEmpty: validators.notEmpty('imageId'),
+        isInt: validators.isInt('imageId'),
+        custom: validators.existResourceById('imageId', FileData),
+        // Sanitizers
+        toInt: true
+    },
+    name: {
+        in: ['body'],
+        optional: false,
+        // Sanitizers
+        trim: true,
+        exists: validators.exists('name'),
+        notEmpty: validators.notEmpty('name'),
+        isLength: validators.isMaxLength('name', 45),
+        custom: validators.existResourceByField('name', Ingredient),
+    },
+    description: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('description'),
+        isLength: validators.isMaxLength('description', 65535),
+    }
 });
 
 const getOneIngredientMiddleware = checkSchema({
-    id: ingredientValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', Ingredient),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 const updateIngredientMiddleware = checkSchema({
-    id: ingredientValidators.id,
-    imageId: ingredientValidators.imageId,
-    name: ingredientValidators.name(true),
-    description: ingredientValidators.description
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', Ingredient),
+        // Sanitizers
+        toInt: true
+    },
+    imageId: {
+        in: ['body'],
+        optional: true,
+        trim: true,
+        notEmpty: validators.notEmpty('imageId'),
+        isInt: validators.isInt('imageId'),
+        custom: validators.existResourceById('imageId', FileData),
+        // Sanitizers
+        toInt: true
+    },
+    name: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        exists: validators.exists('name'),
+        notEmpty: validators.notEmpty('name'),
+        isLength: validators.isMaxLength('name', 45),
+        custom: validators.existResourceByField('name', Ingredient),
+    },
+    description: {
+        in: ['body'],
+        optional: true,
+        // Sanitizers
+        trim: true,
+        notEmpty: validators.notEmpty('description'),
+        isLength: validators.isMaxLength('description', 65535),
+    }
 });
 
 

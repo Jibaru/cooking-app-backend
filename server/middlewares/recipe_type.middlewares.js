@@ -1,6 +1,7 @@
 const { checkSchema  } = require('express-validator');
 const { RecipeType } = require('../../models/index');
-const { 
+const validators = require('../validators/validators');
+/*const { 
     isNotTypeErrorMessage, 
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
@@ -153,21 +154,72 @@ const recipeTypeValidators = {
         // Sanitizers
         toInt: true
     },
-}
+}*/
 
 const createRecipeTypeMiddleware = checkSchema({
-    hash: recipeTypeValidators.hash,
-    originalName: recipeTypeValidators.originalName,
-    name: recipeTypeValidators.name,
-    description: recipeTypeValidators.description
+    hash: {
+        in: ['body'],
+        trim: true,
+        notEmpty: validators.notEmpty('hash'),
+        isString: validators.isNumericAndNotString('hash'),
+        isLength: validators.isMaxLength('hash', 10),
+        exists: validators.exists('hash'),
+        custom: validators.existResourceByField('hash', RecipeType),
+    },
+    originalName: {
+        in: ['body'],
+        trim: true,
+        notEmpty: validators.notEmpty('originalName'),
+        isString: validators.isNumericAndNotString('originalName'),
+        isLength: validators.isMaxLength('originalName', 45),
+        exists: validators.exists('originalName'),
+        custom: validators.existResourceByField('originalName', RecipeType),
+    },
+    name: {
+        in: ['body'],
+        trim: true,
+        notEmpty: validators.notEmpty('name'),
+        isString: validators.isNumericAndNotString('name'),
+        isLength: validators.isMaxLength('name', 45),
+        exists: validators.exists('name'),
+        custom: validators.existResourceByField('name', RecipeType),
+    },
+    description: {
+        in: ['body'],
+        optional: true,
+        trim: true,
+        notEmpty: validators.notEmpty('description'),
+        isString: validators.isNumericAndNotString('description'),
+        isLength: validators.isMaxLength('description', 65535),
+        // Sanitizers
+        trim: true,
+    },
 });
 
 const deleteRecipeTypeMiddleware = checkSchema({
-    id: recipeTypeValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', RecipeType),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 const getOneRecipeTypeMiddleware = checkSchema({
-    id: recipeTypeValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', RecipeType),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 module.exports = {

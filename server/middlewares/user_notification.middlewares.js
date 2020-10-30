@@ -1,73 +1,46 @@
 const { checkSchema  } = require('express-validator');
 const { UserNotification } = require('../../models/index');
-const {  
+const validators = require('../validators/validators');
+/*const {  
     isEmptyErrorMessage,
     isNotTypeErrorMessage,
     maxLengthErrorMessage,
     isRequiredErrorMessage,
     notFoundErrorMessage
-} = require('../utils/error_templates');
+} = require('../utils/error_templates');*/
 
 const createUserNotificationMiddleware = checkSchema({
     subject: {
         in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('subject')
-        },
+        exists: validators.exists('subject'),
         trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('subject')
-        },
-        isNumeric: {
-            negated: true,
-            errorMessage: isNotTypeErrorMessage('subject', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('subject', 45),
-            options: {
-                max: 45
-            }
-        },
+        notEmpty: validators.notEmpty('subject'),
+        isNumeric: validators.isNumericAndNotString('subject'),
+        isLength: validators.isMaxLength('subject', 45),
         // Sanitizers
         trim: true,
     },
     dateTimeSended: {
         in: ['body'],
         optional: true,
-        isDate: {
-            errorMessage: isNotTypeErrorMessage('dateTimeSended', 'date'),
-        },
+        isDate: validators.isDate('dateTimeSended'),
         // Sanitizers
         toDate: true
     },
     dateTimeViewed: {
         in: ['body'],
         optional: true,
-        isDate: {
-            errorMessage: isNotTypeErrorMessage('dateTimeViewed', 'date'),
-        },
+        isDate: validators.isDate('dateTimeViewed'),
         // Sanitizers
         toDate: true
     }, 
     content: {
         in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('content')
-        },
+        exists: validators.exists('content'),
         trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('content')
-        },
-        isNumeric: {
-            negated: true,
-            errorMessage: isNotTypeErrorMessage('content', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('content', 65535),
-            options: {
-                max: 65535
-            }
-        },
+        notEmpty: validators.notEmpty('content'),
+        isNumeric: validators.isNumericAndNotString('content'),
+        isLength: validators.isMaxLength('content', 65535),
         // Sanitizers
         trim: true,
     },
@@ -76,26 +49,11 @@ const createUserNotificationMiddleware = checkSchema({
 const deleteUserNotificationMiddleware = checkSchema({
     id: {
         in: ['params'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('id')
-        },
+        exists: validators.exists('id'),
         trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('id')
-        },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('id', 'integer')
-        },
-        custom: {
-            options: (value, {req, location, path}) => { 
-                return UserNotification.findByPk(value)
-                    .then(userNotification => {
-                        if (userNotification === null || userNotification === undefined) {
-                            return Promise.reject(notFoundErrorMessage('id', value));
-                        }
-                    });
-            }
-        },
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', UserNotification),
         // Sanitizers
         toInt: true
     },

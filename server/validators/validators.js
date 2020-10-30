@@ -1,11 +1,14 @@
 const { existsAndIsObject } = require('../utils/object_extension');
+const { mimeTypeRegex } = require('../utils/common_regex');
 const { 
     isNotTypeErrorMessage, 
     isEmptyErrorMessage, 
     isRequiredErrorMessage,
     maxLengthErrorMessage,
     notFoundErrorMessage,
-    existsErrorMessage
+    existsErrorMessage,
+    invalidFormatErrorMessage,
+    isNotFormatErrorMessage,
 } = require('../utils/error_templates');
 
 const mergeOptions = (into, from) => existsAndIsObject(from) 
@@ -32,6 +35,20 @@ const isInt = (field, options) => {
     let defaultObject = {errorMessage: isNotTypeErrorMessage(field, 'integer')};
     return mergeOptions(defaultObject, options);
 };
+
+const isDate = (field, options) => {
+    let defaultObject = {
+        errorMessage: isNotTypeErrorMessage(field, 'date'),
+    };
+    return mergeOptions(defaultObject, options);
+}
+
+const isEmail = (field, options) => {
+    let defaultObject = {
+        errorMessage: invalidFormatErrorMessage(field),
+    };
+    return mergeOptions(defaultObject, options);
+}
 
 const existResourceById = (field, model, options) => {
     let defaultObject = {
@@ -87,11 +104,35 @@ const isMaxLength = (field, max, options) => {
     return mergeOptions(defaultObject, options);
 };
 
+const isNotFormat = (field, format, options) => {
+    let defaultObject = {
+        errorMessage: isNotFormatErrorMessage(field, format),
+        options: (value, {req, location, path}) => {
+            return mimeTypeRegex.test(value);
+        }
+    };
+    return mergeOptions(defaultObject, options);
+}
+
+const isNumericAndNotString = (field, options) => {
+    let defaultObject = {
+        negated: true,
+        errorMessage: isNotTypeErrorMessage(field, 'string')
+    };
+
+    return mergeOptions(defaultObject, options);
+}
+
+
 module.exports = {
     exists,
     notEmpty,
     isInt,
+    isDate,
     existResourceById,
     existResourceByField,
     isMaxLength,
+    isNotFormat,
+    isNumericAndNotString,
+    isEmail,
 }

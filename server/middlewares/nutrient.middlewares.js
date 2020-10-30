@@ -1,6 +1,7 @@
 const { checkSchema  } = require('express-validator');
 const { Nutrient } = require('../../models/index');
-const { 
+const validators = require('../validators/validators');
+/*const { 
     isRequiredErrorMessage,
     isEmptyErrorMessage,
     maxLengthErrorMessage,
@@ -65,18 +66,43 @@ const nutrientValidators = {
             }
         },
     }
-};
+};*/
 
 const createNutrientMiddleware = checkSchema({
-    name: nutrientValidators.name
+    name: {
+        in: ['body'],
+        exists: validators.exists('name'),
+        trim: true,
+        notEmpty: validators.notEmpty('name'),
+        isLength: validators.isMaxLength('name', 45),
+        custom: validators.existResourceByField('name', Nutrient),
+    }
 });
 
 const deleteNutrientMiddleware = checkSchema({
-    id: nutrientValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', Nutrient),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 const getOneNutrientMiddleware = checkSchema({
-    id: nutrientValidators.id
+    id: {
+        in: ['params'],
+        exists: validators.exists('id'),
+        trim: true,
+        notEmpty: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
+        custom: validators.existResourceById('id', Nutrient),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 module.exports = {
