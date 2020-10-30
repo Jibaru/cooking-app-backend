@@ -166,45 +166,51 @@ const recipeValidators = {
         // Sanitizers
         toDate: true
     },
-    title: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('title')
-        },
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('title')
-        },
-        isNumeric: {
-            negated: true,
-            errorMessage: isNotTypeErrorMessage('title', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('title', 45),
-            options: {
-                max: 45
-            }
-        },
+    title: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('title')
+            },
+            trim: true,
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('title')
+            },
+            isNumeric: {
+                negated: true,
+                errorMessage: isNotTypeErrorMessage('title', 'string')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('title', 45),
+                options: {
+                    max: 45
+                }
+            },
+        }
     },
-    description: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('description')
-        },
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('description')
-        },
-        isNumeric: {
-            negated: true,
-            errorMessage: isNotTypeErrorMessage('title', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('description', 65535),
-            options: {
-                max: 65535
-            }
-        },
+    description: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('description')
+            },
+            trim: true,
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('description')
+            },
+            isNumeric: {
+                negated: true,
+                errorMessage: isNotTypeErrorMessage('title', 'string')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('description', 65535),
+                options: {
+                    max: 65535
+                }
+            },
+        }
     },
     yield: {
         in: ['body'],
@@ -219,35 +225,41 @@ const recipeValidators = {
         // Sanitizers
         toInt: true
     },
-    prepTime: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('prepTime')
-        },
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('prepTime')
-        },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('prepTime', 'integer')
-        },
-        // Sanitizers
-        toInt: true
+    prepTime: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('prepTime')
+            },
+            trim: true,
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('prepTime')
+            },
+            isInt: {
+                errorMessage: isNotTypeErrorMessage('prepTime', 'integer')
+            },
+            // Sanitizers
+            toInt: true
+        }
     },
-    cookTime: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('cookTime')
-        },
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('cookTime')
-        },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('cookTime', 'integer')
-        },
-        // Sanitizers
-        toInt: true
+    cookTime: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('cookTime')
+            },
+            trim: true,
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('cookTime')
+            },
+            isInt: {
+                errorMessage: isNotTypeErrorMessage('cookTime', 'integer')
+            },
+            // Sanitizers
+            toInt: true
+        }
     }, 
     id: {
         in: ['params'],
@@ -284,11 +296,11 @@ const createRecipeMiddleware = checkSchema({
     recipeCuisineId: recipeValidators.recipeCuisineId,
     recipeTypeId: recipeValidators.recipeTypeId,
     dateTimePublished: recipeValidators.dateTimePublished,
-    title: recipeValidators.title,
-    description: recipeValidators.description,
+    title: recipeValidators.title(false),
+    description: recipeValidators.description(false),
     yield: recipeValidators.yield,
-    prepTime: recipeValidators.prepTime,
-    cookTime: recipeValidators.cookTime,
+    prepTime: recipeValidators.prepTime(false),
+    cookTime: recipeValidators.cookTime(false),
 });
 
 const getOneRecipeMiddleware = checkSchema({
@@ -304,11 +316,11 @@ const updateRecipeMiddleware = checkSchema({
     recipeCuisineId: recipeValidators.recipeCuisineId,
     recipeTypeId: recipeValidators.recipeTypeId,
     dateTimePublished: recipeValidators.dateTimePublished,
-    title: recipeValidators.title,
-    description: recipeValidators.description,
+    title: recipeValidators.title(true),
+    description: recipeValidators.description(true),
     yield: recipeValidators.yield,
-    prepTime: recipeValidators.prepTime,
-    cookTime: recipeValidators.cookTime,
+    prepTime: recipeValidators.prepTime(true),
+    cookTime: recipeValidators.cookTime(true),
 });
 
 module.exports = {

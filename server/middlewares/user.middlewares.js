@@ -67,47 +67,53 @@ const userValidators = {
         // Sanitizers
         toInt: true
     },
-    firstName: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('firstName')
-        },
-        // Sanitizers
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('firstName')
-        },
-        isNumeric: {
-            negated: true,
-            errorMessage: isNotTypeErrorMessage('firstName', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('firstName', 45),
-            options: {
-                max: 45
-            }
-        },
+    firstName: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('firstName')
+            },
+            // Sanitizers
+            trim: true,
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('firstName')
+            },
+            isNumeric: {
+                negated: true,
+                errorMessage: isNotTypeErrorMessage('firstName', 'string')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('firstName', 45),
+                options: {
+                    max: 45
+                }
+            },
+        }
     },
-    lastName: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('lastName')
-        },
-        // Sanitizers
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('lastName')
-        },
-        isNumeric: {
-            negated: true,
-            errorMessage: isNotTypeErrorMessage('lastName', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('lastName', 45),
-            options: {
-                max: 45
-            }
-        },
+    lastName: optional => {
+        return {
+            in: ['body'],
+            optional,
+            exists: {
+                errorMessage: isRequiredErrorMessage('lastName')
+            },
+            // Sanitizers
+            trim: true,
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('lastName')
+            },
+            isNumeric: {
+                negated: true,
+                errorMessage: isNotTypeErrorMessage('lastName', 'string')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('lastName', 45),
+                options: {
+                    max: 45
+                }
+            },
+        }
     },
     nickName: {
         in: ['body'],
@@ -144,6 +150,7 @@ const userValidators = {
     },
     email: {
         in: ['body'],
+        optional: true,
         exists: {
             errorMessage: isRequiredErrorMessage('email')
         },
@@ -217,8 +224,8 @@ const userValidators = {
 const signinUserMiddleware = checkSchema({
     profileImageId: userValidators.profileImageId,
     roleId: userValidators.roleId,
-    firstName: userValidators.firstName,
-    lastName: userValidators.lastName,
+    firstName: userValidators.firstName(false),
+    lastName: userValidators.lastName(false),
     nickName: userValidators.nickName,
     email: {
         in: userValidators.email.in,
@@ -307,8 +314,8 @@ const getOneUserMiddleware = checkSchema({
 const updateUserMiddleware = checkSchema({
     profileImageId: userValidators.profileImageId,
     roleId: userValidators.roleId,
-    firstName: userValidators.firstName,
-    lastName: userValidators.lastName,
+    firstName: userValidators.firstName(true),
+    lastName: userValidators.lastName(true),
     nickName: userValidators.nickName,
     email: userValidators.email,
     password: userValidators.password,

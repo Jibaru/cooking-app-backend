@@ -37,56 +37,86 @@ const fileDataValidators = {
         // Sanitizers
         toInt: true
     },
-    name: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('name')
-        },
-        // Sanitizers
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('name')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('name', 80),
-            options: {
-                max: 80
-            }
-        },
+    name: optional => {
+        return {
+            in: ['body'],
+            optional,
+            // Sanitizers
+            trim: true,
+            exists: {
+                errorMessage: isRequiredErrorMessage('name')
+            },
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('name')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('name', 80),
+                options: {
+                    max: 80
+                }
+            },
+        }
     },
-    mimeType: {
-        in: ['body'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('mimeType')
-        },
-        // Sanitizers
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('mimeType')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('mimeType', 30),
-            options: {
-                max: 30
-            }
-        },
-        custom: {
-            errorMessage: isNotFormatErrorMessage('mimeType', 'type "/" [tree "."] subtype ["+" suffix] *[";" parameter]'),
-            options: (value, {req, location, path}) => {
-                return mimeTypeRegex.test(value);
-            }
-        },
+    mimeType: optional => {
+        return {
+            in: ['body'],
+            optional,
+            // Sanitizers
+            trim: true,
+            exists: {
+                errorMessage: isRequiredErrorMessage('name')
+            },
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('mimeType')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('mimeType', 30),
+                options: {
+                    max: 30
+                }
+            },
+            custom: {
+                errorMessage: isNotFormatErrorMessage('mimeType', 'type "/" [tree "."] subtype ["+" suffix] *[";" parameter]'),
+                options: (value, {req, location, path}) => {
+                    return mimeTypeRegex.test(value);
+                }
+            },
+        }
     }
 }
 
 const getOneFileDataMiddleware = checkSchema({
-    id: fileDataValidators.id
+    id: {
+        in: ['params'],
+        exists: {
+            errorMessage: isRequiredErrorMessage('id')
+        },
+        trim: true,
+        notEmpty: {
+            errorMessage: isEmptyErrorMessage('id')
+        },
+        isInt: {
+            errorMessage: isNotTypeErrorMessage('id', 'integer')
+        },
+        custom: {
+            options: (value, {req, location, path}) => { 
+                return FileData.findByPk(value)
+                    .then(fileData => {
+                        if (fileData === null || fileData === undefined) {
+                            return Promise.reject(notFoundErrorMessage('id', value));
+                        }
+                    });
+            }
+        },
+        // Sanitizers
+        toInt: true
+    },
 });
 
 const updateFileDataMiddleware = checkSchema({
     id: fileDataValidators.id,
-    name: fileDataValidators.name,
-    mimeType: fileDataValidators.mimeType
+    name: fileDataValidators.name(true),
+    mimeType: fileDataValidators.mimeType(true)
 });
 
 module.exports = {

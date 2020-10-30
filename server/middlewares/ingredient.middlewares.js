@@ -62,36 +62,39 @@ const ingredientValidators = {
         // Sanitizers
         toInt: true
     },
-    name: {
-        in: ['body'],
-        // Sanitizers
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('name')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('name', 45),
-            options: {
-                max: 45
-            }
-        },
-        exists: {
-            errorMessage: isRequiredErrorMessage('name')
-        },
-        custom: {
-            options: (value, {req, location, path}) => {
-                return Ingredient.findOne({
-                    where: {
-                        name: value
-                    }
-                })
-                .then(model => {
-                    if(!!model){
-                        return Promise.reject(existsErrorMessage('name', value));
-                    }
-                });
-            }
-        },
+    name: optional => {
+        return {
+            in: ['body'],
+            optional,
+            // Sanitizers
+            trim: true,
+            exists: {
+                errorMessage: isRequiredErrorMessage('name')
+            },
+            notEmpty: {
+                errorMessage: isEmptyErrorMessage('name')
+            },
+            isLength: {
+                errorMessage: maxLengthErrorMessage('name', 45),
+                options: {
+                    max: 45
+                }
+            },
+            custom: {
+                options: (value, {req, location, path}) => {
+                    return Ingredient.findOne({
+                        where: {
+                            name: value
+                        }
+                    })
+                    .then(model => {
+                        if(!!model){
+                            return Promise.reject(existsErrorMessage('name', value));
+                        }
+                    });
+                }
+            },
+        }
     },
     description: {
         in: ['body'],
@@ -115,7 +118,7 @@ const ingredientValidators = {
 
 const createIngredientMiddleware = checkSchema({
     imageId: ingredientValidators.imageId,
-    name: ingredientValidators.name,
+    name: ingredientValidators.name(false),
     description: ingredientValidators.description
 });
 
@@ -126,7 +129,7 @@ const getOneIngredientMiddleware = checkSchema({
 const updateIngredientMiddleware = checkSchema({
     id: ingredientValidators.id,
     imageId: ingredientValidators.imageId,
-    name: ingredientValidators.name,
+    name: ingredientValidators.name(true),
     description: ingredientValidators.description
 });
 
