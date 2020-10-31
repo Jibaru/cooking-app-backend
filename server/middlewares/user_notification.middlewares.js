@@ -1,13 +1,6 @@
 const { checkSchema  } = require('express-validator');
-const { UserNotification } = require('../../models/index');
+const { UserNotification, User } = require('../../models/index');
 const validators = require('../validators/validators');
-/*const {  
-    isEmptyErrorMessage,
-    isNotTypeErrorMessage,
-    maxLengthErrorMessage,
-    isRequiredErrorMessage,
-    notFoundErrorMessage
-} = require('../utils/error_templates');*/
 
 const createUserNotificationMiddleware = checkSchema({
     subject: {
@@ -44,6 +37,16 @@ const createUserNotificationMiddleware = checkSchema({
         // Sanitizers
         trim: true,
     },
+    userId: {
+        in: ['body'],
+        optional: true,
+        trim: true,
+        notEmpty: validators.notEmpty('userId'),
+        isInt: validators.isInt('userId'),
+        custom: validators.existResourceById('userId', User),
+        // Sanitizers
+        toInt: true
+    }
 });
 
 const deleteUserNotificationMiddleware = checkSchema({

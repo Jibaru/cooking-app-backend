@@ -1,167 +1,13 @@
 const { checkSchema  } = require('express-validator');
 const { RecipeType } = require('../../models/index');
 const validators = require('../validators/validators');
-/*const { 
-    isNotTypeErrorMessage, 
-    isEmptyErrorMessage, 
-    isRequiredErrorMessage,
-    maxLengthErrorMessage,
-    notFoundErrorMessage,
-    existsErrorMessage
-} = require('../utils/error_templates');
-
-const recipeTypeValidators = {
-    hash: {
-        in: ['body'],
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('hash')
-        },
-        isString: {
-            errorMessage: isNotTypeErrorMessage('hash', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('hash', 10),
-            options: {
-                max: 10
-            }
-        },
-        exists: {
-            errorMessage: isRequiredErrorMessage('hash')
-        },
-        custom: {
-            options: (value, {req, location, path}) => {
-                return RecipeType.findOne({
-                    where: {
-                        hash: value
-                    }
-                })
-                .then(model => {
-                    if(!!model){
-                        return Promise.reject(existsErrorMessage('hash', value));
-                    }
-                });
-            }
-        },
-    },
-    originalName: {
-        in: ['body'],
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('originalName')
-        },
-        isString: {
-            errorMessage: isNotTypeErrorMessage('originalName', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('originalName', 45),
-            options: {
-                max: 45
-            }
-        },
-        exists: {
-            errorMessage: isRequiredErrorMessage('originalName')
-        },
-        custom: {
-            options: (value, {req, location, path}) => {
-                return RecipeType.findOne({
-                    where: {
-                        originalName: value
-                    }
-                })
-                .then(model => {
-                    if(!!model){
-                        return Promise.reject(existsErrorMessage('originalName', value));
-                    }
-                });
-            }
-        },
-    },
-    name: {
-        in: ['body'],
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('name')
-        },
-        isString: {
-            errorMessage: isNotTypeErrorMessage('name', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('name', 45),
-            options: {
-                max: 45
-            }
-        },
-        exists: {
-            errorMessage: isRequiredErrorMessage('name')
-        },
-        custom: {
-            options: (value, {req, location, path}) => {
-                return RecipeType.findOne({
-                    where: {
-                        name: value
-                    }
-                })
-                .then(model => {
-                    if(!!model){
-                        return Promise.reject(existsErrorMessage('name', value));
-                    }
-                });
-            }
-        },
-    },
-    description: {
-        in: ['body'],
-        optional: true,
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('description')
-        },
-        isString: {
-            errorMessage: isNotTypeErrorMessage('description', 'string')
-        },
-        isLength: {
-            errorMessage: maxLengthErrorMessage('description', 65535),
-            options: {
-                max: 65535
-            }
-        },
-        // Sanitizers
-        trim: true,
-    },
-    id: {
-        in: ['params'],
-        exists: {
-            errorMessage: isRequiredErrorMessage('id')
-        },
-        trim: true,
-        notEmpty: {
-            errorMessage: isEmptyErrorMessage('id')
-        },
-        isInt: {
-            errorMessage: isNotTypeErrorMessage('id', 'integer')
-        },
-        custom: {
-            options: (value, {req, location, path}) => { 
-                return RecipeType.findByPk(value)
-                    .then(recipeType => {
-                        if (recipeType === null || recipeType === undefined) {
-                            return Promise.reject(notFoundErrorMessage('id', value));
-                        }
-                    });
-            }
-        },
-        // Sanitizers
-        toInt: true
-    },
-}*/
 
 const createRecipeTypeMiddleware = checkSchema({
     hash: {
         in: ['body'],
         trim: true,
         notEmpty: validators.notEmpty('hash'),
-        isString: validators.isNumericAndNotString('hash'),
+        isNumeric: validators.isNumericAndNotString('hash'),
         isLength: validators.isMaxLength('hash', 10),
         exists: validators.exists('hash'),
         custom: validators.existResourceByField('hash', RecipeType),
@@ -170,7 +16,7 @@ const createRecipeTypeMiddleware = checkSchema({
         in: ['body'],
         trim: true,
         notEmpty: validators.notEmpty('originalName'),
-        isString: validators.isNumericAndNotString('originalName'),
+        isNumeric: validators.isNumericAndNotString('originalName'),
         isLength: validators.isMaxLength('originalName', 45),
         exists: validators.exists('originalName'),
         custom: validators.existResourceByField('originalName', RecipeType),
@@ -179,7 +25,7 @@ const createRecipeTypeMiddleware = checkSchema({
         in: ['body'],
         trim: true,
         notEmpty: validators.notEmpty('name'),
-        isString: validators.isNumericAndNotString('name'),
+        isNumeric: validators.isNumericAndNotString('name'),
         isLength: validators.isMaxLength('name', 45),
         exists: validators.exists('name'),
         custom: validators.existResourceByField('name', RecipeType),
@@ -189,7 +35,7 @@ const createRecipeTypeMiddleware = checkSchema({
         optional: true,
         trim: true,
         notEmpty: validators.notEmpty('description'),
-        isString: validators.isNumericAndNotString('description'),
+        isNumeric: validators.isNumericAndNotString('description'),
         isLength: validators.isMaxLength('description', 65535),
         // Sanitizers
         trim: true,

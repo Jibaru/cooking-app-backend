@@ -1,12 +1,6 @@
 const { checkSchema  } = require('express-validator');
 const { RecipeStatus } = require('../../models/index');
 const validators = require('../validators/validators');
-/*const { 
-    isRequiredErrorMessage,
-    isEmptyErrorMessage,
-    isNotTypeErrorMessage,
-    notFoundErrorMessage
-} = require('../utils/error_templates');*/
 
 const getOneRecipeStatusMiddleware = checkSchema({
     id: {
@@ -14,7 +8,7 @@ const getOneRecipeStatusMiddleware = checkSchema({
         exists: validators.exists('id'),
         trim: true,
         notEmpty: validators.notEmpty('id'),
-        isInt: validators.notEmpty('id'),
+        isInt: validators.isInt('id'),
         custom: validators.existResourceById('id', RecipeStatus),
         // Sanitizers
         toInt: true

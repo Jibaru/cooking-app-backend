@@ -30,7 +30,7 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(user => toResponseFormat(user.toJSON()))
+    //.then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         return res.json({
             ok: true,

@@ -17,7 +17,7 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(ingredient => toResponseFormat(ingredient.toJSON()))
+    //.then(ingredient => toResponseFormat(ingredient.toJSON()))
     .then(ingredient => {
         return res.json({
             ok: true,

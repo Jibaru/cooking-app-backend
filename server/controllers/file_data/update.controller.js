@@ -16,7 +16,7 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(fileData => toResponseFormat(fileData.toJSON()))
+    //.then(fileData => toResponseFormat(fileData.toJSON()))
     .then(fileData => {
         return res.json({
             ok: true,

@@ -1,12 +1,6 @@
 const { checkSchema  } = require('express-validator');
 const { Instruction } = require('../../models/index');
 const validators = require('../validators/validators');
-/*const { 
-    isRequiredErrorMessage,
-    isEmptyErrorMessage,
-    isNotTypeErrorMessage,
-    notFoundErrorMessage
-} = require('../utils/error_templates');*/
 
 const getOneInstructionMiddleware = checkSchema({
     id: {

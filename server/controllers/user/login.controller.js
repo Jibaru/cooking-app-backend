@@ -98,7 +98,7 @@ const loginController = (req, res) => {
             }
         ]
     })
-    .then(user => toResponseFormat(user.toJSON()))
+    //.then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         
         let token = jwt.sign({

@@ -123,7 +123,6 @@ const isNumericAndNotString = (field, options) => {
     return mergeOptions(defaultObject, options);
 }
 
-
 module.exports = {
     exists,
     notEmpty,
