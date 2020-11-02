@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING(45),
       unique: true,
-      allowNull: false
+      allowNull: false,
+      set(value) {
+        this.setDataValue('name', value.toUpperCase());
+      }
     },
     description: {
       type: DataTypes.TEXT,

@@ -3,11 +3,17 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
       type: DataTypes.STRING(45),
-      allowNull: false
+      allowNull: false,
+      set(value) {
+        this.setDataValue('firstName', value.toUpperCase());
+      }
     },
     lastName: {
       type: DataTypes.STRING(45),
-      allowNull: false
+      allowNull: false,
+      set(value) {
+        this.setDataValue('lastName', value.toUpperCase());
+      }
     },
     nickName: {
       type: DataTypes.STRING(50),
@@ -17,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING(45),
       allowNull: false,
-      unique: true
+      unique: true,
+      set(value) {
+        this.setDataValue('email', value.toLowerCase());
+      }
     },
     password: {
       type: DataTypes.TEXT,
