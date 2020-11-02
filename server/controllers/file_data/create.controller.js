@@ -4,8 +4,8 @@ const assetsDir = path.resolve('resources/static/assets/images');
 const { toResponseFormat } = require('../../utils/response_formatter');
 const { FileData } = require('../../../models/index');
 
-/// Update one FileData by Id
-const updateController = async (req, res) => {
+/// Create one FileData by Id
+const createController = async (req, res) => {
 
     const id = req.params.id;
 
@@ -13,15 +13,12 @@ const updateController = async (req, res) => {
     console.log(file.filename);
 
     FileData
-    .findByPk(id)
-    .then(fileData => {
-        return fileData.update({
-            name: file.originalname,
-            mimeType: file.mimetype,
-            content: fs.readFileSync(
-                assetsDir + `\\${file.filename}`
-            )
-        });
+    .create({
+        name: file.originalname,
+        mimeType: file.mimetype,
+        content: fs.readFileSync(
+            assetsDir + `\\${file.filename}`
+        )
     })
     .then(fileData => toResponseFormat(fileData.toJSON()))
     .then(fileData => {
@@ -40,4 +37,4 @@ const updateController = async (req, res) => {
 
 };
 
-module.exports = updateController;
+module.exports = createController;
