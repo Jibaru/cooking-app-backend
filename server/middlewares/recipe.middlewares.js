@@ -21,16 +21,6 @@ const createRecipeMiddleware = checkSchema({
         // Sanitizers
         toInt: true
     },
-    recipeStatusId: {
-        in: ['body'],
-        optional: true,
-        trim: true,
-        notEmpty: validators.notEmpty('recipeStatusId'),
-        isInt: validators.isInt('recipeStatusId'),
-        custom: validators.existResourceById('recipeStatusId', RecipeStatus),
-        // Sanitizers
-        toInt: true
-    },
     instructionId: {
         in: ['body'],
         optional: true,
@@ -182,16 +172,6 @@ const updateRecipeMiddleware = checkSchema({
         // Sanitizers
         toInt: true
     },
-    createdById: {
-        in: ['body'],
-        optional: true,
-        trim: true,
-        notEmpty: validators.notEmpty('createdById'),
-        isInt: validators.isInt('createdById'),
-        custom: validators.existResourceById('createdById', User),
-        // Sanitizers
-        toInt: true
-    },
     recipeCuisineId: {
         in: ['body'],
         optional: true,
@@ -211,14 +191,6 @@ const updateRecipeMiddleware = checkSchema({
         custom: validators.existResourceById('recipeTypeId', RecipeType),
         // Sanitizers
         toInt: true
-    },
-    dateTimePublished: {
-        in: ['body'],
-        optional: true,
-        trim: true,
-        isDate: validators.isDate('dateTimePublished'),
-        // Sanitizers
-        toDate: true
     },
     title: {
         in: ['body'],

@@ -18,9 +18,13 @@ const toResponseFormat = (object) => {
 };
 
 const objectToResponseFormat = (object) => {
+    
+
     Object.keys(object).forEach(key => { 
         if (object[key] === null || object[key] === undefined) {
             delete object[key];
+        } else if (object[key] instanceof Date) {
+            //...
         } else if (Array.isArray(object[key])) {
             object[key] = arrayToResponseFormat(object[key]);
         } else if (typeof object[key] === 'object') {

@@ -225,16 +225,6 @@ const updateUserMiddleware = checkSchema({
         isLength: validators.isMaxLength('email', 50),
         custom: validators.existResourceByField('email', User),
     },
-    password: {
-        in: ['body'],
-        optional: true,
-        exists: validators.exists('password'),
-        // Sanitizers
-        trim: true,
-        notEmpty: validators.notEmpty('password'),
-        isNumeric: validators.isNumericAndNotString('password'),
-        isLength: validators.isMaxLength('password', 20),
-    },
     id: {
         in: ['params'],
         exists: validators.exists('id'),

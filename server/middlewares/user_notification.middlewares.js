@@ -20,13 +20,6 @@ const createUserNotificationMiddleware = checkSchema({
         // Sanitizers
         toDate: true
     },
-    dateTimeViewed: {
-        in: ['body'],
-        optional: true,
-        isDate: validators.isDate('dateTimeViewed'),
-        // Sanitizers
-        toDate: true
-    }, 
     content: {
         in: ['body'],
         exists: validators.exists('content'),

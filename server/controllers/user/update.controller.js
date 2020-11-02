@@ -13,7 +13,6 @@ const updateController = (req, res) => {
         lastName,
         nickName,
         email,
-        password 
     } = req.body;
 
     User
@@ -24,7 +23,6 @@ const updateController = (req, res) => {
         lastName,
         nickName,
         email,
-        password     
     }, {
         where: {
             id

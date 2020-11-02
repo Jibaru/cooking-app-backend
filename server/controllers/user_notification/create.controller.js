@@ -8,7 +8,6 @@ const createController = (req, res) => {
         subject,
         content,
         dateTimeSended,
-        dateTimeViewed,
         userId
     } = req.body;
 
@@ -17,7 +16,6 @@ const createController = (req, res) => {
         subject,
         content,
         dateTimeSended,
-        dateTimeViewed,
         userId
     })
     .then(userNotification => toResponseFormat(userNotification.toJSON()))

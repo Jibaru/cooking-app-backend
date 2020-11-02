@@ -16,7 +16,7 @@ const updateController = (req, res) => {
         recipeImageId,
         recipeStatusId,
         instructionId,
-        createdById,
+        //createdById,
         recipeCuisineId,
         recipeTypeId
     } = req.body;
@@ -32,7 +32,7 @@ const updateController = (req, res) => {
         recipeImageId,
         recipeStatusId,
         instructionId,
-        createdById,
+        //createdById,
         recipeCuisineId,
         recipeTypeId
     }, {
