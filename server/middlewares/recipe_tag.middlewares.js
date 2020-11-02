@@ -3,24 +3,6 @@ const { RecipeTag } = require('../../models/index');
 const validators = require('../validators/validators');
 
 const createRecipeTagMiddleware = checkSchema({
-    hash: {
-        in: ['body'],
-        trim: true,
-        notEmpty: validators.notEmpty('hash'),
-        isNumeric: validators.isNumericAndNotString('hash'),
-        isLength: validators.isMaxLength('hash', 10),
-        exists: validators.exists('hash'),
-        custom: validators.existResourceByField('hash', RecipeTag),
-    },
-    originalName: {
-        in: ['body'],
-        trim: true,
-        notEmpty: validators.notEmpty('originalName'),
-        isNumeric: validators.isNumericAndNotString('originalName'),
-        isLength: validators.isMaxLength('originalName', 45),
-        exists: validators.exists('originalName'),
-        custom: validators.existResourceByField('originalName', RecipeTag),
-    },
     name: {
         in: ['body'],
         trim: true,

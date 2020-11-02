@@ -5,27 +5,27 @@ module.exports = {
     return queryInterface.bulkInsert('RecipeCuisines', 
    [
      {
-       hash: 'RC0000001',
-       originalName: 'PERUANA',
-       name: 'Peruana',
+       /*hash: 'RC0000001',
+       originalName: 'PERUANA',*/
+       name: 'PERUANA',
        region: 'Perú'
      },
      {
-      hash: 'RC0000002',
-      originalName: 'LIMEÑA',
-      name: 'Limeña',
+      /*hash: 'RC0000002',
+      originalName: 'LIMEÑA',*/
+      name: 'LIMEÑA',
       region: 'Lima'
     },
     {
-      hash: 'RC0000003',
-      originalName: 'LATINA',
-      name: 'Latina',
+      /*hash: 'RC0000003',
+      originalName: 'LATINA',*/
+      name: 'LATINA',
       region: 'Latinoamérica'
     },
     {
-      hash: 'RC0000004',
-      originalName: 'AMERICANA',
-      name: 'Americana',
+      /*hash: 'RC0000004',
+      originalName: 'AMERICANA',*/
+      name: 'AMERICANA',
       region: 'Estados Unidos'
     }
    ],{});

@@ -5,16 +5,12 @@ const { RecipeType } = require('../../../models/index');
 const createController = (req, res) => {
 
     const {
-        hash,
-        originalName,
         name,
         description
     } = req.body;
 
     RecipeType
     .create({
-        hash,
-        originalName,
         name,
         description
     })

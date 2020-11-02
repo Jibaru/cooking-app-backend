@@ -5,16 +5,12 @@ const { RecipeCuisine } = require('../../../models/index');
 const createController = (req, res) => {
 
     const {
-        hash,
-        originalName,
         name,
         region
     } = req.body;
 
     RecipeCuisine
     .create({
-        hash,
-        originalName,
         name,
         region
     })

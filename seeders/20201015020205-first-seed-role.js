@@ -5,23 +5,23 @@ module.exports = {
     return queryInterface.bulkInsert('Roles', 
    [
      {  
-        hash: 'R00000001',
-        originalName: 'SUPERADMINISTRADOR',
+        /*hash: 'R00000001',
+        originalName: 'SUPERADMINISTRADOR',*/
         name: 'Superadministrador',
      },
      {  
-        hash: 'R00000002',
-        originalName: 'ADMINISTRADOR',
+        /*hash: 'R00000002',
+        originalName: 'ADMINISTRADOR',*/
         name: 'Administrador',
      },
      {  
-        hash: 'R00000003',
-        originalName: 'NORMAL',
+        /*hash: 'R00000003',
+        originalName: 'NORMAL',*/
         name: 'Normal',
      },
      {
-        hash: 'R00000004',
-        originalName: 'BANEADO',
+        /*hash: 'R00000004',
+        originalName: 'BANEADO',*/
         name: 'Baneado',
      },
    ],{});

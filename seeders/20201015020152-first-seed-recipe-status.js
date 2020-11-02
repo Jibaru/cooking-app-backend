@@ -5,19 +5,19 @@ module.exports = {
     return queryInterface.bulkInsert('RecipeStatuses', 
    [
      {  
-        hash: 'RS0000001',
-        originalName: 'APROBADO',
-        name: 'Aprobado',
+        /*hash: 'RS0000001',
+        originalName: 'APROBADO',*/
+        name: 'APROBADO',
      },
      {  
-        hash: 'RS0000002',
-        originalName: 'POR APROBAR',
-        name: 'Por aprobar',
+        /*hash: 'RS0000002',
+        originalName: 'POR APROBAR',*/
+        name: 'PENDIENTE',
      },
      {  
-        hash: 'RS0000003',
-        originalName: 'DESCARTADO',
-        name: 'Descartado',
+        /*hash: 'RS0000003',
+        originalName: 'DESCARTADO',*/
+        name: 'DESCARTADO',
      },
    ],{});
   },

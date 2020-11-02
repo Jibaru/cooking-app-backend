@@ -5,23 +5,23 @@ module.exports = {
     return queryInterface.bulkInsert('RecipeTags', 
    [
      {  
-        hash: 'RT0000001',
-        originalName: 'RICO',
-        name: 'Rico',
+        /*hash: 'RT0000001',
+        originalName: 'RICO',*/
+        name: 'RICO',
      },
      {  
-        hash: 'RT0000002',
-        originalName: 'RAPIDO',
-        name: 'Rapido',
+        /*hash: 'RT0000002',
+        originalName: 'RAPIDO',*/
+        name: 'RAPIDO',
      },
      {  
-        hash: 'RT0000003',
-        originalName: 'SABROSO',
-        name: 'Sabroso',
+        /*hash: 'RT0000003',
+        originalName: 'SABROSO',*/
+        name: 'SABROSO',
      },
      {  
-        hash: 'RT0000004',
-        originalName: 'LENTO',
+        /*hash: 'RT0000004',
+        originalName: 'LENTO',*/
         name: 'Lento',
      },
    ],{});

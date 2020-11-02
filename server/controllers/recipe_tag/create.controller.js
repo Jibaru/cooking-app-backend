@@ -4,12 +4,10 @@ const { RecipeTag } = require('../../../models/index');
 /// Create one RecipeTag
 const createController = (req, res) => {
 
-    const { hash, originalName, name } = req.body;
+    const { name } = req.body;
 
     RecipeTag
     .create({
-        hash,
-        originalName,
         name
     })
     .then(recipeTag => toResponseFormat(recipeTag.toJSON()))

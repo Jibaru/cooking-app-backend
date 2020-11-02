@@ -1,16 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Role = sequelize.define('Role', {
-    hash: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-      unique: true
-    },
-    originalName: {
-      type: DataTypes.STRING(45),
-      allowNull: false,
-      unique: true
-    },
     name: {
       type: DataTypes.STRING(45),
       allowNull: false,

@@ -1,16 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const RecipeCuisine = sequelize.define('RecipeCuisine', {
-    hash: {
-      type: DataTypes.STRING(10),
-      unique: true,
-      allowNull: false
-    },
-    originalName: {
-      type: DataTypes.STRING(45),
-      unique: true,
-      allowNull: false
-    },
     name: {
       type: DataTypes.STRING(45),
       unique: true,
