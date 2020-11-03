@@ -1,6 +1,6 @@
-const { toResponseFormat } = require('../../utils/response_formatter');
 const bcrypt = require('bcrypt');
-
+const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { 
     User,
     FileData,
@@ -60,14 +60,14 @@ const signinController = (req, res) => {
     })
     .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
-        return res.json({
+        return res.status(success.created).json({
             ok: true,
             user
         });
     })
     .catch(error => {
         console.log(error);
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

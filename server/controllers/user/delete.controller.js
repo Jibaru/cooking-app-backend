@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { User, UserNotification } = require('../../../models/index');
 
 /// Delete one User by Id
@@ -25,13 +26,13 @@ const deleteController = (req, res) => {
     })
     .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
-        return res.json({
+        return res.success(success.ok).json({
             ok: true,
             user
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

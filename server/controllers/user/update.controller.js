@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { User } = require('../../../models/index');
 
 /// Update one User by Id
@@ -40,13 +41,13 @@ const updateController = (req, res) => {
     }))
     .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
-        return res.json({
+        return res.status(success.ok).json({
             ok: true,
             user
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

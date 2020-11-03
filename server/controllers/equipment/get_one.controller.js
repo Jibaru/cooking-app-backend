@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { 
     Equipment,
     Instruction,
@@ -38,14 +39,14 @@ const getOneController = (req, res) => {
     })
     .then(equipment => toResponseFormat(equipment.toJSON()))
     .then(equipment => {
-        return res.json({
+        return res.status(success.ok).json({
             ok: true,
             equipment
         });
     })
     .catch(error => {
         console.log(error);
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

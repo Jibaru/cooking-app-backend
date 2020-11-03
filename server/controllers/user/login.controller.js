@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const {
     User,
     FileData,
@@ -98,21 +99,21 @@ const loginController = (req, res) => {
             }
         ]
     })
-    //.then(user => toResponseFormat(user.toJSON()))
+    .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         
         let token = jwt.sign({
             User: user
         }, process.env.SEED, {expiresIn: process.env.TOKEN_EXPIRES});
 
-        return res.json({
+        return res.status(success.ok).json({
             ok: true,
             user,
             token
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

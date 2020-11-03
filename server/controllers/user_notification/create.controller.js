@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { UserNotification } = require('../../../models/index');
 
 /// Create one UserNotification
@@ -20,13 +21,13 @@ const createController = (req, res) => {
     })
     .then(userNotification => toResponseFormat(userNotification.toJSON()))
     .then(userNotification => {
-        return res.json({
+        return res.status(success.created).json({
             ok: true,
             userNotification
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

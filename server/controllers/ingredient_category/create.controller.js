@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { IngredientCategory } = require('../../../models/index');
 
 /// Create one IngredientCategory
@@ -13,13 +14,13 @@ const createController = (req, res) => {
     })
     .then(ingredientCategory => toResponseFormat(ingredientCategory.toJSON()))
     .then(ingredientCategory => {
-        return res.json({
+        return res.status(success.created).json({
             ok: true,
             ingredientCategory
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

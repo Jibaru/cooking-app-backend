@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const assetsDir = path.resolve('resources/static/assets/images');
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { FileData } = require('../../../models/index');
 
 /// Update one FileData by Id
@@ -25,14 +26,14 @@ const updateController = async (req, res) => {
     })
     .then(fileData => toResponseFormat(fileData.toJSON()))
     .then(fileData => {
-        return res.json({
+        return res.status(success.ok).json({
             ok: true,
             fileData
         });
     })
     .catch(error => {
         console.log(error);
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

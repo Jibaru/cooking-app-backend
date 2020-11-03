@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { Recipe } = require('../../../models/index');
 
 /// Update one Recipe by Id
@@ -53,14 +54,14 @@ const updateController = (req, res) => {
     }))
     .then(recipe => toResponseFormat(recipe.toJSON()))
     .then(recipe => {
-        return res.json({
+        return res.status(success.ok).json({
             ok: true,
             recipe
         });
     })
     .catch(error => {
         console.log(error)
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

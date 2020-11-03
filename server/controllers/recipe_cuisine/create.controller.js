@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { RecipeCuisine } = require('../../../models/index');
 
 /// Create one RecipeCuisine
@@ -16,13 +17,13 @@ const createController = (req, res) => {
     })
     .then(recipeCuisine => toResponseFormat(recipeCuisine.toJSON()))
     .then(recipeCuisine => {
-        return res.json({
+        return res.status(success.created).json({
             ok: true,
             recipeCuisine
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });

@@ -1,4 +1,5 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { success, clientError } = require('../../utils/http_status_codes');
 const { Nutrient } = require('../../../models/index');
 
 /// Delete one Nutrient by Id
@@ -12,13 +13,13 @@ const deleteController = (req, res) => {
     })
     .then(nutrient => toResponseFormat(nutrient.toJSON()))
     .then(nutrient => {
-        return res.json({
+        return res.status(success.ok).json({
             ok: true,
             nutrient
         });
     })
     .catch(error => {
-        return res.status(500).json({
+        return res.status(clientError.badRequest).json({
             ok: false,
             error
         });
