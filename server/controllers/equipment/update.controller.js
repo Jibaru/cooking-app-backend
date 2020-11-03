@@ -17,7 +17,13 @@ const updateController = (req, res) => {
             id
         }
     })
-    .then(e => Equipment.findByPk(id))
+    .then((_) => Equipment.findByPk(id, {
+        attributes: [
+            ...((!!imageId) ? ['imageId']: []),
+            ...((!!name) ? ['name']: []),
+            ...((!!description) ? ['description'] : []),
+        ]
+    }))
     .then(equipment => toResponseFormat(equipment.toJSON()))
     .then(equipment => {
         return res.json({

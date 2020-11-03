@@ -7,32 +7,29 @@ const updateController = (req, res) => {
     const id = req.params.id;
 
     const {
-        dateTimePublished,
         title,
         description,
-        yield,
         prepTime,
         cookTime,
         recipeImageId,
         recipeStatusId,
         instructionId,
-        //createdById,
         recipeCuisineId,
         recipeTypeId
     } = req.body;
+
+    const yieldPersons = req.body.yield;
     
     Recipe
     .update({
-        dateTimePublished,
         title,
         description,
-        yield,
+        yield: yieldPersons,
         prepTime,
         cookTime,
         recipeImageId,
         recipeStatusId,
         instructionId,
-        //createdById,
         recipeCuisineId,
         recipeTypeId
     }, {
@@ -40,7 +37,21 @@ const updateController = (req, res) => {
             id
         }
     })
-    //.then(recipe => toResponseFormat(recipe.toJSON()))
+    .then((_) => Recipe.findByPk(id, {
+        attributes: [
+            ...((!!title) ? ['title']: []),
+            ...((!!description) ? ['description'] : []),
+            ...((!!yieldPersons) ? ['yield'] : []),
+            ...((!!prepTime) ? ['prepTime'] : []),
+            ...((!!cookTime) ? ['cookTime'] : []),
+            ...((!!recipeImageId) ? ['recipeImageId'] : []),
+            ...((!!recipeStatusId) ? ['recipeStatusId'] : []),
+            ...((!!instructionId) ? ['instructionId'] : []),
+            ...((!!recipeCuisineId) ? ['recipeCuisineId'] : []),
+            ...((!!recipeTypeId) ? ['recipeTypeId'] : []),
+        ]
+    }))
+    .then(recipe => toResponseFormat(recipe.toJSON()))
     .then(recipe => {
         return res.json({
             ok: true,
@@ -48,6 +59,7 @@ const updateController = (req, res) => {
         });
     })
     .catch(error => {
+        console.log(error)
         return res.status(500).json({
             ok: false,
             error

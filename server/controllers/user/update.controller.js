@@ -28,7 +28,17 @@ const updateController = (req, res) => {
             id
         }
     })
-    //.then(user => toResponseFormat(user.toJSON()))
+    .then((_) => User.findByPk(id, {
+        attributes: [
+            ...((!!profileImageId) ? ['profileImageId']: []),
+            ...((!!roleId) ? ['roleId']: []),
+            ...((!!firstName) ? ['firstName'] : []),
+            ...((!!lastName) ? ['lastName']: []),
+            ...((!!nickName) ? ['nickName']: []),
+            ...((!!email) ? ['email'] : []),
+        ]
+    }))
+    .then(user => toResponseFormat(user.toJSON()))
     .then(user => {
         return res.json({
             ok: true,
