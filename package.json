@@ -2,7 +2,7 @@
   "name": "cooking-app-backend",
   "version": "1.0.0",
   "description": "A Cooking App Backend",
-  "main": "app.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
