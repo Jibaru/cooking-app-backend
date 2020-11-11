@@ -1,5 +1,6 @@
 const app = require('express')();
 const validateErrors = require('../middlewares/validate_errors.middleware');
+const { uploadFile, checkFile } = require('../middlewares/upload_file.middleware');
 const { 
     createEquipmentMiddleware,
     deleteEquipmentMiddleware,
@@ -9,7 +10,7 @@ const {
 
 /// Equipment Services
 app.post('/equipments',
-    [createEquipmentMiddleware, validateErrors], 
+    [uploadFile.single("image"), createEquipmentMiddleware, checkFile, validateErrors], 
     require('../controllers/equipment/create.controller'));
 
 app.delete('/equipments/:id',

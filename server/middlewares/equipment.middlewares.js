@@ -3,7 +3,7 @@ const { checkSchema  } = require('express-validator');
 const { FileData, Equipment } = require('../../models/index');
 
 const createEquipmentMiddleware = checkSchema({
-    imageId: {
+    /*imageId: {
         in: ['body'],
         optional: true,
         trim: true,
@@ -11,9 +11,9 @@ const createEquipmentMiddleware = checkSchema({
         notEmpty: validates.notEmpty('imageId'),
         custom: validates.existResourceById('imageId', FileData),
         toInt: true
-    },
+    },*/
     name: {
-        in: ['body'],
+        
         exists: validates.exists('name'),
         trim: true,
         notEmpty: validates.notEmpty('name'),
@@ -22,6 +22,7 @@ const createEquipmentMiddleware = checkSchema({
         
     },
     description: {
+        
         optional: true,
         trim: true,
         notEmpty: validates.notEmpty('description'),
