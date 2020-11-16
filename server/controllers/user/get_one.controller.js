@@ -5,7 +5,8 @@ const {
     FileData,
     Role,
     Recipe,
-    UserNotification
+    UserNotification,
+    Status,
 } = require('../../../models/index');
 
 /// Get one User by Id
@@ -19,7 +20,8 @@ const getOneController = (req, res) => {
             exclude: [
                 'roleId',
                 'profileImageId',
-                'password'
+                'password',
+                'statusId',
             ]
         },
         include: [
@@ -90,7 +92,11 @@ const getOneController = (req, res) => {
                 attributes: {
                     exclude: ['userId']
                 }
-            }
+            },
+            {
+                model: Status,
+                as: 'status',
+            },
         ]
     })
     .then(user => toResponseFormat(user.toJSON()))

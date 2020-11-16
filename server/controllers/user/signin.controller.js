@@ -1,13 +1,16 @@
 const bcrypt = require('bcrypt');
 const { toResponseFormat } = require('../../utils/response_formatter');
+const { generateRandomString } = require('../../utils/random');
 const { success, clientError } = require('../../utils/http_status_codes');
 const { 
     User,
     FileData,
-    Role
+    Role,
+    Status
 } = require('../../../models/index');
 
 const RoleEnum = Object.freeze({ superAdmin: 1, admin: 2, normal: 3, ban: 4 });
+const StatusPending = 2;
 
 /// Create one User with NORMAL Role
 /// Default imageProfile, and no username is not provided
@@ -24,12 +27,14 @@ const signinController = (req, res) => {
 
     User.create({
         roleId: RoleEnum.normal,
+        statusId: StatusPending,
+        verificationCode: generateRandomString(6),
         profileImageId,
         firstName,
         lastName,
         nickName,
         email,
-        password: bcrypt.hashSync(password, 10)
+        password: bcrypt.hashSync(password, 10),
     })
     .then(user => {
         return User.findByPk(user.id, {
@@ -37,7 +42,8 @@ const signinController = (req, res) => {
                 exclude: [
                     'password',
                     'roleId',
-                    'profileImageId'
+                    'profileImageId',
+                    'statusId',
                 ],
             },
             include: [
@@ -54,6 +60,10 @@ const signinController = (req, res) => {
                         'content',
                         'url'
                     ]
+                },
+                {
+                    model: Status,
+                    as: 'status',
                 }
             ]
         })

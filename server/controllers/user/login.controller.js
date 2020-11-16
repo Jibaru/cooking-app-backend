@@ -7,7 +7,8 @@ const {
     FileData,
     Role,
     Recipe,
-    UserNotification
+    UserNotification,
+    Status
 } = require('../../../models/index');
 
 /// Authenticate User by email (or username) and password
@@ -25,7 +26,8 @@ const loginController = (req, res) => {
             exclude: [
                 'roleId',
                 'profileImageId',
-                'password'
+                'password',
+                'statusId',
             ]
         },
         include: [
@@ -96,7 +98,11 @@ const loginController = (req, res) => {
                 attributes: {
                     exclude: ['userId']
                 }
-            }
+            },
+            {
+                model: Status,
+                as: 'status',
+            },
         ]
     })
     .then(user => toResponseFormat(user.toJSON()))

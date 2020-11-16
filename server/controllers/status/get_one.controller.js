@@ -1,6 +1,6 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
 const { success, clientError } = require('../../utils/http_status_codes');
-const { Status, Recipe, Ingredient, Equipment } = require('../../../models/index');
+const { Status, Recipe, Ingredient, Equipment, User } = require('../../../models/index');
 
 /// Get one Status by Id
 const getOneController = (req, res) => {
@@ -32,6 +32,16 @@ const getOneController = (req, res) => {
                 attributes: [
                     'id',
                     'name'
+                ]
+            },
+            {
+                model: User,
+                as: 'users',
+                attributes: [
+                    'id',
+                    'firstName',
+                    'lastName',
+                    'email'
                 ]
             },
         ]

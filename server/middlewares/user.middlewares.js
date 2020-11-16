@@ -1,6 +1,7 @@
 const { checkSchema  } = require('express-validator');
 const bcrypt = require('bcrypt');
 const validators = require('../validators/validators');
+const { notFoundErrorMessage, invalidPassword } = require('../utils/error_templates');
 const { 
     FileData,
     Role,
@@ -77,7 +78,6 @@ const signinUserMiddleware = checkSchema({
         // Sanitizers
         trim: true,
         notEmpty: validators.notEmpty('password'),
-        isNumeric: validators.isNumericAndNotString('password'),
         isLength: validators.isMaxLength('password', 20),
     }
 });
@@ -113,7 +113,6 @@ const loginUserMiddleware = checkSchema({
         // Sanitizers
         trim: true,
         notEmpty: validators.notEmpty('password'),
-        isNumeric: validators.isNumericAndNotString('password'),
         isLength: validators.isMaxLength('password', 20),
         custom: {
             options: (value, {req, location, path}) => {

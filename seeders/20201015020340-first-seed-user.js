@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+const { generateRandomString } = require('../server/utils/random');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -11,7 +13,9 @@ module.exports = {
         lastName:'Vera',
         nickName:'Buenass',
         email:'Vera@gmail.com',
-        password:'VeraYauri16'
+        password: bcrypt.hashSync('123456', 10),
+        statusId: 2,
+        verificationCode: generateRandomString(6),
       },
       {  
         profileImageId:1,
@@ -20,7 +24,9 @@ module.exports = {
         lastName:'Varas',
         nickName:'Jenser',
         email:'Varas@gmail.com',
-        password:'VarasAgra14'
+        password: bcrypt.hashSync('123456', 10),
+        statusId: 2,
+        verificationCode: generateRandomString(6),
       },
       {  
         profileImageId:2,
@@ -29,7 +35,9 @@ module.exports = {
         lastName:'Rueda',
         nickName:'Jibaru',
         email:'Rueda@gmail.com',
-        password:'RuedaBoa13'
+        password: bcrypt.hashSync('123456', 10),
+        statusId: 2,
+        verificationCode: generateRandomString(6),
       },
       {  
         profileImageId:1,
@@ -38,7 +46,9 @@ module.exports = {
         lastName:'Chavez',
         nickName:'Cegaje',
         email:'Chavez@gmail.com',
-        password:'ChavezAr12'
+        password: bcrypt.hashSync('123456', 10),
+        statusId: 2,
+        verificationCode: generateRandomString(6),
       }
     ],{});
   },

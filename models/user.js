@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    verificationCode: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
     roleId: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -39,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
     profileImageId: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    statusId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   }, {
     tableName: 'Users',
@@ -79,6 +87,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Recipe, {
       as: 'createdRecipes',
       foreignKey: 'createdById'
+    });
+
+    User.belongsTo(models.Status, {
+      as: 'status',
+      foreignKey: 'statusId'
     });
   };
   return User;

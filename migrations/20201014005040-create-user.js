@@ -30,6 +30,10 @@ module.exports = {
         type: Sequelize.TEXT, // Max 20 char decodified
         allowNull: false
       },
+      verificationCode: {
+        type: Sequelize.STRING(10),
+        allowNull: false,
+      },
       roleId: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -48,6 +52,18 @@ module.exports = {
         references: {
           model: {
             tableName: 'FileDatas'
+          },
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      statusId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: 'Statuses'
           },
           key: 'id'
         },
