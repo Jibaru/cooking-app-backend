@@ -5,6 +5,8 @@ const { toResponseFormat } = require('../../utils/response_formatter');
 const { success, clientError } = require('../../utils/http_status_codes');
 const { Equipment, FileData, sequelize } = require('../../../models/index');
 
+const StatusPending = 2;
+
 /// Create one Equipment
 const createController = (req, res) => {
 
@@ -46,7 +48,8 @@ const createController = (req, res) => {
             .create({
                 imageId: fileData.id,
                 name,
-                description
+                description,
+                statusId: StatusPending
             }, {transaction: t});
         });
     })

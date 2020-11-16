@@ -1,6 +1,6 @@
 const validates = require('../validators/validators');
 const { checkSchema  } = require('express-validator');
-const { FileData, Equipment } = require('../../models/index');
+const { FileData, Equipment, Status } = require('../../models/index');
 
 const createEquipmentMiddleware = checkSchema({
     /*imageId: {
@@ -89,7 +89,17 @@ const updateEquipmentMiddleware = checkSchema({
         trim: true,
         notEmpty: validates.notEmpty('description'),
         isLength: validates.isMaxLength('description', 65535)
-    }
+    },
+    statusId: {
+        in: ['body'],
+        optional: true,
+        trim: true,
+        isInt: validates.isInt('statusId'),
+        notEmpty: validates.notEmpty('statusId'),
+        custom: validates.existResourceById('statusId', Status),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 module.exports = {

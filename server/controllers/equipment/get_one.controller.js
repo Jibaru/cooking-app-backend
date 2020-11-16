@@ -3,7 +3,8 @@ const { success, clientError } = require('../../utils/http_status_codes');
 const { 
     Equipment,
     Instruction,
-    FileData
+    FileData,
+    Status,
 } = require('../../../models/index');
 
 /// Get one Equipment by Id
@@ -14,7 +15,10 @@ const getOneController = (req, res) => {
     Equipment
     .findByPk(id, {
         attributes: {
-            exclude: 'imageId',
+            exclude: [
+                'imageId',
+                'statusId'
+            ],
         },
         include: [
             {
@@ -33,6 +37,14 @@ const getOneController = (req, res) => {
                     'content',
                     'mimeType',
                     'url'
+                ]
+            },
+            {
+                model: Status,
+                as: 'status',
+                attributes: [
+                    'id',
+                    'name',
                 ]
             }
         ]

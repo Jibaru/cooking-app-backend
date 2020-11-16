@@ -1,13 +1,13 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
 const { success, clientError } = require('../../utils/http_status_codes');
-const { RecipeStatus, Recipe } = require('../../../models/index');
+const { Status, Recipe, Ingredient, Equipment } = require('../../../models/index');
 
-/// Get one RecipeStatus by Id
+/// Get one Status by Id
 const getOneController = (req, res) => {
 
     const id = req.params.id;
     
-    RecipeStatus
+    Status
     .findByPk(id, {
         include: [
             {
@@ -17,14 +17,30 @@ const getOneController = (req, res) => {
                     'id',
                     'title'
                 ]
-            }
+            },
+            {
+                model: Ingredient,
+                as: 'ingredients',
+                attributes: [
+                    'id',
+                    'name'
+                ]
+            },
+            {
+                model: Equipment,
+                as: 'equipments',
+                attributes: [
+                    'id',
+                    'name'
+                ]
+            },
         ]
     })
-    .then(recipeStatus => toResponseFormat(recipeStatus.toJSON()))
-    .then(recipeStatus => {
+    .then(status => toResponseFormat(status.toJSON()))
+    .then(status => {
         return res.status(success.ok).json({
             ok: true,
-            recipeStatus
+            status
         });
     })
     .catch(error => {

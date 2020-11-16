@@ -16,7 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     imageId: {
       type: DataTypes.INTEGER,
       allowNull: true
-    }
+    },
+    statusId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     tableName: 'Ingredients',
     timestamps: false
@@ -41,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
     Ingredient.belongsTo(models.FileData, {
       as: 'image',
       foreignKey: 'imageId'
+    });
+
+    Ingredient.belongsTo(models.Status, {
+      as: 'status',
+      foreignKey: 'statusId'
     });
   };
   return Ingredient;

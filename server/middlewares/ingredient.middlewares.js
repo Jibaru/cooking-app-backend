@@ -1,7 +1,8 @@
 const { checkSchema  } = require('express-validator');
 const { 
     Ingredient,
-    FileData
+    FileData,
+    Status
 } = require('../../models/index');
 const validators = require('../validators/validators');
 
@@ -91,7 +92,17 @@ const updateIngredientMiddleware = checkSchema({
         notEmpty: validators.notEmpty('description'),
         isLength: validators.isMaxLength('description', 65535),
         isNumeric: validators.isNumericAndNotString('description'),
-    }
+    },
+    statusId: {
+        in: ['body'],
+        optional: true,
+        trim: true,
+        isInt: validators.isInt('statusId'),
+        notEmpty: validators.notEmpty('statusId'),
+        custom: validators.existResourceById('statusId', Status),
+        // Sanitizers
+        toInt: true
+    },
 });
 
 

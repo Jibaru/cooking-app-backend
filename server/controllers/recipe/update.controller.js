@@ -13,7 +13,7 @@ const updateController = (req, res) => {
         prepTime,
         cookTime,
         recipeImageId,
-        recipeStatusId,
+        statusId,
         instructionId,
         recipeCuisineId,
         recipeTypeId
@@ -29,7 +29,7 @@ const updateController = (req, res) => {
         prepTime,
         cookTime,
         recipeImageId,
-        recipeStatusId,
+        statusId,
         instructionId,
         recipeCuisineId,
         recipeTypeId
@@ -46,7 +46,7 @@ const updateController = (req, res) => {
             ...((!!prepTime) ? ['prepTime'] : []),
             ...((!!cookTime) ? ['cookTime'] : []),
             ...((!!recipeImageId) ? ['recipeImageId'] : []),
-            ...((!!recipeStatusId) ? ['recipeStatusId'] : []),
+            ...((!!statusId) ? ['statusId'] : []),
             ...((!!instructionId) ? ['instructionId'] : []),
             ...((!!recipeCuisineId) ? ['recipeCuisineId'] : []),
             ...((!!recipeTypeId) ? ['recipeTypeId'] : []),

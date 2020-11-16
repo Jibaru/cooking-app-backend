@@ -7,22 +7,26 @@ module.exports = {
       {  
         imageId:4,
         name:'LICUADORA',
-        description:'Para licuar ingredientes'
+        description:'Para licuar ingredientes',
+        statusId: 1
       },
       {  
         imageId:4,
         name:'BATIDORA',
-        description:'Para batir ingredientes'
+        description:'Para batir ingredientes',
+        statusId: 1
       },
       {  
         imageId:4,
         name:'COCINA',
-        description:'Para cocinar ingredientes'
+        description:'Para cocinar ingredientes',
+        statusId: 1
       },
       {  
         imageId:4,
         name:'HORNO',
-        description:'Para hornear ingrediente'
+        description:'Para hornear ingrediente',
+        statusId: 1
       }
     ],{});
   },

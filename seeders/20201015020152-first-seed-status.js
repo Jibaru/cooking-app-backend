@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('RecipeStatuses', 
+    return queryInterface.bulkInsert('Statuses', 
    [
      {  
         /*hash: 'RS0000001',
@@ -23,6 +23,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('RecipeStatuses', null, {});
+    return queryInterface.bulkDelete('Statuses', null, {});
   }
 };

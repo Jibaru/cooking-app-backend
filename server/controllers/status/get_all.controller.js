@@ -1,17 +1,17 @@
 const { toResponseFormat } = require('../../utils/response_formatter');
 const { success, clientError } = require('../../utils/http_status_codes');
-const { RecipeStatus } = require('../../../models/index');
+const { Status } = require('../../../models/index');
 
-/// Get all RecipeStatuses
+/// Get all Statuses
 const getAllController = (req, res) => {
 
-    RecipeStatus
+    Status
     .findAll()
-    .then(recipeStatuses => recipeStatuses.map(e => toResponseFormat(e.toJSON())))
-    .then(recipeStatuses => {
+    .then(statuses => statuses.map(e => toResponseFormat(e.toJSON())))
+    .then(statuses => {
         return res.status(success.ok).json({
             ok: true,
-            recipeStatuses
+            statuses
         });
     })
     .catch(error => {

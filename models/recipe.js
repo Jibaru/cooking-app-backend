@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    recipeStatusId: {
+    statusId: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
@@ -69,9 +69,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeImageId'
     });
     
-    Recipe.belongsTo(models.RecipeStatus, {
-      as: 'recipeStatus',
-      foreignKey: 'recipeStatusId'
+    Recipe.belongsTo(models.Status, {
+      as: 'status',
+      foreignKey: 'statusId'
     });
 
     Recipe.belongsTo(models.Instruction, {

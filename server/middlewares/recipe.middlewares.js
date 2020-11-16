@@ -6,7 +6,7 @@ const {
     RecipeCuisine,
     RecipeType,
     User,
-    RecipeStatus
+    Status
 } = require('../../models/index');
 const validators = require('../validators/validators');
 
@@ -152,13 +152,13 @@ const updateRecipeMiddleware = checkSchema({
         // Sanitizers
         toInt: true
     },
-    recipeStatusId: {
+    statusId: {
         in: ['body'],
         optional: true,
         trim: true,
-        notEmpty: validators.notEmpty('recipeStatusId'),
-        isInt: validators.isInt('recipeStatusId'),
-        custom: validators.existResourceById('recipeStatusId', RecipeStatus),
+        notEmpty: validators.notEmpty('statusId'),
+        isInt: validators.isInt('statusId'),
+        custom: validators.existResourceById('statusId', Status),
         // Sanitizers
         toInt: true
     },

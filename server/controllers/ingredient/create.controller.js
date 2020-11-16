@@ -2,6 +2,8 @@ const { toResponseFormat } = require('../../utils/response_formatter');
 const { success, clientError } = require('../../utils/http_status_codes');
 const { Ingredient } = require('../../../models/index');
 
+const StatusPending = 2;
+
 /// Create one Ingredient
 const createController = (req, res) => {
 
@@ -12,6 +14,7 @@ const createController = (req, res) => {
         name,
         description,
         imageId,
+        statusId: StatusPending
     })
     .then(ingredient => toResponseFormat(ingredient.toJSON()))
     .then(ingredient => {

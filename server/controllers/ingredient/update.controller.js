@@ -6,13 +6,14 @@ const { Ingredient } = require('../../../models/index');
 const updateController = (req, res) => {
 
     const id = req.params.id;
-    const { imageId, name, description } = req.body;
+    const { imageId, name, description, statusId } = req.body;
 
     Ingredient
     .update({
         imageId,
         name,
-        description
+        description,
+        statusId
     }, {
         where: {
             id
@@ -23,6 +24,7 @@ const updateController = (req, res) => {
             ...((!!imageId) ? ['imageId']: []),
             ...((!!name) ? ['name']: []),
             ...((!!description) ? ['description'] : []),
+            ...((!!statusId) ? ['statusId'] : []),
         ]
     }))
     .then(ingredient => toResponseFormat(ingredient.toJSON()))

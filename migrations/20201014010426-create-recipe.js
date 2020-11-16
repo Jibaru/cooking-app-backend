@@ -46,12 +46,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
       },
-      recipeStatusId: {
+      statusId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'RecipeStatuses'
+            tableName: 'Statuses'
           },
           key: 'id'
         },

@@ -5,7 +5,8 @@ const {
     Nutrient,
     IngredientCategory,
     Instruction,
-    FileData
+    FileData,
+    Status,
 } = require('../../../models/index');
 
 /// Get one Ingredient by Id
@@ -51,6 +52,14 @@ const getOneController = (req, res) => {
                 attributes: ['id'],
                 through: {attributes: []},
             },
+            {
+                model: Status,
+                as: 'status',
+                attributes: [
+                    'id',
+                    'name',
+                ]
+            }
         ]
     })
     .then(ingredient => toResponseFormat(ingredient.toJSON()))

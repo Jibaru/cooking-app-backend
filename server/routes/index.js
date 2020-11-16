@@ -10,7 +10,7 @@ app.use(require('./instruction.routes'));
 app.use(require('./nutrient.routes'));
 app.use(require('./recipe.routes'));
 app.use(require('./recipe_cuisine.routes'));
-app.use(require('./recipe_status.routes'));
+app.use(require('./status.routes'));
 app.use(require('./recipe_store.routes'));
 app.use(require('./recipe_tag.routes'));
 app.use(require('./recipe_type.routes'));
