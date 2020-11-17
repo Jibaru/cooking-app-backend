@@ -1,5 +1,7 @@
 const app = require('express')();
 const validateErrors = require('../middlewares/validate_errors.middleware');
+const { uploadFile, appendFilesToBody } = require('../middlewares/upload_file.middleware');
+const { onceParameterRequired } = require('../middlewares/once_parameter_required.middleware');
 const { 
     createIngredientMiddleware,
     getOneIngredientMiddleware,
@@ -8,7 +10,7 @@ const {
 
 /// Ingredient Services
 app.post('/ingredients',
-    [createIngredientMiddleware, validateErrors],
+    [uploadFile.single("image"), appendFilesToBody, createIngredientMiddleware, validateErrors],
     require('../controllers/ingredient/create.controller'));
 
 app.get('/ingredients',
@@ -19,7 +21,7 @@ app.get('/ingredients/:id',
     require('../controllers/ingredient/get_one.controller'));
 
 app.put('/ingredients/:id', 
-    [updateIngredientMiddleware, validateErrors],
+    [uploadFile.single("image"), appendFilesToBody, onceParameterRequired, updateIngredientMiddleware, validateErrors],
     require('../controllers/ingredient/update.controller'));
 
 module.exports = app;

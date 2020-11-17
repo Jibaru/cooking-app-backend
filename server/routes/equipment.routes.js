@@ -1,6 +1,7 @@
 const app = require('express')();
 const validateErrors = require('../middlewares/validate_errors.middleware');
-const { uploadFile, checkFile } = require('../middlewares/upload_file.middleware');
+const { uploadFile, appendFilesToBody } = require('../middlewares/upload_file.middleware');
+const { onceParameterRequired } = require('../middlewares/once_parameter_required.middleware');
 const { 
     createEquipmentMiddleware,
     deleteEquipmentMiddleware,
@@ -10,7 +11,7 @@ const {
 
 /// Equipment Services
 app.post('/equipments',
-    [uploadFile.single("image"), createEquipmentMiddleware, checkFile, validateErrors], 
+    [uploadFile.single("image"), appendFilesToBody, createEquipmentMiddleware, validateErrors], 
     require('../controllers/equipment/create.controller'));
 
 app.delete('/equipments/:id',
@@ -25,7 +26,7 @@ app.get('/equipments/:id',
     require('../controllers/equipment/get_one.controller'));
 
 app.put('/equipments/:id',
-    [updateEquipmentMiddleware, validateErrors],
+    [uploadFile.single("image"), appendFilesToBody, onceParameterRequired, updateEquipmentMiddleware, validateErrors],
     require('../controllers/equipment/update.controller'));
 
 module.exports = app;

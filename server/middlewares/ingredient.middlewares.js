@@ -7,7 +7,7 @@ const {
 const validators = require('../validators/validators');
 
 const createIngredientMiddleware = checkSchema({
-    imageId: {
+    /*imageId: {
         in: ['body'],
         optional: true,
         trim: true,
@@ -16,7 +16,7 @@ const createIngredientMiddleware = checkSchema({
         custom: validators.existResourceById('imageId', FileData),
         // Sanitizers
         toInt: true
-    },
+    },*/
     name: {
         in: ['body'],
         optional: false,
@@ -36,6 +36,11 @@ const createIngredientMiddleware = checkSchema({
         notEmpty: validators.notEmpty('description'),
         isNumeric: validators.isNumericAndNotString('description'),
         isLength: validators.isMaxLength('description', 65535),
+    },
+    image: {
+        in: ['body'],
+        optional: false,
+        notEmpty: validators.notEmpty('image'),
     }
 });
 
@@ -63,7 +68,7 @@ const updateIngredientMiddleware = checkSchema({
         // Sanitizers
         toInt: true
     },
-    imageId: {
+    /*imageId: {
         in: ['body'],
         optional: true,
         trim: true,
@@ -72,7 +77,7 @@ const updateIngredientMiddleware = checkSchema({
         custom: validators.existResourceById('imageId', FileData),
         // Sanitizers
         toInt: true
-    },
+    },*/
     name: {
         in: ['body'],
         optional: true,
@@ -103,6 +108,11 @@ const updateIngredientMiddleware = checkSchema({
         // Sanitizers
         toInt: true
     },
+    image: {
+        in: ['body'],
+        optional: true,
+        notEmpty: validators.notEmpty('image'),
+    }
 });
 
 

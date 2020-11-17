@@ -1,19 +1,10 @@
 const validates = require('../validators/validators');
 const { checkSchema  } = require('express-validator');
-const { FileData, Equipment, Status } = require('../../models/index');
+const { Equipment, Status } = require('../../models/index');
 
 const createEquipmentMiddleware = checkSchema({
-    /*imageId: {
-        in: ['body'],
-        optional: true,
-        trim: true,
-        isInt: validates.isInt('imageId'),
-        notEmpty: validates.notEmpty('imageId'),
-        custom: validates.existResourceById('imageId', FileData),
-        toInt: true
-    },*/
     name: {
-        
+        in: ['body'],
         exists: validates.exists('name'),
         trim: true,
         notEmpty: validates.notEmpty('name'),
@@ -22,11 +13,16 @@ const createEquipmentMiddleware = checkSchema({
         
     },
     description: {
-        
+        in: ['body'],
         optional: true,
         trim: true,
         notEmpty: validates.notEmpty('description'),
         isLength: validates.isMaxLength('description', 65535)
+    },
+    image: {
+        in: ['body'],
+        optional: false,
+        notEmpty: validates.notEmpty('image'),
     }
 });
 
@@ -64,16 +60,6 @@ const updateEquipmentMiddleware = checkSchema({
         custom: validates.existResourceById('id', Equipment),
         toInt: true
     },
-    imageId: {
-        in: ['body'],
-        optional: true,
-        trim: true,
-        isInt: validates.isInt('imageId'),
-        notEmpty: validates.notEmpty('imageId'),
-        custom: validates.existResourceById('imageId', FileData),
-        // Sanitizers
-        toInt: true
-    },
     name: {
         in: ['body'],
         optional: true,
@@ -99,6 +85,11 @@ const updateEquipmentMiddleware = checkSchema({
         custom: validates.existResourceById('statusId', Status),
         // Sanitizers
         toInt: true
+    },
+    image: {
+        in: ['body'],
+        optional: true,
+        notEmpty: validates.notEmpty('image'),
     },
 });
 

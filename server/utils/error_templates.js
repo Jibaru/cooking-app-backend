@@ -13,6 +13,7 @@ const notFoundErrorMessage = (field, value) => `El valor ${value} del parámetro
 const existsErrorMessage = (field, value) => `El valor ${value} del parámetro ${field} ya existe`;
 
 const invalidPassword = () => `La contraseña es incorrecta`;
+const onceParameterRequiredErrorMessage = () => 'Es necesario al menos un parámetro';
 
 module.exports = {
     isNotTypeErrorMessage,
@@ -24,5 +25,6 @@ module.exports = {
     notFoundErrorMessage,
     existsErrorMessage,
     invalidFormatErrorMessage,
-    invalidPassword
+    invalidPassword,
+    onceParameterRequiredErrorMessage
 };

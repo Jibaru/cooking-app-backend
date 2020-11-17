@@ -28,9 +28,42 @@ const checkFile = (req, res, next) => {
   next();
 }
 
+const checkFileWithParamName = (paramName) => {
+  return  (req, res, next) => {
+    if (req.file === undefined || req.file === null) {
+      req.errors = req.errors || [];
+      req.errors.push(toErrorFormat(
+        {
+          value: req.file,
+          msg: isRequiredErrorMessage(paramName),
+          param: paramName,
+          location: 'body'
+        }
+      ));
+    }
+    next();
+  };
+}
+
+const appendFilesToBody = (req, res, next) => {
+  if (!!req.file) {
+    req.body[req.file.fieldname] = req.file.originalname;
+  }
+
+  if (!!req.files) {
+    req.files.forEach(fileElement => {
+      req.body[fileElement.fieldname] = fileElement.originalname;
+    });
+  }
+
+  next();
+}
+
 const uploadFile = multer({ storage: storage });
 
 module.exports = {
   uploadFile,
-  checkFile
+  checkFile,
+  checkFileWithParamName,
+  appendFilesToBody
 };

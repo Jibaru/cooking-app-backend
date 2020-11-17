@@ -1,6 +1,4 @@
 const fs = require('fs');
-const path = require('path');
-const assetsDir = path.resolve('resources/static/assets/images');
 const { toResponseFormat } = require('../../utils/response_formatter');
 const { success, clientError } = require('../../utils/http_status_codes');
 const { Equipment, FileData, sequelize } = require('../../../models/index');
@@ -12,37 +10,14 @@ const createController = (req, res) => {
 
     const { name, description } = req.body;
     const image = req.file;
-    /*const { imageId, name, description } = req.body;
-
-    Equipment
-    .create({
-        imageId,
-        name,
-        description
-    })
-    .then(equipment => toResponseFormat(equipment.toJSON()))
-    .then(equipment => {
-        return res.status(success.created).json({
-            ok: true,
-            equipment
-        });
-    })
-    .catch(error => {
-        return res.status(clientError.badRequest).json({
-            ok: false,
-            error
-        });
-    });*/
 
     sequelize.transaction(t => {
         return FileData
         .create({
             name: image.originalname,
             mimeType: image.mimetype,
-            content: fs.readFileSync(
-                assetsDir + `\\${image.filename}`
-            )
-        })
+            content: fs.readFileSync(image.path)
+        }, {transaction: t})
         .then(fileData => {
             return Equipment
             .create({
@@ -53,10 +28,11 @@ const createController = (req, res) => {
             }, {transaction: t});
         });
     })
-    .then(result => {
+    .then(equipment => toResponseFormat(equipment.toJSON()))
+    .then(equipment => {
         return res.status(success.created).json({
             ok: true,
-            equipment: result
+            equipment
         });
     })
     .catch(error => {
