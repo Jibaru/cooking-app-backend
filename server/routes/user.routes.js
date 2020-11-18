@@ -5,7 +5,8 @@ const {
     deleteUserMiddleware,
     getOneUserMiddleware,
     updateUserMiddleware,
-    loginUserMiddleware
+    loginUserMiddleware,
+    getAllUsersMiddleware
 } = require('../middlewares/user.middlewares');
 
 /// User Services
@@ -14,6 +15,7 @@ app.delete('/users/:id',
     require('../controllers/user/delete.controller'));
 
 app.get('/users',
+    [getAllUsersMiddleware, validateErrors],
     require('../controllers/user/get_all.controller'));
 
 app.get('/users/:id',

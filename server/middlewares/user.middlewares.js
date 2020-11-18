@@ -236,10 +236,82 @@ const updateUserMiddleware = checkSchema({
     },
 });
 
+const getAllUsersMiddleware = checkSchema({
+    firstName: {
+        optional: true,
+        trim: true,
+    },
+    lastName: {
+        optional: true,
+        trim: true,
+    },
+    fromCreatedAt: {
+        optional: true,
+        trim: true,
+        toDate: true
+    },
+    toCreatedAt: {
+        optional: true,
+        trim: true,
+        toDate: true
+    },
+    roleId: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    statusId: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    offset: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    limit: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    minStoredRecipes: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    maxStoredRecipes: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    minFavoriteRecipes: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    maxFavoriteRecipes: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    minCreatedRecipes: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    },
+    maxCreatedRecipes: {
+        optional: true,
+        trim: true,
+        toInt: true,
+    }
+});
+
 module.exports = {
     signinUserMiddleware,
     loginUserMiddleware,
     deleteUserMiddleware,
     getOneUserMiddleware,
-    updateUserMiddleware
+    updateUserMiddleware,
+    getAllUsersMiddleware,
 };
