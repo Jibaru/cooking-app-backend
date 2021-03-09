@@ -1,6 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { UserNotification, Sequelize } = require("../../../models/index");
+const { UserNotification, Sequelize } = require("../../db/models/index");
 
 const getAllController = (req, res) => {
   const Op = Sequelize.Op;

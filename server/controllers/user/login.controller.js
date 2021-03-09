@@ -9,7 +9,7 @@ const {
   Recipe,
   UserNotification,
   Status,
-} = require("../../../models/index");
+} = require("../../db/models/index");
 
 /// Authenticate User by email (or username) and password
 /// Returns a JWT for some request

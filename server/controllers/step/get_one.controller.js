@@ -1,6 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { Step, Instruction, FileData } = require("../../../models/index");
+const { Step, Instruction, FileData } = require("../../db/models/index");
 
 /// Get one Step by Id
 const getOneController = (req, res) => {

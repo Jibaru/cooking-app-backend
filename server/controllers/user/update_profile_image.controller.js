@@ -3,7 +3,7 @@ const path = require("path");
 const assetsDir = path.resolve("resources/static/assets/images");
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { User, FileData, sequelize } = require("../../../models/index");
+const { User, FileData, sequelize } = require("../../db/models/index");
 
 const updateProfileImageController = (req, res) => {
   const id = req.params.id;

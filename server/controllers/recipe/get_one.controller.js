@@ -11,7 +11,7 @@ const {
   Step,
   Equipment,
   User,
-} = require("../../../models/index");
+} = require("../../db/models/index");
 
 /// Get one Recipe by Id
 const getOneController = (req, res) => {

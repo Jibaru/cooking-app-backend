@@ -5,7 +5,7 @@ const {
   notFoundErrorMessage,
   invalidPassword,
 } = require("../utils/error_templates");
-const { FileData, Role, User } = require("../../models/index");
+const { FileData, Role, User } = require("../db/models/index");
 
 const signinUserMiddleware = checkSchema({
   profileImageId: {

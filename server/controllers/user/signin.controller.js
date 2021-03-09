@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { generateRandomString } = require("../../utils/random");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { User, FileData, Role, Status } = require("../../../models/index");
+const { User, FileData, Role, Status } = require("../../db/models/index");
 
 const RoleEnum = Object.freeze({ superAdmin: 1, admin: 2, normal: 3, ban: 4 });
 const StatusPending = 2;

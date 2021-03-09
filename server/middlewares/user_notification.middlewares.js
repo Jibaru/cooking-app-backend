@@ -1,5 +1,5 @@
 const { checkSchema } = require("express-validator");
-const { UserNotification, User } = require("../../models/index");
+const { UserNotification, User } = require("../db/models/index");
 const validators = require("../validators/validators");
 
 const createUserNotificationMiddleware = checkSchema({

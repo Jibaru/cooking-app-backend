@@ -7,7 +7,7 @@ const {
   Instruction,
   FileData,
   Status,
-} = require("../../../models/index");
+} = require("../../db/models/index");
 
 /// Get one Ingredient by Id
 const getOneController = (req, res) => {

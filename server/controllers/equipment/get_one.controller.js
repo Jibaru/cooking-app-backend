@@ -5,7 +5,7 @@ const {
   Instruction,
   FileData,
   Status,
-} = require("../../../models/index");
+} = require("../../db/models/index");
 
 /// Get one Equipment by Id
 const getOneController = (req, res) => {

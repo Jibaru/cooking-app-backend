@@ -1,6 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { UserNotification } = require("../../../models/index");
+const { UserNotification } = require("../../db/models/index");
 
 /// Update one UserNotification by Id
 const updateController = (req, res) => {
