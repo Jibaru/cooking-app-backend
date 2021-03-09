@@ -5,7 +5,8 @@ const {
   notFoundErrorMessage,
   invalidPassword,
 } = require("../utils/error_templates");
-const { FileData, Role, User } = require("../db/models/index");
+const { FileData, User } = require("../db/models/index");
+const { RoleValues } = require("../db/enums/role");
 
 const signinUserMiddleware = checkSchema({
   profileImageId: {
@@ -19,16 +20,12 @@ const signinUserMiddleware = checkSchema({
     // Sanitizers
     toInt: true,
   },
-  roleId: {
+  role: {
     in: ["body"],
     optional: true,
-    // Sanitizers
     trim: true,
-    notEmpty: validators.notEmpty("roleId"),
-    isInt: validators.isInt("roleId"),
-    custom: validators.existResourceById("roleId", Role),
-    // Sanitizers
-    toInt: true,
+    notEmpty: validators.notEmpty("role"),
+    custom: validators.isInEnumList("role", RoleValues),
   },
   firstName: {
     in: ["body"],
@@ -168,16 +165,12 @@ const updateUserMiddleware = checkSchema({
     // Sanitizers
     toInt: true,
   },
-  roleId: {
+  role: {
     in: ["body"],
     optional: true,
-    // Sanitizers
     trim: true,
-    notEmpty: validators.notEmpty("roleId"),
-    isInt: validators.isInt("roleId"),
-    custom: validators.existResourceById("roleId", Role),
-    // Sanitizers
-    toInt: true,
+    notEmpty: validators.notEmpty("role"),
+    custom: validators.isInEnumList("role", RoleValues),
   },
   firstName: {
     in: ["body"],
@@ -252,12 +245,12 @@ const getAllUsersMiddleware = checkSchema({
     trim: true,
     toDate: true,
   },
-  roleId: {
+  role: {
     optional: true,
     trim: true,
     toInt: true,
   },
-  statusId: {
+  status: {
     optional: true,
     trim: true,
     toInt: true,

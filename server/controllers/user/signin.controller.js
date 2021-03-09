@@ -4,9 +4,6 @@ const { generateRandomString } = require("../../utils/random");
 const { success, clientError } = require("../../utils/http_status_codes");
 const { User, FileData, Role, Status } = require("../../db/models/index");
 
-const RoleEnum = Object.freeze({ superAdmin: 1, admin: 2, normal: 3, ban: 4 });
-const StatusPending = 2;
-
 /// Create one User with NORMAL Role
 /// Default imageProfile, and no username is not provided
 const signinController = (req, res) => {
@@ -20,8 +17,6 @@ const signinController = (req, res) => {
   } = req.body;
 
   User.create({
-    roleId: RoleEnum.normal,
-    statusId: StatusPending,
     verificationCode: generateRandomString(6),
     profileImageId,
     firstName,
@@ -33,21 +28,13 @@ const signinController = (req, res) => {
     .then((user) => {
       return User.findByPk(user.id, {
         attributes: {
-          exclude: ["password", "roleId", "profileImageId", "statusId"],
+          exclude: ["password", "profileImageId"],
         },
         include: [
-          {
-            model: Role,
-            as: "role",
-          },
           {
             model: FileData,
             as: "profileImage",
             attributes: ["id", "name", "mimeType", "content", "base64"],
-          },
-          {
-            model: Status,
-            as: "status",
           },
         ],
       });

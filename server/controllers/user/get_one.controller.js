@@ -3,10 +3,8 @@ const { success, clientError } = require("../../utils/http_status_codes");
 const {
   User,
   FileData,
-  Role,
   Recipe,
   UserNotification,
-  Status,
 } = require("../../db/models/index");
 
 /// Get one User by Id
@@ -15,17 +13,13 @@ const getOneController = (req, res) => {
 
   User.findByPk(id, {
     attributes: {
-      exclude: ["roleId", "profileImageId", "password", "statusId"],
+      exclude: ["profileImageId", "password"],
     },
     include: [
       {
         model: FileData,
         as: "profileImage",
         attributes: ["id", "mimeType", "content", "url"],
-      },
-      {
-        model: Role,
-        as: "role",
       },
       {
         model: Recipe,
@@ -65,10 +59,6 @@ const getOneController = (req, res) => {
         attributes: {
           exclude: ["userId"],
         },
-      },
-      {
-        model: Status,
-        as: "status",
       },
     ],
   })

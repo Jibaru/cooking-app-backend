@@ -2,8 +2,6 @@ const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
 const { Recipe } = require("../../db/models/index");
 
-const StatusPending = 2;
-
 /// Create one Recipe
 const createController = (req, res) => {
   const {
@@ -28,7 +26,6 @@ const createController = (req, res) => {
     prepTime,
     cookTime,
     recipeImageId,
-    statusId: StatusPending,
     instructionId,
     createdById,
     recipeCuisineId,

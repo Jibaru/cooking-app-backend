@@ -6,7 +6,7 @@ const { Equipment, FileData, sequelize } = require("../../db/models/index");
 /// Update one Equipment by Id
 const updateController = (req, res) => {
   const id = req.params.id;
-  const { name, description, statusId } = req.body;
+  const { name, description, status } = req.body;
   const image = req.file;
 
   sequelize
@@ -15,7 +15,7 @@ const updateController = (req, res) => {
         {
           name,
           description,
-          statusId,
+          status,
         },
         {
           where: {
@@ -51,7 +51,7 @@ const updateController = (req, res) => {
         attributes: [
           ...(!!name ? ["name"] : []),
           ...(!!description ? ["description"] : []),
-          ...(!!statusId ? ["statusId"] : []),
+          ...(!!status ? ["status"] : []),
         ],
         include: [
           ...(!!image

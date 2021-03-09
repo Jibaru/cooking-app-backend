@@ -1,5 +1,6 @@
 const { checkSchema } = require("express-validator");
-const { Ingredient, FileData, Status } = require("../db/models/index");
+const { Ingredient, FileData } = require("../db/models/index");
+const { IngredientStatusValues } = require("../db/enums/ingredient-status");
 const validators = require("../validators/validators");
 
 const createIngredientMiddleware = checkSchema({
@@ -94,15 +95,12 @@ const updateIngredientMiddleware = checkSchema({
     isLength: validators.isMaxLength("description", 65535),
     isNumeric: validators.isNumericAndNotString("description"),
   },
-  statusId: {
+  status: {
     in: ["body"],
     optional: true,
     trim: true,
-    isInt: validators.isInt("statusId"),
-    notEmpty: validators.notEmpty("statusId"),
-    custom: validators.existResourceById("statusId", Status),
-    // Sanitizers
-    toInt: true,
+    notEmpty: validators.notEmpty("status"),
+    custom: validators.isInEnumList("status", IngredientStatusValues),
   },
   image: {
     in: ["body"],

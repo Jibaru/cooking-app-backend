@@ -1,55 +1,60 @@
-'use strict';
+"use strict";
+const {
+  IngredientStatus,
+  IngredientStatusValues,
+} = require("../enums/ingredient-status");
+
 module.exports = (sequelize, DataTypes) => {
-  const Ingredient = sequelize.define('Ingredient', {
-    name: {
-      type: DataTypes.STRING(45),
-      unique: true,
-      allowNull: false,
-      set(value) {
-        this.setDataValue('name', value.toUpperCase());
-      }
+  const Ingredient = sequelize.define(
+    "Ingredient",
+    {
+      name: {
+        type: DataTypes.STRING(45),
+        unique: true,
+        allowNull: false,
+        set(value) {
+          this.setDataValue("name", value.toUpperCase());
+        },
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      status: {
+        type: DataTypes.ENUM(IngredientStatusValues),
+        allowNull: false,
+        default: IngredientStatus.PENDING.VALUE,
+      },
+      imageId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    imageId: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    statusId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-  }, {
-    tableName: 'Ingredients',
-    timestamps: false
-  });
-  Ingredient.associate = function(models) {
+    {
+      tableName: "Ingredients",
+      timestamps: false,
+    }
+  );
+  Ingredient.associate = function (models) {
     // associations can be defined here
     Ingredient.belongsToMany(models.Nutrient, {
-      through: 'IngredientNutrient',
-      as: 'nutrients'
+      through: "IngredientNutrient",
+      as: "nutrients",
     });
 
     Ingredient.belongsToMany(models.IngredientCategory, {
-      through: 'IngredientIngredientCategory',
-      as: 'ingredientCategories'
+      through: "IngredientIngredientCategory",
+      as: "ingredientCategories",
     });
 
     Ingredient.belongsToMany(models.Instruction, {
-      through: 'InstructionIngredient',
-      as: 'instructions'
+      through: "InstructionIngredient",
+      as: "instructions",
     });
 
     Ingredient.belongsTo(models.FileData, {
-      as: 'image',
-      foreignKey: 'imageId'
-    });
-
-    Ingredient.belongsTo(models.Status, {
-      as: 'status',
-      foreignKey: 'statusId'
+      as: "image",
+      foreignKey: "imageId",
     });
   };
   return Ingredient;

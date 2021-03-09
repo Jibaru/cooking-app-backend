@@ -1,6 +1,7 @@
 const validates = require("../validators/validators");
 const { checkSchema } = require("express-validator");
-const { Equipment, Status } = require("../db/models/index");
+const { Equipment } = require("../db/models/index");
+const { EquipmentStatusValues } = require("../db/enums/equipment-status");
 
 const createEquipmentMiddleware = checkSchema({
   name: {
@@ -74,15 +75,12 @@ const updateEquipmentMiddleware = checkSchema({
     notEmpty: validates.notEmpty("description"),
     isLength: validates.isMaxLength("description", 65535),
   },
-  statusId: {
+  status: {
     in: ["body"],
     optional: true,
     trim: true,
-    isInt: validates.isInt("statusId"),
-    notEmpty: validates.notEmpty("statusId"),
-    custom: validates.existResourceById("statusId", Status),
-    // Sanitizers
-    toInt: true,
+    notEmpty: validates.notEmpty("status"),
+    custom: validates.isInEnumList("status", EquipmentStatusValues),
   },
   image: {
     in: ["body"],

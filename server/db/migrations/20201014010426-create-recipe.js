@@ -1,124 +1,119 @@
-'use strict';
+"use strict";
+const { RecipeStatus, RecipeStatusValues } = require("../enums/recipe-status");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Recipes', {
+    return queryInterface.createTable("Recipes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       dateTimePublished: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.fn("now"),
       },
       title: {
         type: Sequelize.STRING(45),
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       yield: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 1
+        defaultValue: 1,
       },
       prepTime: {
         type: Sequelize.BIGINT, // Milliseconds time
-        allowNull: false
+        allowNull: false,
       },
       cookTime: {
         type: Sequelize.BIGINT, // Milliseconds time
-        allowNull: false
+        allowNull: false,
       }, // Total Time is: prepTime + cookTime
+      status: {
+        type: Sequelize.ENUM(RecipeStatusValues),
+        allowNull: false,
+        default: RecipeStatus.PENDING.VALUE,
+      },
       recipeImageId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'FileDatas'
+            tableName: "FileDatas",
           },
-          key: 'id'
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
-      statusId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: {
-            tableName: 'Statuses'
-          },
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       instructionId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'Instructions'
+            tableName: "Instructions",
           },
-          key: 'id'
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdById: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'Users'
+            tableName: "Users",
           },
-          key: 'id'
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       recipeCuisineId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'RecipeCuisines'
+            tableName: "RecipeCuisines",
           },
-          key: 'id'
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       recipeTypeId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'RecipeTypes'
+            tableName: "RecipeTypes",
           },
-          key: 'id'
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      }
+        defaultValue: Sequelize.fn("now"),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Recipes');
-  }
+    return queryInterface.dropTable("Recipes");
+  },
 };

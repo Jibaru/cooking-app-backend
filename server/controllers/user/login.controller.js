@@ -5,10 +5,8 @@ const { success, clientError } = require("../../utils/http_status_codes");
 const {
   User,
   FileData,
-  Role,
   Recipe,
   UserNotification,
-  Status,
 } = require("../../db/models/index");
 
 /// Authenticate User by email (or username) and password
@@ -21,17 +19,13 @@ const loginController = (req, res) => {
       email,
     },
     attributes: {
-      exclude: ["roleId", "profileImageId", "password", "statusId"],
+      exclude: ["profileImageId", "password"],
     },
     include: [
       {
         model: FileData,
         as: "profileImage",
         attributes: ["id", "name", "mimeType", "content", "base64"],
-      },
-      {
-        model: Role,
-        as: "role",
       },
       {
         model: Recipe,
@@ -71,10 +65,6 @@ const loginController = (req, res) => {
         attributes: {
           exclude: ["userId"],
         },
-      },
-      {
-        model: Status,
-        as: "status",
       },
     ],
   })

@@ -8,7 +8,7 @@ const updateController = (req, res) => {
 
   const {
     profileImageId,
-    roleId,
+    role,
     firstName,
     lastName,
     nickName,
@@ -18,7 +18,7 @@ const updateController = (req, res) => {
   User.update(
     {
       profileImageId,
-      roleId,
+      role,
       firstName,
       lastName,
       nickName,
@@ -34,7 +34,7 @@ const updateController = (req, res) => {
       User.findByPk(id, {
         attributes: [
           ...(!!profileImageId ? ["profileImageId"] : []),
-          ...(!!roleId ? ["roleId"] : []),
+          ...(!!role ? ["role"] : []),
           ...(!!firstName ? ["firstName"] : []),
           ...(!!lastName ? ["lastName"] : []),
           ...(!!nickName ? ["nickName"] : []),

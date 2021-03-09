@@ -1,59 +1,57 @@
-'use strict';
+"use strict";
+const {
+  EquipmentStatusValues,
+  EquipmentStatus,
+} = require("../enums/equipment-status");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Equipments', {
+    return queryInterface.createTable("Equipments", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING(45),
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: true,
+      },
+      status: {
+        type: Sequelize.ENUM(EquipmentStatusValues),
+        allowNull: false,
+        default: EquipmentStatus.PENDING.VALUE,
       },
       imageId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'FileDatas'
+            tableName: "FileDatas",
           },
-          key: 'id',
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
-      statusId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: {
-            tableName: 'Statuses'
-          },
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      }
+        defaultValue: Sequelize.fn("now"),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Equipments');
-  }
+    return queryInterface.dropTable("Equipments");
+  },
 };

@@ -12,7 +12,7 @@ const getAllController = (req, res) => {
     fromCreatedAt,
     toCreatedAt,
     roleId,
-    statusId,
+    status,
     offset,
     limit,
     minCreatedRecipes,
@@ -78,10 +78,10 @@ const getAllController = (req, res) => {
           [Op.eq]: roleId,
         },
       }),
-      // Filter statusId
-      ...(statusId && {
-        statusId: {
-          [Op.eq]: statusId,
+      // Filter status
+      ...(status && {
+        status: {
+          [Op.eq]: status,
         },
       }),
     },

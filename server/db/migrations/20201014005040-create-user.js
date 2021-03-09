@@ -1,88 +1,77 @@
-'use strict';
+"use strict";
+const { UserStatus, UserStatusValues } = require("../enums/user-status");
+const { Role, RoleValues } = require("../enums/role");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable("Users", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       firstName: {
         type: Sequelize.STRING(45),
-        allowNull: false
+        allowNull: false,
       },
       lastName: {
         type: Sequelize.STRING(45),
-        allowNull: false
+        allowNull: false,
       },
       nickName: {
         type: Sequelize.STRING(50),
         allowNull: true,
-        unique: true
+        unique: true,
       },
       email: {
         type: Sequelize.STRING(45),
         allowNull: false,
-        unique: true
+        unique: true,
       },
       password: {
         type: Sequelize.TEXT, // Max 20 char decodified
-        allowNull: false
+        allowNull: false,
       },
       verificationCode: {
         type: Sequelize.STRING(10),
         allowNull: false,
       },
-      roleId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: {
-            tableName: 'Roles'
-          },
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+      status: {
+        type: Sequelize.ENUM(UserStatusValues),
+        allowNull: false,
+        default: UserStatus.NORMAL.VALUE,
+      },
+      role: {
+        type: Sequelize.ENUM(RoleValues),
+        allowNull: false,
+        default: Role.NORMAL.VALUE,
       },
       profileImageId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: {
-            tableName: 'FileDatas'
+            tableName: "FileDatas",
           },
-          key: 'id'
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
-      statusId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: {
-            tableName: 'Statuses'
-          },
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      }
+        defaultValue: Sequelize.fn("now"),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
-  }
+    return queryInterface.dropTable("Users");
+  },
 };

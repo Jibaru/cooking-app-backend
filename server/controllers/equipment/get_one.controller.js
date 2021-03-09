@@ -1,11 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const {
-  Equipment,
-  Instruction,
-  FileData,
-  Status,
-} = require("../../db/models/index");
+const { Equipment, Instruction, FileData } = require("../../db/models/index");
 
 /// Get one Equipment by Id
 const getOneController = (req, res) => {
@@ -13,7 +8,7 @@ const getOneController = (req, res) => {
 
   Equipment.findByPk(id, {
     attributes: {
-      exclude: ["imageId", "statusId"],
+      exclude: ["imageId"],
     },
     include: [
       {
@@ -26,11 +21,6 @@ const getOneController = (req, res) => {
         model: FileData,
         as: "image",
         attributes: ["id", "name", "content", "mimeType", "base64"],
-      },
-      {
-        model: Status,
-        as: "status",
-        attributes: ["id", "name"],
       },
     ],
   })

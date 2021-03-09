@@ -4,7 +4,6 @@ const {
   Recipe,
   RecipeCuisine,
   RecipeTag,
-  Status,
   FileData,
   Instruction,
   Ingredient,
@@ -20,7 +19,6 @@ const getOneController = (req, res) => {
   Recipe.findByPk(id, {
     attributes: {
       exclude: [
-        "statusId",
         "recipeCuisineId",
         "recipeTypeId",
         "createdById",
@@ -46,10 +44,6 @@ const getOneController = (req, res) => {
         model: FileData,
         as: "recipeImage",
         attributes: ["id", "name", "content", "mimeType", "base64"],
-      },
-      {
-        model: Status,
-        as: "status",
       },
       {
         model: RecipeCuisine,

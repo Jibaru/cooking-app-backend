@@ -6,7 +6,6 @@ const {
   IngredientCategory,
   Instruction,
   FileData,
-  Status,
 } = require("../../db/models/index");
 
 /// Get one Ingredient by Id
@@ -40,11 +39,6 @@ const getOneController = (req, res) => {
         as: "instructions",
         attributes: ["id"],
         through: { attributes: [] },
-      },
-      {
-        model: Status,
-        as: "status",
-        attributes: ["id", "name"],
       },
     ],
   })

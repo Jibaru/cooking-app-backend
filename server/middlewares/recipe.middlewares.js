@@ -6,8 +6,8 @@ const {
   RecipeCuisine,
   RecipeType,
   User,
-  Status,
 } = require("../db/models/index");
+const { RecipeStatusValues } = require("../db/enums/recipe-status");
 const validators = require("../validators/validators");
 
 const createRecipeMiddleware = checkSchema({
@@ -152,15 +152,12 @@ const updateRecipeMiddleware = checkSchema({
     // Sanitizers
     toInt: true,
   },
-  statusId: {
+  status: {
     in: ["body"],
     optional: true,
     trim: true,
-    notEmpty: validators.notEmpty("statusId"),
-    isInt: validators.isInt("statusId"),
-    custom: validators.existResourceById("statusId", Status),
-    // Sanitizers
-    toInt: true,
+    notEmpty: validators.notEmpty("status"),
+    custom: validators.isInEnumList("status", RecipeStatusValues),
   },
   instructionId: {
     in: ["body"],
