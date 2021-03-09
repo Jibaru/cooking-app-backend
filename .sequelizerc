@@ -1,6 +1,8 @@
 // .sequelizerc
 const path = require('path');
 
+require("dotenv").config();
+
 module.exports = {
   'config': path.resolve('server/db/config', 'config.js'),
   'models-path': path.resolve('server/db', 'models'),
