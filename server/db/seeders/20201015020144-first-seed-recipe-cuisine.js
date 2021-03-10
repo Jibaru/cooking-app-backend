@@ -1,37 +1,33 @@
-'use strict';
+"use strict";
+const { Region } = require("../enums/region");
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('RecipeCuisines', 
-   [
-     {
-       /*hash: 'RC0000001',
-       originalName: 'PERUANA',*/
-       name: 'PERUANA',
-       region: 'Perú'
-     },
-     {
-      /*hash: 'RC0000002',
-      originalName: 'LIMEÑA',*/
-      name: 'LIMEÑA',
-      region: 'Lima'
-    },
-    {
-      /*hash: 'RC0000003',
-      originalName: 'LATINA',*/
-      name: 'LATINA',
-      region: 'Latinoamérica'
-    },
-    {
-      /*hash: 'RC0000004',
-      originalName: 'AMERICANA',*/
-      name: 'AMERICANA',
-      region: 'Estados Unidos'
-    }
-   ],{});
+    return queryInterface.bulkInsert(
+      "RecipeCuisines",
+      [
+        {
+          name: "Limeña",
+          region: Region.SOUTH_AMERICA.VALUE,
+        },
+        {
+          name: "Californiana",
+          region: Region.NORTH_AMERICA.VALUE,
+        },
+        {
+          name: "China",
+          region: Region.ASIA.VALUE,
+        },
+        {
+          name: "Chilena",
+          region: Region.SOUTH_AMERICA.VALUE,
+        },
+      ],
+      {}
+    );
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('RecipeCuisines', null, {});
-  }
+    return queryInterface.bulkDelete("RecipeCuisines", null, {});
+  },
 };

@@ -1,35 +1,37 @@
-'use strict';
+"use strict";
+const { RegionValues } = require("../enums/region");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('RecipeCuisines', {
+    return queryInterface.createTable("RecipeCuisines", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING(45),
         allowNull: false,
-        unique: true
+        unique: true,
       },
       region: {
-        type: Sequelize.STRING(45),
-        allowNull: true
+        type: Sequelize.ENUM(RegionValues),
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      }
+        defaultValue: Sequelize.fn("now"),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('RecipeCuisines');
-  }
+    return queryInterface.dropTable("RecipeCuisines");
+  },
 };

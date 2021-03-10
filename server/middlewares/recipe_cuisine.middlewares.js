@@ -1,5 +1,6 @@
 const { checkSchema } = require("express-validator");
 const { RecipeCuisine } = require("../db/models/index");
+const { RegionValues } = require("../db/enums/region");
 const validators = require("../validators/validators");
 
 const createRecipeCuisineMiddleware = checkSchema({
@@ -14,11 +15,10 @@ const createRecipeCuisineMiddleware = checkSchema({
   },
   region: {
     in: ["body"],
-    optional: true,
+    optional: false,
     trim: true,
-    notEmpty: validators.notEmpty("region"),
-    isNumeric: validators.isNumericAndNotString("region"),
-    isLength: validators.isMaxLength("region", 45),
+    notEmpty: validates.notEmpty("region"),
+    custom: validates.isInEnumList("region", RegionValues),
   },
 });
 
