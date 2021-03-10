@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImageId: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        unique: true,
       },
     },
     {

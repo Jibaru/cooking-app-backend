@@ -1,22 +1,11 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Instructions', 
-    [
-      {  
-
-      },
-      {  
-
-      },
-      {  
-
-      },
-    ],{});
+    return queryInterface.bulkInsert("Instructions", [{}], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Instructions', null, {});
-  }
+    return queryInterface.bulkDelete("Instructions", null, {});
+  },
 };

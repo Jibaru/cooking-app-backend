@@ -44,6 +44,7 @@ module.exports = {
       recipeImageId: {
         type: Sequelize.INTEGER,
         allowNull: true,
+        unique: true,
         references: {
           model: {
             tableName: "FileDatas",
@@ -56,6 +57,7 @@ module.exports = {
       instructionId: {
         type: Sequelize.INTEGER,
         allowNull: true,
+        unique: true,
         references: {
           model: {
             tableName: "Instructions",

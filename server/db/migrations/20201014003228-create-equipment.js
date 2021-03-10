@@ -30,6 +30,7 @@ module.exports = {
       imageId: {
         type: Sequelize.INTEGER,
         allowNull: true,
+        unique: true,
         references: {
           model: {
             tableName: "FileDatas",

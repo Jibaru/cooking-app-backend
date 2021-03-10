@@ -10,21 +10,6 @@ module.exports = {
           name: "CARNE",
           description: "Carne suave",
         },
-        {
-          imageId: 3,
-          name: "LECHE",
-          description: "Leche de vaca",
-        },
-        {
-          imageId: 3,
-          name: "PAPA",
-          description: "Papa rosada",
-        },
-        {
-          imageId: 3,
-          name: "LECHUGA",
-          description: "Para la ensalada",
-        },
       ],
       {}
     );

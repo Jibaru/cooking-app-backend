@@ -19,7 +19,6 @@ module.exports = {
           verificationCode: generateRandomString(6),
         },
         {
-          profileImageId: 1,
           role: Role.ADMIN.VALUE,
           firstName: "Rodrigo",
           lastName: "Varas",
@@ -29,7 +28,6 @@ module.exports = {
           verificationCode: generateRandomString(6),
         },
         {
-          profileImageId: 2,
           role: Role.NORMAL.VALUE,
           firstName: "Ignacio",
           lastName: "Rueda",
@@ -39,7 +37,6 @@ module.exports = {
           verificationCode: generateRandomString(6),
         },
         {
-          profileImageId: 1,
           role: Role.NORMAL.VALUE,
           firstName: "Giancarlo",
           lastName: "Chavez",
