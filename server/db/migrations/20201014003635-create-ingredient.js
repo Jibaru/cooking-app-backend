@@ -25,7 +25,7 @@ module.exports = {
       status: {
         type: Sequelize.ENUM(IngredientStatusValues),
         allowNull: false,
-        default: IngredientStatus.PENDING.VALUE,
+        defaultValue: IngredientStatus.PENDING.VALUE,
       },
       imageId: {
         type: Sequelize.INTEGER,

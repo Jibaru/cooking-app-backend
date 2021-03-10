@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM(RecipeStatusValues),
         allowNull: false,
-        default: RecipeStatus.PENDING.VALUE,
+        defaultValue: RecipeStatus.PENDING.VALUE,
       },
       recipeImageId: {
         type: DataTypes.INTEGER,

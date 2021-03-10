@@ -40,12 +40,12 @@ module.exports = {
       status: {
         type: Sequelize.ENUM(UserStatusValues),
         allowNull: false,
-        default: UserStatus.NORMAL.VALUE,
+        defaultValue: UserStatus.NORMAL.VALUE,
       },
       role: {
         type: Sequelize.ENUM(RoleValues),
         allowNull: false,
-        default: Role.NORMAL.VALUE,
+        defaultValue: Role.NORMAL.VALUE,
       },
       profileImageId: {
         type: Sequelize.INTEGER,

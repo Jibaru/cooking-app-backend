@@ -25,7 +25,7 @@ module.exports = {
       status: {
         type: Sequelize.ENUM(EquipmentStatusValues),
         allowNull: false,
-        default: EquipmentStatus.PENDING.VALUE,
+        defaultValue: EquipmentStatus.PENDING.VALUE,
       },
       imageId: {
         type: Sequelize.INTEGER,

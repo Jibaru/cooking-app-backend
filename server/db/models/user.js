@@ -44,12 +44,12 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM(UserStatusValues),
         allowNull: false,
-        default: UserStatus.NORMAL.VALUE,
+        defaultValue: UserStatus.NORMAL.VALUE,
       },
       role: {
         type: DataTypes.ENUM(RoleValues),
         allowNull: false,
-        default: Role.NORMAL.VALUE,
+        defaultValue: Role.NORMAL.VALUE,
       },
       profileImageId: {
         type: DataTypes.INTEGER,

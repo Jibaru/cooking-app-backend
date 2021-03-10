@@ -39,7 +39,7 @@ module.exports = {
       status: {
         type: Sequelize.ENUM(RecipeStatusValues),
         allowNull: false,
-        default: RecipeStatus.PENDING.VALUE,
+        defaultValue: RecipeStatus.PENDING.VALUE,
       },
       recipeImageId: {
         type: Sequelize.INTEGER,

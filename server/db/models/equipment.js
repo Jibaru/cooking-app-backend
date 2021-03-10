@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM(EquipmentStatusValues),
         allowNull: false,
-        default: EquipmentStatus.PENDING.VALUE,
+        defaultValue: EquipmentStatus.PENDING.VALUE,
       },
       imageId: {
         type: DataTypes.INTEGER,
