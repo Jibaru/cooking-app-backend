@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       region: {
-        type: Sequelize.ENUM(RegionValues),
+        type: DataTypes.ENUM(RegionValues),
         allowNull: false,
       },
     },
