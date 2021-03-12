@@ -7,9 +7,12 @@ require("dotenv").config();
 
 // Body Parser
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // Express server
 const app = require("express")();
+
+app.use(cors());
 
 // BodyParser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
