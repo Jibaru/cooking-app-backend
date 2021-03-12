@@ -1,5 +1,6 @@
 const app = require("express")();
 const validateErrors = require("../middlewares/validate_errors.middleware");
+const { checkToken } = require("../middlewares/authentication");
 const {
   uploadFile,
   checkFile,
@@ -17,7 +18,7 @@ const {
 /// User Services
 app.delete(
   "/users/:id",
-  [deleteUserMiddleware, validateErrors],
+  [checkToken, deleteUserMiddleware, validateErrors],
   require("../controllers/user/delete.controller")
 );
 

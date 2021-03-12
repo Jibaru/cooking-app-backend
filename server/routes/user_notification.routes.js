@@ -1,5 +1,6 @@
 const app = require("express")();
 const validateErrors = require("../middlewares/validate_errors.middleware");
+const { checkToken } = require("../middlewares/authentication");
 const {
   createUserNotificationMiddleware,
   deleteUserNotificationMiddleware,
@@ -16,19 +17,19 @@ app.get(
 
 app.post(
   "/user-notifications",
-  [createUserNotificationMiddleware, validateErrors],
+  [checkToken, createUserNotificationMiddleware, validateErrors],
   require("../controllers/user_notification/create.controller")
 );
 
 app.put(
   "/user-notifications/:id",
-  [updateUserNotificationMiddleware, validateErrors],
+  [checkToken, updateUserNotificationMiddleware, validateErrors],
   require("../controllers/user_notification/update.controller")
 );
 
 app.delete(
   "/user-notifications/:id",
-  [deleteUserNotificationMiddleware, validateErrors],
+  [checkToken, deleteUserNotificationMiddleware, validateErrors],
   require("../controllers/user_notification/delete.controller")
 );
 
