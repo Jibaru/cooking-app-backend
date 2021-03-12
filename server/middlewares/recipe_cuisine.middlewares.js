@@ -17,8 +17,8 @@ const createRecipeCuisineMiddleware = checkSchema({
     in: ["body"],
     optional: false,
     trim: true,
-    notEmpty: validates.notEmpty("region"),
-    custom: validates.isInEnumList("region", RegionValues),
+    notEmpty: validators.notEmpty("region"),
+    custom: validators.isInEnumList("region", RegionValues),
   },
 });
 
