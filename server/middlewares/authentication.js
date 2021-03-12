@@ -12,7 +12,7 @@ const checkToken = (req, res, next) => {
         errors: [
           toErrorFormat({
             value: token,
-            message: "Invalid token",
+            msg: "Invalid token",
             param: "token",
             location: "header",
           }),
