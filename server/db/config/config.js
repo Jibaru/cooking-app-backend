@@ -1,8 +1,8 @@
 module.exports = {
   development: {
-    username: "root",
-    password: "root",
-    database: "cooking-dev-db",
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     host: "localhost",
     dialect: "mysql",
     operatorsAliases: "0",
@@ -24,9 +24,9 @@ module.exports = {
     operatorsAliases: false,
   },
   production: {
-    username: "root",
-    password: "root",
-    database: "cooking-prod-db",
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     host: "127.0.0.1",
     dialect: "mysql",
     operatorsAliases: false,
