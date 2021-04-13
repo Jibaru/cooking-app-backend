@@ -248,21 +248,22 @@ const getAllUsersMiddleware = checkSchema({
   role: {
     optional: true,
     trim: true,
-    toInt: true,
   },
   status: {
     optional: true,
     trim: true,
     toInt: true,
   },
-  offset: {
+  page: {
     optional: true,
     trim: true,
+    isInt: true,
     toInt: true,
   },
-  limit: {
+  pageSize: {
     optional: true,
     trim: true,
+    isInt: true,
     toInt: true,
   },
   minStoredRecipes: {

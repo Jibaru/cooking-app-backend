@@ -1,6 +1,7 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
 const { UserNotification, Sequelize } = require("../../db/models/index");
+const PaginationConstants = require("../../constants/pagination.contants");
 
 const getAllController = (req, res) => {
   const Op = Sequelize.Op;
@@ -12,11 +13,11 @@ const getAllController = (req, res) => {
     fromCreatedAt,
     toCreatedAt,
     userId,
-    offset,
-    limit,
+    page = PaginationConstants.DEFAULT_PAGE,
+    pageSize = PaginationConstants.PAGE_SIZE,
   } = req.query;
 
-  UserNotification.findAll({
+  UserNotification.findAndCountAll({
     where: {
       // Filter subject%
       ...(subject && {
@@ -54,21 +55,25 @@ const getAllController = (req, res) => {
         },
       }),
     },
-    ...(offset && {
-      offset: offset,
-    }),
-    ...(limit && {
-      limit: limit,
-    }),
+    offset: page * pageSize - pageSize,
+    limit: pageSize,
     order: [["createdAt", "DESC"]],
   })
-    .then((userNotifications) =>
-      userNotifications.map((e) => toResponseFormat(e.toJSON()))
-    )
-    .then((userNotifications) => {
+    .then((result) => {
+      return {
+        totalUserNotifications: result.count.length,
+        userNotifications: result.rows.map((e) => toResponseFormat(e.toJSON())),
+      };
+    })
+    .then(({ totalUserNotifications, userNotifications }) => {
+      const totalPages = Math.ceil(totalUserNotifications / pageSize);
+
       return res.status(success.ok).json({
         ok: true,
         userNotifications,
+        totalPages,
+        currentPage: page,
+        pageSize,
       });
     })
     .catch((error) => {

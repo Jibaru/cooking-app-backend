@@ -126,12 +126,12 @@ const getAllUserNotificationsMiddleware = checkSchema({
     trim: true,
     toInt: true,
   },
-  offset: {
+  page: {
     optional: true,
     trim: true,
     toInt: true,
   },
-  limit: {
+  pageSize: {
     optional: true,
     trim: true,
     toInt: true,

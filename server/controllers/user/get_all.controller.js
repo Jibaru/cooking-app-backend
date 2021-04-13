@@ -1,7 +1,7 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
 const { User, Sequelize, sequelize } = require("../../db/models/index");
-
+const PaginationConstants = require("../../constants/pagination.contants");
 /// Get all Users
 const getAllController = (req, res) => {
   const Op = Sequelize.Op;
@@ -11,10 +11,10 @@ const getAllController = (req, res) => {
     lastName,
     fromCreatedAt,
     toCreatedAt,
-    roleId,
+    role,
     status,
-    offset,
-    limit,
+    page = PaginationConstants.DEFAULT_PAGE,
+    pageSize = PaginationConstants.PAGE_SIZE,
     minCreatedRecipes,
     maxCreatedRecipes,
     minFavoriteRecipes,
@@ -23,7 +23,7 @@ const getAllController = (req, res) => {
     maxStoredRecipes,
   } = req.query;
 
-  User.findAll({
+  User.findAndCountAll({
     attributes: {
       exclude: ["password"],
       include: [
@@ -72,10 +72,10 @@ const getAllController = (req, res) => {
           }),
         },
       }),
-      // Filter roleId
-      ...(roleId && {
-        roleId: {
-          [Op.eq]: roleId,
+      // Filter role
+      ...(role && {
+        role: {
+          [Op.eq]: role,
         },
       }),
       // Filter status
@@ -118,19 +118,25 @@ const getAllController = (req, res) => {
         },
       }),
     },
-    ...(offset && {
-      offset: offset,
-    }),
-    ...(limit && {
-      limit: limit,
-    }),
+    offset: page * pageSize - pageSize,
+    limit: pageSize,
     order: [["createdAt", "DESC"]],
   })
-    .then((users) => users.map((e) => toResponseFormat(e.toJSON())))
-    .then((users) => {
+    .then((result) => {
+      return {
+        totalUsers: result.count.length,
+        users: result.rows.map((e) => toResponseFormat(e.toJSON())),
+      };
+    })
+    .then(({ totalUsers, users }) => {
+      const totalPages = Math.ceil(totalUsers / pageSize);
+
       return res.status(success.ok).json({
         ok: true,
         users,
+        totalPages,
+        currentPage: page,
+        pageSize,
       });
     })
     .catch((error) => {
