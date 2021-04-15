@@ -89,9 +89,51 @@ const updateEquipmentMiddleware = checkSchema({
   },
 });
 
+const getAllEquipmentsMiddleware = checkSchema({
+  name: {
+    optional: true,
+    trim: true,
+  },
+  recipeIds: {
+    optional: true,
+    isArray: true,
+    toArray: true,
+    customSanitizer: {
+      options: (value) => {
+        return value.map((e) => parseInt(e));
+      },
+    },
+  },
+  fromCreatedAt: {
+    optional: true,
+    trim: true,
+    toDate: true,
+  },
+  toCreatedAt: {
+    optional: true,
+    trim: true,
+    toDate: true,
+  },
+  status: {
+    optional: true,
+    trim: true,
+  },
+  page: {
+    optional: true,
+    trim: true,
+    toInt: true,
+  },
+  pageSize: {
+    optional: true,
+    trim: true,
+    toInt: true,
+  },
+});
+
 module.exports = {
   createEquipmentMiddleware,
   deleteEquipmentMiddleware,
   getOneEquipmentMiddleware,
   updateEquipmentMiddleware,
+  getAllEquipmentsMiddleware,
 };
