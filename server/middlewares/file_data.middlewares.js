@@ -28,7 +28,41 @@ const updateFileDataMiddleware = checkSchema({
   },
 });
 
+const getAllFileDatasMiddleware = checkSchema({
+  name: {
+    optional: true,
+    trim: true,
+  },
+  fromCreatedAt: {
+    optional: true,
+    trim: true,
+    toDate: true,
+  },
+  toCreatedAt: {
+    optional: true,
+    trim: true,
+    toDate: true,
+  },
+  mimeType: {
+    optional: true,
+    trim: true,
+  },
+  page: {
+    optional: true,
+    trim: true,
+    isInt: true,
+    toInt: true,
+  },
+  pageSize: {
+    optional: true,
+    trim: true,
+    isInt: true,
+    toInt: true,
+  },
+});
+
 module.exports = {
   getOneFileDataMiddleware,
   updateFileDataMiddleware,
+  getAllFileDatasMiddleware,
 };
