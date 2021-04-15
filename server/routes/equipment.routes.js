@@ -13,6 +13,7 @@ const {
   deleteEquipmentMiddleware,
   getOneEquipmentMiddleware,
   updateEquipmentMiddleware,
+  getAllEquipmentsMiddleware,
 } = require("../middlewares/equipment.middlewares");
 
 /// Equipment Services
@@ -34,7 +35,11 @@ app.delete(
   require("../controllers/equipment/delete.controller")
 );
 
-app.get("/equipments", require("../controllers/equipment/get_all.controller"));
+app.get(
+  "/equipments",
+  [getAllEquipmentsMiddleware],
+  require("../controllers/equipment/get_all.controller")
+);
 
 app.get(
   "/equipments/:id",
