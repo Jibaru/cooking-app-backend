@@ -8,9 +8,16 @@ const { checkToken } = require("../middlewares/authentication");
 const {
   getOneFileDataMiddleware,
   updateFileDataMiddleware,
+  getAllFileDatasMiddleware,
 } = require("../middlewares/file_data.middlewares");
 
 /// FileData Services
+app.get(
+  "/file-data",
+  [getAllFileDatasMiddleware, validateErrors],
+  require("../controllers/file_data/get_all.controller")
+);
+
 app.get(
   "/file-data/:id",
   [getOneFileDataMiddleware, validateErrors],
