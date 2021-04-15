@@ -6,7 +6,7 @@ module.exports = {
       "IngredientNutrients",
       [
         {
-          units: "mg",
+          units: "MG",
           value: 0.31,
           ingredientId: 1,
           nutrientId: 5,
