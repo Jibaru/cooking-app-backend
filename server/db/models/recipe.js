@@ -77,11 +77,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "recipeImageId",
     });
 
-    Recipe.belongsTo(models.Instruction, {
-      as: "instruction",
-      foreignKey: "instructionId",
-    });
-
     Recipe.belongsTo(models.User, {
       as: "createdBy",
       foreignKey: "createdById",
@@ -115,6 +110,21 @@ module.exports = (sequelize, DataTypes) => {
     Recipe.belongsToMany(models.User, {
       through: "RecipeRanking",
       as: "rankingUsers",
+    });
+
+    Recipe.belongsToMany(models.Ingredient, {
+      through: "IngredientRecipe",
+      as: "ingredients",
+    });
+
+    Recipe.hasMany(models.Step, {
+      foreignKey: "recipeId",
+      as: "steps",
+    });
+
+    Recipe.belongsToMany(models.Equipment, {
+      through: "EquipmentRecipe",
+      as: "equipments",
     });
   };
   return Recipe;
