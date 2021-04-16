@@ -5,6 +5,7 @@ const {
   createRecipeTypeMiddleware,
   deleteRecipeTypeMiddleware,
   getOneRecipeTypeMiddleware,
+  getAllRecipeTypesMiddleware,
 } = require("../middlewares/recipe_type.middlewares");
 
 /// RecipeType Services
@@ -22,6 +23,7 @@ app.delete(
 
 app.get(
   "/recipe-types",
+  [getAllRecipeTypesMiddleware],
   require("../controllers/recipe_type/get_all.controller")
 );
 
