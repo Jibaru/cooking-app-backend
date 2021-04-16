@@ -73,7 +73,7 @@ const getAllController = (req, res) => {
       );
 
       const start = page * pageSize - pageSize;
-      const end = offset + pageSize;
+      const end = start + pageSize;
 
       return {
         count: filteredEquipments.length,
