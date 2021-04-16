@@ -46,11 +46,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      instructionId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        unique: true,
-      },
       createdById: {
         type: DataTypes.INTEGER,
         allowNull: true,
