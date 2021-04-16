@@ -5,6 +5,7 @@ const {
   createRecipeCuisineMiddleware,
   deleteRecipeCuisineMiddleware,
   getOneRecipeCuisineMiddleware,
+  getAllRecipeCuisinesMiddleware,
 } = require("../middlewares/recipe_cuisine.middlewares");
 
 /// RecipeCuisine Services
@@ -22,6 +23,7 @@ app.delete(
 
 app.get(
   "/recipe-cuisines",
+  [getAllRecipeCuisinesMiddleware],
   require("../controllers/recipe_cuisine/get_all.controller")
 );
 
