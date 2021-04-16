@@ -6,7 +6,6 @@ app.use(require("./equipment.routes"));
 app.use(require("./file_data.routes"));
 app.use(require("./ingredient.routes"));
 app.use(require("./ingredient_category.routes"));
-app.use(require("./instruction.routes"));
 app.use(require("./nutrient.routes"));
 app.use(require("./recipe.routes"));
 app.use(require("./recipe_cuisine.routes"));
