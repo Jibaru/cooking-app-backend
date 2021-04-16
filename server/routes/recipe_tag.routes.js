@@ -5,6 +5,7 @@ const {
   createRecipeTagMiddleware,
   deleteRecipeTagMiddleware,
   getOneRecipeTagMiddleware,
+  getAllRecipeTagsMiddleware,
 } = require("../middlewares/recipe_tag.middlewares");
 
 /// RecipeTag Services
@@ -22,6 +23,7 @@ app.delete(
 
 app.get(
   "/recipe-tags",
+  [getAllRecipeTagsMiddleware],
   require("../controllers/recipe_tag/get_all.controller")
 );
 
