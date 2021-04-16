@@ -48,9 +48,9 @@ module.exports = (sequelize, DataTypes) => {
       as: "ingredientCategories",
     });
 
-    Ingredient.belongsToMany(models.Instruction, {
-      through: "InstructionIngredient",
-      as: "instructions",
+    Ingredient.belongsToMany(models.Recipe, {
+      through: "IngredientRecipe",
+      as: "recipes",
     });
 
     Ingredient.belongsTo(models.FileData, {

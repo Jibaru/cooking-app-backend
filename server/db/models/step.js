@@ -28,9 +28,10 @@ module.exports = (sequelize, DataTypes) => {
   );
   Step.associate = function (models) {
     // associations can be defined here
-    Step.belongsTo(models.Instruction, {
-      as: "instruction",
+    Step.belongsTo(models.Recipe, {
+      as: "recipe",
     });
+
     Step.belongsTo(models.FileData, {
       as: "stepImage",
       foreignKey: "stepImageId",
