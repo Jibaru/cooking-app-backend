@@ -2,6 +2,12 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable("EquipmentRecipes", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       equipmentId: {
         type: Sequelize.INTEGER,
         allowNull: false,
