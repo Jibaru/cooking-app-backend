@@ -12,6 +12,7 @@ const {
   createIngredientMiddleware,
   getOneIngredientMiddleware,
   updateIngredientMiddleware,
+  getAllIngredientsMiddleware,
 } = require("../middlewares/ingredient.middlewares");
 
 /// Ingredient Services
@@ -29,6 +30,7 @@ app.post(
 
 app.get(
   "/ingredients",
+  [getAllIngredientsMiddleware],
   require("../controllers/ingredient/get_all.controller")
 );
 
