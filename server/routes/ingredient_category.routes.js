@@ -5,6 +5,7 @@ const {
   createIngredientCategoryMiddleware,
   deleteIngredientCategoryMiddleware,
   getOneIngredientCategoryMiddleware,
+  getAllIngredientCategoriesMiddleware,
 } = require("../middlewares/ingredient_category.middlewares");
 
 /// IngredientCategory Services
@@ -22,6 +23,7 @@ app.delete(
 
 app.get(
   "/ingredient-categories",
+  [getAllIngredientCategoriesMiddleware],
   require("../controllers/ingredient_category/get_all.controller")
 );
 
