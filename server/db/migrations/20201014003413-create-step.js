@@ -16,12 +16,12 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      instructionId: {
+      recipeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: {
-            tableName: "Instructions",
+            tableName: "Recipes",
           },
           key: "id",
         },
