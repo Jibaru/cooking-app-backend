@@ -54,19 +54,6 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
-      instructionId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        unique: true,
-        references: {
-          model: {
-            tableName: "Instructions",
-          },
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-      },
       createdById: {
         type: Sequelize.INTEGER,
         allowNull: true,
