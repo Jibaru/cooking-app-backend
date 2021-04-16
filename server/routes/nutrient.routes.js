@@ -5,6 +5,7 @@ const {
   createNutrientMiddleware,
   deleteNutrientMiddleware,
   getOneNutrientMiddleware,
+  getAllNutrientsMiddleware,
 } = require("../middlewares/nutrient.middlewares");
 
 /// Nutrient Services
@@ -20,7 +21,11 @@ app.delete(
   require("../controllers/nutrient/delete.controller")
 );
 
-app.get("/nutrients", require("../controllers/nutrient/get_all.controller"));
+app.get(
+  "/nutrients",
+  [getAllNutrientsMiddleware],
+  require("../controllers/nutrient/get_all.controller")
+);
 
 app.get(
   "/nutrients/:id",
