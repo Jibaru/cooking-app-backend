@@ -5,7 +5,6 @@ const {
   RecipeCuisine,
   RecipeTag,
   FileData,
-  Instruction,
   Ingredient,
   Step,
   Equipment,
@@ -55,49 +54,43 @@ const getOneController = (req, res) => {
         through: { attributes: [] },
       },
       {
-        model: Instruction,
-        as: "instruction",
+        model: Ingredient,
+        as: "ingredients",
+        attributes: ["id", "name", "description"],
+        through: {
+          as: "amount",
+          attributes: ["value", "units"],
+        },
         include: [
           {
-            model: Ingredient,
-            as: "ingredients",
-            attributes: ["id", "name", "description"],
-            through: {
-              as: "amount",
-              attributes: ["value", "units"],
-            },
-            include: [
-              {
-                model: FileData,
-                as: "image",
-                attributes: ["id", "name", "content", "mimeType", "base64"],
-              },
-            ],
+            model: FileData,
+            as: "image",
+            attributes: ["id", "name", "content", "mimeType", "base64"],
           },
+        ],
+      },
+      {
+        model: Equipment,
+        as: "equipments",
+        attributes: ["id", "name", "description"],
+        include: [
           {
-            model: Equipment,
-            as: "equipments",
-            attributes: ["id", "name", "description"],
-            include: [
-              {
-                model: FileData,
-                as: "image",
-                attributes: ["id", "name", "content", "mimeType", "base64"],
-              },
-            ],
-            through: { attributes: [] },
+            model: FileData,
+            as: "image",
+            attributes: ["id", "name", "content", "mimeType", "base64"],
           },
+        ],
+        through: { attributes: [] },
+      },
+      {
+        model: Step,
+        as: "steps",
+        attributes: ["id", "orderNumber", "content"],
+        include: [
           {
-            model: Step,
-            as: "steps",
-            attributes: ["id", "orderNumber", "content"],
-            include: [
-              {
-                model: FileData,
-                as: "stepImage",
-                attributes: ["id", "name", "content", "mimeType", "base64"],
-              },
-            ],
+            model: FileData,
+            as: "stepImage",
+            attributes: ["id", "name", "content", "mimeType", "base64"],
           },
         ],
       },

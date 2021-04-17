@@ -1,6 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { Equipment, Sequelize, Instruction } = require("../../db/models/index");
+const { Equipment, Sequelize, Recipe } = require("../../db/models/index");
 const PaginationConstants = require("../../constants/pagination.contants");
 
 // Get all Equipments
@@ -23,8 +23,8 @@ const getAllController = (req, res) => {
     },
     include: [
       {
-        model: Instruction,
-        as: "instructions",
+        model: Recipe,
+        as: "recipes",
         attributes: {
           include: ["id"],
         },
@@ -60,16 +60,16 @@ const getAllController = (req, res) => {
     .then((equipments) => {
       // Check if an equipment has all recipeIds
       // If recipeIds is empty or not exists, return true
-      function isInAllRecipes(instructions) {
+      function isInAllRecipes(recipes) {
         if (!recipeIds) {
           return true;
         }
-        const instructionIds = instructions.map(({ id }) => id);
-        return recipeIds.every((recipeId) => instructionIds.includes(recipeId));
+        const queryRecipeIds = recipes.map(({ id }) => id);
+        return recipeIds.every((recipeId) => queryRecipeIds.includes(recipeId));
       }
 
       const filteredEquipments = equipments.filter((equipment) =>
-        isInAllRecipes(equipment.instructions)
+        isInAllRecipes(equipment.recipes)
       );
 
       const start = page * pageSize - pageSize;

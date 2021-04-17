@@ -1,6 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { Step, Instruction, FileData } = require("../../db/models/index");
+const { Step, Recipe, FileData } = require("../../db/models/index");
 
 /// Get one Step by Id
 const getOneController = (req, res) => {
@@ -12,8 +12,8 @@ const getOneController = (req, res) => {
     },
     include: [
       {
-        model: Instruction,
-        as: "instruction",
+        model: Recipe,
+        as: "recipe",
         attributes: ["id"],
       },
       {

@@ -2,7 +2,7 @@ const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
 const {
   Ingredient,
-  Instruction,
+  Recipe,
   Nutrient,
   IngredientCategory,
   Sequelize,
@@ -31,8 +31,8 @@ const getAllController = (req, res) => {
     },
     include: [
       {
-        model: Instruction,
-        as: "instructions",
+        model: Recipe,
+        as: "recipes",
         attributes: {
           include: ["id"],
         },
@@ -82,12 +82,12 @@ const getAllController = (req, res) => {
     order: [["createdAt", "DESC"]],
   })
     .then((ingredients) => {
-      function isInAllRecipes(instructions) {
+      function isInAllRecipes(recipes) {
         if (!recipeIds) {
           return true;
         }
-        const instructionIds = instructions.map(({ id }) => id);
-        return recipeIds.every((recipeId) => instructionIds.includes(recipeId));
+        const queryRecipeIds = recipes.map(({ id }) => id);
+        return recipeIds.every((recipeId) => queryRecipeIds.includes(recipeId));
       }
 
       function isInAllNutrients(nutrients) {
@@ -114,7 +114,7 @@ const getAllController = (req, res) => {
 
       const filteredIngredients = ingredients.filter(
         (ingredient) =>
-          isInAllRecipes(ingredient.instructions) &&
+          isInAllRecipes(ingredient.recipes) &&
           isInAllNutrients(ingredient.nutrients) &&
           isInAllIngredientCategories(ingredient.ingredientCategories)
       );

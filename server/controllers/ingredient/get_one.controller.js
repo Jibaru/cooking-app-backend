@@ -4,7 +4,7 @@ const {
   Ingredient,
   Nutrient,
   IngredientCategory,
-  Instruction,
+  Recipe,
   FileData,
 } = require("../../db/models/index");
 
@@ -35,10 +35,10 @@ const getOneController = (req, res) => {
         attributes: ["id", "name", "content", "mimeType", "base64"],
       },
       {
-        model: Instruction,
-        as: "instructions",
+        model: Recipe,
+        as: "recipes",
         attributes: ["id"],
-        through: { attributes: [] },
+        through: { attributes: ["value", "units"] },
       },
     ],
   })

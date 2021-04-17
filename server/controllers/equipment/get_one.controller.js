@@ -1,6 +1,6 @@
 const { toResponseFormat } = require("../../utils/response_formatter");
 const { success, clientError } = require("../../utils/http_status_codes");
-const { Equipment, Instruction, FileData } = require("../../db/models/index");
+const { Equipment, Recipe, FileData } = require("../../db/models/index");
 
 /// Get one Equipment by Id
 const getOneController = (req, res) => {
@@ -12,8 +12,8 @@ const getOneController = (req, res) => {
     },
     include: [
       {
-        model: Instruction,
-        as: "instructions",
+        model: Recipe,
+        as: "recipes",
         attributes: ["id"],
         through: { attributes: [] },
       },

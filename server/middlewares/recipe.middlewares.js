@@ -1,7 +1,6 @@
 const { checkSchema } = require("express-validator");
 const {
   FileData,
-  Instruction,
   Recipe,
   RecipeCuisine,
   RecipeType,
@@ -18,16 +17,6 @@ const createRecipeMiddleware = checkSchema({
     notEmpty: validators.notEmpty("recipeImageId"),
     isInt: validators.isInt("recipeImageId"),
     custom: validators.existResourceById("recipeImageId", FileData),
-    // Sanitizers
-    toInt: true,
-  },
-  instructionId: {
-    in: ["body"],
-    optional: true,
-    trim: true,
-    notEmpty: validators.notEmpty("instructionId"),
-    isInt: validators.isInt("instructionId"),
-    custom: validators.existResourceById("instructionId", Instruction),
     // Sanitizers
     toInt: true,
   },
@@ -158,16 +147,6 @@ const updateRecipeMiddleware = checkSchema({
     trim: true,
     notEmpty: validators.notEmpty("status"),
     custom: validators.isInEnumList("status", RecipeStatusValues),
-  },
-  instructionId: {
-    in: ["body"],
-    optional: true,
-    trim: true,
-    notEmpty: validators.notEmpty("instructionId"),
-    isInt: validators.isInt("instructionId"),
-    custom: validators.existResourceById("instructionId", Instruction),
-    // Sanitizers
-    toInt: true,
   },
   recipeCuisineId: {
     in: ["body"],
