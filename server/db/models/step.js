@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      instructionId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       stepImageId: {
         type: DataTypes.INTEGER,
         allowNull: true,
