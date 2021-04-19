@@ -8,7 +8,7 @@ const getOneController = (req, res) => {
 
   Step.findByPk(id, {
     attributes: {
-      exclude: ["instructionId", "stepImageId"],
+      exclude: ["stepImageId"],
     },
     include: [
       {
