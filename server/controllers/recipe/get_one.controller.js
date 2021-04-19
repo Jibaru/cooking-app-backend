@@ -17,12 +17,7 @@ const getOneController = (req, res) => {
 
   Recipe.findByPk(id, {
     attributes: {
-      exclude: [
-        "recipeCuisineId",
-        "recipeTypeId",
-        "createdById",
-        "instructionId",
-      ],
+      exclude: ["recipeCuisineId", "recipeTypeId", "createdById"],
     },
     include: [
       {

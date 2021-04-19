@@ -13,7 +13,6 @@ const updateController = (req, res) => {
     cookTime,
     recipeImageId,
     status,
-    instructionId,
     recipeCuisineId,
     recipeTypeId,
   } = req.body;
